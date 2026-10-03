@@ -126,7 +126,6 @@ export interface TranslationSchema {
     world: string;
     work: string;
     services: string;
-    departments: string;
     about: string;
     journal: string;
     contact: string;
@@ -146,6 +145,8 @@ export interface TranslationSchema {
     titleLine2: string;
     titleLine3: string;
     subtitle: string;
+    exploreJirjirak?: string;
+    startProject?: string;
     enterWorld: string;
     exploreArchive: string;
     hopDown: string;
@@ -576,7 +577,6 @@ export const translations: Record<Language, TranslationSchema> = {
       world: 'World',
       work: 'Work',
       services: 'What We Do',
-      departments: 'Departments',
       about: 'About',
       journal: 'Journal',
       contact: 'Contact',
@@ -592,10 +592,12 @@ export const translations: Record<Language, TranslationSchema> = {
     },
     hero: {
       badge: 'Jirjirak Creative Studio',
-      titleLine1: 'Small studio.',
-      titleLine2: 'Big ideas.',
-      titleLine3: 'Real impact.',
+      titleLine1: 'Ideas Deserve',
+      titleLine2: 'to Be Seen.',
+      titleLine3: '',
       subtitle: 'We build digital experiences, brands and products that move people, not just screens.',
+      exploreJirjirak: 'Explore Jirjirak',
+      startProject: 'Start a Project',
       enterWorld: 'Enter World',
       exploreArchive: 'Explore Archive',
       hopDown: 'Hop Down',
@@ -702,7 +704,6 @@ export const translations: Record<Language, TranslationSchema> = {
       world: 'جهان جیرجیرک',
       work: 'نمونه‌کارها',
       services: 'خدمات ما',
-      departments: 'دپارتمان‌ها',
       about: 'درباره ما',
       journal: 'یادداشت‌ها',
       contact: 'تماس',
@@ -718,10 +719,12 @@ export const translations: Record<Language, TranslationSchema> = {
     },
     hero: {
       badge: 'استودیو خلاق جیرجیرک',
-      titleLine1: 'استودیو کوچک.',
-      titleLine2: 'ایده‌های بزرگ.',
-      titleLine3: 'تاثیر واقعی.',
+      titleLine1: 'ایده‌ها سزاوار',
+      titleLine2: 'دیده‌شدن هستند.',
+      titleLine3: '',
       subtitle: 'ما تجربه‌های دیجیتال، برندها و محصولاتی خلق می‌کنیم که انسان‌ها را به حرکت درمی‌آورند، نه فقط پیکسل‌های روی صفحه را.',
+      exploreJirjirak: 'کاوش در جیرجیرک',
+      startProject: 'شروع یک پروژه',
       enterWorld: 'ورود به جهان',
       exploreArchive: 'کاوش در آرشیو',
       hopDown: 'پرش به پایین',

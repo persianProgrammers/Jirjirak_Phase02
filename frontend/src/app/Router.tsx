@@ -2,8 +2,6 @@ import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom';
 import MainLayout from '../layouts/MainLayout';
 import Home from '../pages/Home';
 import About from '../pages/About';
-import Departments from '../pages/Departments';
-import DepartmentDetail from '../pages/DepartmentDetail';
 import Services from '../pages/Services';
 import Work from '../pages/Work';
 import Contact from '../pages/Contact';
@@ -28,8 +26,6 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: 'about', element: <About /> },
-      { path: 'departments', element: <Departments /> },
-      { path: 'departments/:deptId', element: <DepartmentDetail /> },
       { path: 'services', element: <Services /> },
       { path: 'work', element: <Work /> },
       { path: 'contact', element: <Contact /> },

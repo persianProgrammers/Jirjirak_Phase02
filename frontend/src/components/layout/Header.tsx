@@ -13,7 +13,6 @@ const LANDING_SECTIONS = [
   { id: 'work' },
   { id: 'case-study' },
   { id: 'about' },
-  { id: 'philosophy' },
   { id: 'journal' },
   { id: 'contact' },
 ];
@@ -144,7 +143,6 @@ export function Header() {
   const navLinks = [
     { href: '#world', to: '/#world', label: t.nav.world, id: 'world' },
     { href: '#services', to: '/#services', label: t.nav.services, id: 'services' },
-    { href: '/departments', to: '/departments', label: t.nav.departments, id: 'departments' },
     { href: '#work', to: '/#work', label: t.nav.work, id: 'work' },
     { href: '/about', to: '/about', label: t.nav.about, id: 'about' },
     { href: '/journal', to: '/journal', label: t.nav.journal, id: 'journal' },

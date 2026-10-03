@@ -6,12 +6,10 @@ import {
   ALL_TEAM_MEMBERS,
 } from './teamData';
 import { Sparkles } from 'lucide-react';
-import { DepartmentFilterLab } from './DepartmentFilterLab';
 
 interface Props {
   isNight: boolean;
   isFa: boolean;
-  isAboutPage?: boolean;
 }
 
 // Auto-scrolling ticker for long roles on card hover
@@ -94,7 +92,7 @@ function MarqueeRole({
   );
 }
 
-export function StudioTeamAtelier({ isNight, isFa, isAboutPage = false }: Props) {
+export function StudioTeamAtelier({ isNight, isFa }: Props) {
   // Brand Color Tokens:
   // When background is dark (!isNight): Accent is brand-yellow (#fff083)
   // When background is light (isNight): Accent is brand-olive (#b3a85c)
@@ -135,51 +133,42 @@ export function StudioTeamAtelier({ isNight, isFa, isAboutPage = false }: Props)
   return (
     <div className="w-full flex flex-col gap-6 select-none">
       
-      {/* 1. DEPARTMENT SELECTOR: 10 Creative Models Lab on About Page, standard on Landing */}
-      {isAboutPage ? (
-        <DepartmentFilterLab
-          selectedDept={selectedDept}
-          onSelectDept={setSelectedDept}
-          isNight={isNight}
-          isFa={isFa}
-        />
-      ) : (
-        <div className="w-full flex flex-wrap items-center gap-2">
-          {DEPARTMENTS_LIST.map((dept) => {
-            const isSelected = selectedDept === dept.key;
-            const count = ALL_TEAM_MEMBERS.filter((m) => m.department === dept.key).length;
+      {/* 1. DISCIPLINED ARCHITECTURAL DEPARTMENT SELECTOR */}
+      <div className="w-full flex flex-wrap items-center gap-2">
+        {DEPARTMENTS_LIST.map((dept) => {
+          const isSelected = selectedDept === dept.key;
+          const count = ALL_TEAM_MEMBERS.filter((m) => m.department === dept.key).length;
 
-            return (
-              <button
-                key={dept.key}
-                onClick={() => setSelectedDept(dept.key)}
-                className={`relative px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer flex items-center gap-2 border ${
+          return (
+            <button
+              key={dept.key}
+              onClick={() => setSelectedDept(dept.key)}
+              className={`relative px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer flex items-center gap-2 border ${
+                isSelected
+                  ? isNight
+                    ? 'bg-[#b3a85c] text-brand-dark border-[#b3a85c] shadow-sm font-bold'
+                    : 'bg-brand-yellow text-brand-dark border-brand-yellow shadow-sm font-bold'
+                  : isNight
+                    ? 'bg-neutral-200/60 hover:bg-neutral-300/60 text-brand-dark border-neutral-300/80'
+                    : 'bg-brand-surface hover:bg-brand-surface-light text-neutral-300 border-white/5'
+              }`}
+            >
+              <span>{isFa ? dept.nameFa : dept.nameEn}</span>
+              <span
+                className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
                   isSelected
-                    ? isNight
-                      ? 'bg-[#b3a85c] text-brand-dark border-[#b3a85c] shadow-sm font-bold'
-                      : 'bg-brand-yellow text-brand-dark border-brand-yellow shadow-sm font-bold'
+                    ? 'bg-black/15 text-brand-dark'
                     : isNight
-                      ? 'bg-neutral-200/60 hover:bg-neutral-300/60 text-brand-dark border-neutral-300/80'
-                      : 'bg-brand-surface hover:bg-brand-surface-light text-neutral-300 border-white/5'
+                      ? 'bg-black/10 text-neutral-700'
+                      : 'bg-white/10 text-neutral-400'
                 }`}
               >
-                <span>{isFa ? dept.nameFa : dept.nameEn}</span>
-                <span
-                  className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
-                    isSelected
-                      ? 'bg-black/15 text-brand-dark'
-                      : isNight
-                        ? 'bg-black/10 text-neutral-700'
-                        : 'bg-white/10 text-neutral-400'
-                  }`}
-                >
-                  {count}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      )}
+                {count}
+              </span>
+            </button>
+          );
+        })}
+      </div>
 
       {/* 2. THE ATELIER GALLERY GRID (Clean Editorial Portrait Cards, No Bios, Scalable & Responsive) */}
       <div

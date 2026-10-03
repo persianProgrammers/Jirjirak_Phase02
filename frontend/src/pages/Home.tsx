@@ -15,7 +15,7 @@ export default function Home() {
       <ServicesSection />
       <FeaturedProjectsSection />
       <CaseStudySection />
-      <AboutSection />
+      <AboutSection variant="landing" />
       <JournalSection />
       <ContactSection />
     </div>

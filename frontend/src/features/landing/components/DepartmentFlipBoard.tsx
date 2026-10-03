@@ -29,7 +29,7 @@ const DEPARTMENTS: DepartmentItem[] = [
     subtitleFa: 'ساختار، کدنویسی اصولی، عملکرد بالا و تجربه کاربری روان و سریع',
     tagsEn: ['Architecture', 'Clean Code', 'Performance', 'UI / UX Systems'],
     tagsFa: ['معماری نرم‌افزار', 'کدنویسی تمیز', 'عملکرد بالا', 'طراحی رابط و تجربه کاربری'],
-    bgImage: '/assets/images/departments/Web-&-Development.png',
+    bgImage: '/assets/images/departments/Web-&-Development-opt.webp',
     thumbImage: '/assets/images/departments/Web-&-Development-thumb.webp',
   },
   {
@@ -43,7 +43,7 @@ const DEPARTMENTS: DepartmentItem[] = [
     subtitleFa: 'داده، تحلیل عمیق، استراتژی سئو، بهینه‌سازی و رشد هدفمند پایدار',
     tagsEn: ['Data Analytics', 'Technical SEO', 'Growth Strategy', 'Conversion Rate'],
     tagsFa: ['تحلیل داده', 'سئو تکنیکال', 'استراتژی رشد', 'بهینه‌سازی نرخ تبدیل'],
-    bgImage: '/assets/images/departments/Seo-&-Analytics.png',
+    bgImage: '/assets/images/departments/Seo-&-Analytics-opt.webp',
     thumbImage: '/assets/images/departments/Seo-&-Analytics-thumb.webp',
   },
   {
@@ -57,7 +57,7 @@ const DEPARTMENTS: DepartmentItem[] = [
     subtitleFa: 'استراتژی برند، نام‌گذاری، زبان طراحی بصری و روایت‌گری منحصر‌به‌فرد',
     tagsEn: ['Brand Strategy', 'Naming', 'Visual Identity', 'Brand Guidelines'],
     tagsFa: ['استراتژی برند', 'نام‌گذاری', 'هویت بصری', 'کتابچه هویت برند'],
-    bgImage: '/assets/images/departments/Branding-&-Identity.png',
+    bgImage: '/assets/images/departments/Branding-&-Identity-opt.webp',
     thumbImage: '/assets/images/departments/Branding-&-Identity-thumb.webp',
   },
   {
@@ -71,7 +71,7 @@ const DEPARTMENTS: DepartmentItem[] = [
     subtitleFa: 'ایده‌پردازی، طراحی گرافیک، موشن‌گرافیک و تصویرسازی دیجیتال اختصاصی',
     tagsEn: ['Motion Design', 'Visual Art', 'Illustration', 'Creative Direction'],
     tagsFa: ['موشن‌دیزاین', 'تصویرسازی اختصاصی', 'طراحی گرافیک', 'ایده‌پردازی خلاق'],
-    bgImage: '/assets/images/departments/Creative-Studio.png',
+    bgImage: '/assets/images/departments/Creative-Studio-opt.webp',
     thumbImage: '/assets/images/departments/Creative-Studio-thumb.webp',
   },
   {
@@ -85,7 +85,7 @@ const DEPARTMENTS: DepartmentItem[] = [
     subtitleFa: 'طراحی کمپین‌های عملکردمحور، تبلیغات هدفمند، شبکه‌های اجتماعی و جذب مخاطب',
     tagsEn: ['Paid Campaigns', 'Social Media', 'Content Strategy', 'Growth Funnel'],
     tagsFa: ['کمپین‌های تبلیغاتی', 'شبکه‌های اجتماعی', 'استراتژی محتوا', 'قیف رشد و لید'],
-    bgImage: '/assets/images/departments/Digital-Marketing-&-Growth.png',
+    bgImage: '/assets/images/departments/Digital-Marketing-&-Growth-opt.webp',
     thumbImage: '/assets/images/departments/Digital-Marketing-&-Growth-thumb.webp',
   },
   {
@@ -99,7 +99,7 @@ const DEPARTMENTS: DepartmentItem[] = [
     subtitleFa: 'طراحی گیم‌پلی، دنیاهای سه‌بعدی وب، برنامه‌نویسی خلاق و سرگرمی تعاملی',
     tagsEn: ['Interactive 3D', 'Game Mechanics', 'Creative Coding', 'Character Art'],
     tagsFa: ['بازی‌سازی سه‌بعدی', 'تجارب تعاملی وب', 'برنامه‌نویسی خلاق', 'طراحی مکانیک بازی'],
-    bgImage: '/assets/images/departments/Game-Studio-&-Interactive.png',
+    bgImage: '/assets/images/departments/Game-Studio-&-Interactive-opt.webp',
     thumbImage: '/assets/images/departments/Game-Studio-&-Interactive-thumb.webp',
   },
   {
@@ -113,7 +113,7 @@ const DEPARTMENTS: DepartmentItem[] = [
     subtitleFa: 'آموزش آنلاین، کارگاه‌های عملی، دوره‌های تخصصی و جامعه یادگیری پویا',
     tagsEn: ['Specialized Courses', 'Live Workshops', 'Mentorship', 'Creative Hub'],
     tagsFa: ['دوره‌های تخصصی', 'کارگاه‌های عملی', 'جامعه متخصصان', 'منتورشیپ خلاق'],
-    bgImage: '/assets/images/departments/Academy-&-Learning-Hub.png',
+    bgImage: '/assets/images/departments/Academy-&-Learning-Hub-opt.webp',
     thumbImage: '/assets/images/departments/Academy-&-Learning-Hub-thumb.webp',
   },
 ];
@@ -126,26 +126,23 @@ export function DepartmentFlipBoard() {
   const [direction, setDirection] = useState<1 | -1>(1);
   const [isHovered, setIsHovered] = useState(false);
   const [loadedHighResMap, setLoadedHighResMap] = useState<Record<string, boolean>>({});
+  const boardRef = useRef<HTMLDivElement>(null);
 
-  // Instant Preloading of all thumbnails and high-res department assets
+  // Instant Preloading of all thumbnails and optimized webp assets
   useEffect(() => {
     DEPARTMENTS.forEach((dept) => {
-      // 1. Preload lightweight thumbnail immediately
+      // 1. Preload thumbnail immediately
       if (dept.thumbImage) {
         const thumb = new Image();
         thumb.src = dept.thumbImage;
       }
-      // 2. Preload full-res PNG
+      // 2. Preload high-res webp
       if (dept.bgImage) {
         const img = new Image();
         img.src = dept.bgImage;
-        if (img.complete && img.naturalWidth > 0) {
+        img.onload = () => {
           setLoadedHighResMap((prev) => ({ ...prev, [dept.id]: true }));
-        } else {
-          img.onload = () => {
-            setLoadedHighResMap((prev) => ({ ...prev, [dept.id]: true }));
-          };
-        }
+        };
       }
     });
   }, []);
@@ -307,104 +304,101 @@ export function DepartmentFlipBoard() {
 
   return (
     <div 
+      ref={boardRef}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`w-full h-full min-h-[480px] lg:min-h-[520px] self-stretch rounded-2xl transition-colors duration-500 relative overflow-hidden flex items-center justify-center select-none border shadow-md ${
+      className={`w-full h-full min-h-[480px] lg:min-h-[520px] self-stretch rounded-2xl transition-colors duration-500 relative overflow-hidden flex items-center justify-center select-none cursor-default border shadow-md ${
         isNight 
-          ? 'bg-brand-surface border-brand-surface-light text-brand-light shadow-[0_16px_40px_rgba(0,0,0,0.4)]' 
-          : 'bg-white border-gray-200 text-brand-dark shadow-[0_12px_30px_rgba(0,0,0,0.05)]'
+          ? 'bg-[#151619] border-brand-surface-light text-brand-light shadow-[0_16px_40px_rgba(0,0,0,0.4)]' 
+          : 'bg-[#1a1b1e] border-gray-200 text-brand-dark shadow-[0_12px_30px_rgba(0,0,0,0.05)]'
       }`}
       aria-label="Department Showcase Board"
     >
-      {/* Progressive Department Image Layer: seamless crossfade directly on the solid brand background */}
-      <AnimatePresence>
+      {/* Progressive Background Image Layer: Low-res blurred placeholder first, then high-res crisp WebP */}
+      <AnimatePresence mode="wait">
         {currentDept.bgImage && (
           <motion.div
             key={`bg-${currentDept.id}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.45, ease: 'easeInOut' }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
             className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none flex items-center justify-center"
           >
-            {/* 1. Low-res blurred instant placeholder (Hero-style progressive loading so it's never empty) */}
+            {/* 1. Low-res blurred instant placeholder (Blur-up like Hero) */}
             {currentDept.thumbImage && (
               <img
                 src={currentDept.thumbImage}
                 alt=""
-                aria-hidden="true"
-                className={`absolute inset-0 w-full h-full object-contain p-2 sm:p-3.5 origin-center transform scale-[0.94] transition-all duration-700 ease-in-out pointer-events-none select-none ${
-                  loadedHighResMap[currentDept.id] 
-                    ? 'opacity-0 pointer-events-none' 
-                    : 'opacity-100 blur-lg sm:blur-xl'
+                className={`absolute inset-0 w-full h-full object-contain p-4 sm:p-6 lg:p-8 scale-[0.86] origin-center filter blur-md transition-opacity duration-700 ease-out ${
+                  loadedHighResMap[currentDept.id] ? 'opacity-0' : 'opacity-100'
+                } ${
+                  isNight ? 'brightness-[0.75] contrast-[1.08]' : 'brightness-[0.95] contrast-[1.05]'
                 }`}
               />
             )}
 
-            {/* 2. Main Department Image (Completely transparent PNG on the website's unified gray background) */}
+            {/* 2. High-res crisp room illustration (Zoomed out to comfortably fit without touching container edges) */}
             <img
               src={currentDept.bgImage}
-              alt={isFa ? currentDept.titleFa : currentDept.titleEn}
+              alt=""
               onLoad={() => {
                 setLoadedHighResMap((prev) => ({ ...prev, [currentDept.id]: true }));
               }}
               onError={(e) => {
                 const target = e.currentTarget as HTMLImageElement;
                 if (!target.src.endsWith('.png')) {
-                  target.src = target.src.replace(/\.(webp|jpg|jpeg)$/i, '.png');
+                  target.src = target.src.replace('-opt.webp', '.png');
                 }
               }}
-              className={`absolute inset-0 w-full h-full object-contain p-2 sm:p-3.5 origin-center transform transition-all duration-700 ease-in-out select-none pointer-events-none ${
+              className={`absolute inset-0 w-full h-full object-contain p-4 sm:p-6 lg:p-8 origin-center transition-all duration-700 ease-out ${
                 loadedHighResMap[currentDept.id] 
-                  ? 'opacity-100 blur-0 scale-[0.94]' 
-                  : 'opacity-0 blur-md scale-[0.96]'
+                  ? 'opacity-100 blur-0 scale-[0.86]' 
+                  : 'opacity-0 blur-sm scale-[0.88]'
+              } ${
+                isNight 
+                  ? 'brightness-[0.75] contrast-[1.08] saturate-[1.05]' 
+                  : 'brightness-[0.92] contrast-[1.08] saturate-[1.05]'
+              }`}
+            />
+
+            {/* Architectural Subtle Vignette & Gradient (Preserves image details while keeping text clear) */}
+            <div 
+              className={`absolute inset-0 transition-colors duration-500 pointer-events-none ${
+                isNight 
+                  ? 'bg-gradient-to-b from-[#151619]/75 via-transparent to-[#151619]/75' 
+                  : 'bg-gradient-to-b from-white/70 via-white/35 to-white/70'
+              }`} 
+            />
+
+            {/* Radial vignette spotlight to naturally elevate the centered text */}
+            <div 
+              className={`absolute inset-0 pointer-events-none ${
+                isNight
+                  ? 'bg-[radial-gradient(ellipse_at_center,_transparent_30%,_rgba(21,22,25,0.6)_85%)]'
+                  : 'bg-[radial-gradient(ellipse_at_center,_transparent_35%,_rgba(245,245,245,0.45)_85%)]'
               }`}
             />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Permanent Cinematic Vignette Filter (Fixed above image, below text):
-          - Darkens the 4 corners and creates deep center focus
-          - Guarantees text contrast and readability
-          - STATIC and outside AnimatePresence so it NEVER flashes or changes color during transitions */}
+      {/* Delicate Ambient Radial Glow */}
       <div 
-        className={`absolute inset-0 pointer-events-none z-[1] transition-colors duration-500 ${
-          isNight
-            ? 'bg-[radial-gradient(ellipse_at_center,_transparent_28%,_rgba(18,18,18,0.72)_88%)]'
-            : 'bg-[radial-gradient(ellipse_at_center,_transparent_30%,_rgba(215,215,215,0.65)_88%)]'
-        }`}
-      />
-      <div 
-        className={`absolute inset-0 pointer-events-none z-[1] transition-colors duration-500 ${
-          isNight
-            ? 'bg-gradient-to-b from-brand-dark/60 via-transparent to-brand-dark/60'
-            : 'bg-gradient-to-b from-white/60 via-transparent to-white/60'
-        }`}
+        className="absolute w-72 h-72 rounded-full pointer-events-none opacity-20 blur-3xl z-[1]"
+        style={{
+          background: isNight
+            ? 'radial-gradient(circle, rgba(255,240,131,0.2) 0%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(204,192,105,0.2) 0%, transparent 70%)',
+        }}
       />
 
-      {/* Living Amoeba Cell Navigation Dots on the Vertical Edge with Prev/Next Controls */}
+      {/* Living Amoeba Cell Navigation Dots on the Vertical Edge */}
       <div 
-        className="absolute right-3.5 sm:right-5 rtl:right-auto rtl:left-3.5 sm:rtl:left-5 top-1/2 -translate-y-1/2 z-30 flex flex-col items-center gap-2 py-3 px-1.5 rounded-full transition-all"
+        className="absolute right-3.5 sm:right-5 rtl:right-auto rtl:left-3.5 sm:rtl:left-5 top-1/2 -translate-y-1/2 z-30 flex flex-col items-center gap-3 py-3 px-1.5 rounded-full transition-all"
         role="tablist"
         aria-label="Department Navigation"
       >
-        {/* Prev Slide Arrow */}
-        <button
-          onClick={goToPrev}
-          className={`p-1 rounded-full transition-all cursor-pointer focus:outline-none ${
-            isNight 
-              ? 'text-brand-light/50 hover:text-brand-yellow hover:bg-white/10 active:scale-90' 
-              : 'text-neutral-400 hover:text-brand-dark hover:bg-black/5 active:scale-90'
-          }`}
-          aria-label={isFa ? 'دپارتمان قبلی' : 'Previous Department'}
-          title={isFa ? 'قبلی' : 'Previous'}
-        >
-          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M5 15l7-7 7 7" />
-          </svg>
-        </button>
-
         {DEPARTMENTS.map((dept, idx) => {
           const isActive = idx === currentIndex;
           return (
@@ -499,28 +493,22 @@ export function DepartmentFlipBoard() {
             </button>
           );
         })}
-
-        {/* Next Slide Arrow */}
-        <button
-          onClick={goToNext}
-          className={`p-1 rounded-full transition-all cursor-pointer focus:outline-none ${
-            isNight 
-              ? 'text-brand-light/50 hover:text-brand-yellow hover:bg-white/10 active:scale-90' 
-              : 'text-neutral-400 hover:text-brand-dark hover:bg-black/5 active:scale-90'
-          }`}
-          aria-label={isFa ? 'دپارتمان بعدی' : 'Next Department'}
-          title={isFa ? 'بعدی' : 'Next'}
-        >
-          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
       </div>
 
       {/* Main Single Container Stage (Static Anchor Layout with Separator Firmly Anchored) */}
       <div className="w-full flex items-center justify-center px-4 sm:px-8 lg:px-10 py-7 relative z-10">
+        {/* Subtle Central Focal Scrim (Enhances contrast behind text without altering corner vignette) */}
+        <div
+          className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ${
+            isNight
+              ? 'bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0.5)_0%,_rgba(0,0,0,0.22)_50%,_transparent_75%)]'
+              : 'bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.65)_0%,_rgba(255,255,255,0.3)_50%,_transparent_75%)]'
+          }`}
+        />
 
-        <div className="w-full max-w-xl flex flex-col items-center justify-center text-center relative z-10">
+        <div
+          className="w-full max-w-xl flex flex-col items-center justify-center text-center relative z-10"
+        >
           {/* Distinctly Animated Title Header with Word-by-Word Kinetic Animation */}
           <div className="min-h-[42px] sm:min-h-[48px] flex items-center justify-center w-full overflow-hidden">
             <AnimatePresence custom={direction} mode="wait">
