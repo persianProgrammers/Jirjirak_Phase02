@@ -29,7 +29,7 @@ const DEPARTMENTS: DepartmentItem[] = [
     subtitleFa: 'ساختار، کدنویسی اصولی، عملکرد بالا و تجربه کاربری روان و سریع',
     tagsEn: ['Architecture', 'Clean Code', 'Performance', 'UI / UX Systems'],
     tagsFa: ['معماری نرم‌افزار', 'کدنویسی تمیز', 'عملکرد بالا', 'طراحی رابط و تجربه کاربری'],
-    bgImage: '/assets/images/departments/Web-&-Development-opt.webp',
+    bgImage: '/assets/images/departments/Web-&-Development.png',
     thumbImage: '/assets/images/departments/Web-&-Development-thumb.webp',
   },
   {
@@ -43,7 +43,7 @@ const DEPARTMENTS: DepartmentItem[] = [
     subtitleFa: 'داده، تحلیل عمیق، استراتژی سئو، بهینه‌سازی و رشد هدفمند پایدار',
     tagsEn: ['Data Analytics', 'Technical SEO', 'Growth Strategy', 'Conversion Rate'],
     tagsFa: ['تحلیل داده', 'سئو تکنیکال', 'استراتژی رشد', 'بهینه‌سازی نرخ تبدیل'],
-    bgImage: '/assets/images/departments/Seo-&-Analytics-opt.webp',
+    bgImage: '/assets/images/departments/Seo-&-Analytics.png',
     thumbImage: '/assets/images/departments/Seo-&-Analytics-thumb.webp',
   },
   {
@@ -57,7 +57,7 @@ const DEPARTMENTS: DepartmentItem[] = [
     subtitleFa: 'استراتژی برند، نام‌گذاری، زبان طراحی بصری و روایت‌گری منحصر‌به‌فرد',
     tagsEn: ['Brand Strategy', 'Naming', 'Visual Identity', 'Brand Guidelines'],
     tagsFa: ['استراتژی برند', 'نام‌گذاری', 'هویت بصری', 'کتابچه هویت برند'],
-    bgImage: '/assets/images/departments/Branding-&-Identity-opt.webp',
+    bgImage: '/assets/images/departments/Branding-&-Identity.png',
     thumbImage: '/assets/images/departments/Branding-&-Identity-thumb.webp',
   },
   {
@@ -71,7 +71,7 @@ const DEPARTMENTS: DepartmentItem[] = [
     subtitleFa: 'ایده‌پردازی، طراحی گرافیک، موشن‌گرافیک و تصویرسازی دیجیتال اختصاصی',
     tagsEn: ['Motion Design', 'Visual Art', 'Illustration', 'Creative Direction'],
     tagsFa: ['موشن‌دیزاین', 'تصویرسازی اختصاصی', 'طراحی گرافیک', 'ایده‌پردازی خلاق'],
-    bgImage: '/assets/images/departments/Creative-Studio-opt.webp',
+    bgImage: '/assets/images/departments/Creative-Studio.png',
     thumbImage: '/assets/images/departments/Creative-Studio-thumb.webp',
   },
   {
@@ -85,7 +85,7 @@ const DEPARTMENTS: DepartmentItem[] = [
     subtitleFa: 'طراحی کمپین‌های عملکردمحور، تبلیغات هدفمند، شبکه‌های اجتماعی و جذب مخاطب',
     tagsEn: ['Paid Campaigns', 'Social Media', 'Content Strategy', 'Growth Funnel'],
     tagsFa: ['کمپین‌های تبلیغاتی', 'شبکه‌های اجتماعی', 'استراتژی محتوا', 'قیف رشد و لید'],
-    bgImage: '/assets/images/departments/Digital-Marketing-&-Growth-opt.webp',
+    bgImage: '/assets/images/departments/Digital-Marketing-&-Growth.png',
     thumbImage: '/assets/images/departments/Digital-Marketing-&-Growth-thumb.webp',
   },
   {
@@ -99,7 +99,7 @@ const DEPARTMENTS: DepartmentItem[] = [
     subtitleFa: 'طراحی گیم‌پلی، دنیاهای سه‌بعدی وب، برنامه‌نویسی خلاق و سرگرمی تعاملی',
     tagsEn: ['Interactive 3D', 'Game Mechanics', 'Creative Coding', 'Character Art'],
     tagsFa: ['بازی‌سازی سه‌بعدی', 'تجارب تعاملی وب', 'برنامه‌نویسی خلاق', 'طراحی مکانیک بازی'],
-    bgImage: '/assets/images/departments/Game-Studio-&-Interactive-opt.webp',
+    bgImage: '/assets/images/departments/Game-Studio-&-Interactive.png',
     thumbImage: '/assets/images/departments/Game-Studio-&-Interactive-thumb.webp',
   },
   {
@@ -113,7 +113,7 @@ const DEPARTMENTS: DepartmentItem[] = [
     subtitleFa: 'آموزش آنلاین، کارگاه‌های عملی، دوره‌های تخصصی و جامعه یادگیری پویا',
     tagsEn: ['Specialized Courses', 'Live Workshops', 'Mentorship', 'Creative Hub'],
     tagsFa: ['دوره‌های تخصصی', 'کارگاه‌های عملی', 'جامعه متخصصان', 'منتورشیپ خلاق'],
-    bgImage: '/assets/images/departments/Academy-&-Learning-Hub-opt.webp',
+    bgImage: '/assets/images/departments/Academy-&-Learning-Hub.png',
     thumbImage: '/assets/images/departments/Academy-&-Learning-Hub-thumb.webp',
   },
 ];
@@ -330,6 +330,9 @@ export function DepartmentFlipBoard() {
               <img
                 src={currentDept.thumbImage}
                 alt=""
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).style.display = 'none';
+                }}
                 className={`absolute inset-0 w-full h-full object-contain p-4 sm:p-6 lg:p-8 scale-[0.86] origin-center filter blur-md transition-opacity duration-700 ease-out ${
                   loadedHighResMap[currentDept.id] ? 'opacity-0' : 'opacity-100'
                 } ${
@@ -340,6 +343,11 @@ export function DepartmentFlipBoard() {
 
             {/* 2. High-res crisp room illustration (Zoomed out to comfortably fit without touching container edges) */}
             <img
+              ref={(node) => {
+                if (node && node.complete && node.naturalWidth > 0 && !loadedHighResMap[currentDept.id]) {
+                  setLoadedHighResMap((prev) => ({ ...prev, [currentDept.id]: true }));
+                }
+              }}
               src={currentDept.bgImage}
               alt=""
               onLoad={() => {
@@ -347,8 +355,14 @@ export function DepartmentFlipBoard() {
               }}
               onError={(e) => {
                 const target = e.currentTarget as HTMLImageElement;
-                if (!target.src.endsWith('.png')) {
+                if (target.src.includes('-opt.webp')) {
                   target.src = target.src.replace('-opt.webp', '.png');
+                } else if (target.src.endsWith('.png')) {
+                  target.src = target.src.replace('.png', '.jpg');
+                } else if (!target.src.includes(currentDept.id)) {
+                  target.src = `/assets/images/departments/${currentDept.id}.jpg`;
+                } else {
+                  target.style.display = 'none';
                 }
               }}
               className={`absolute inset-0 w-full h-full object-contain p-4 sm:p-6 lg:p-8 origin-center transition-all duration-700 ease-out ${
