@@ -7,7 +7,6 @@ import Work from '../pages/Work';
 import Contact from '../pages/Contact';
 import Journal from '../pages/Journal';
 import JournalDetail from '../pages/JournalDetail';
-import DepartmentDetail from '../pages/DepartmentDetail';
 
 function RouteError() {
   return (
@@ -34,8 +33,6 @@ const router = createBrowserRouter([
       { path: 'contact', element: <Contact /> },
       { path: 'journal', element: <Journal /> },
       { path: 'journal/:slug', element: <JournalDetail /> },
-      { path: 'departments', element: <DepartmentDetail /> },
-      { path: 'departments/:slug', element: <DepartmentDetail /> },
       { path: '*', element: <Home /> },
     ],
   },

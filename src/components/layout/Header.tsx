@@ -5,8 +5,6 @@ import { useLenis } from 'lenis/react';
 import { useGlobalStore } from '../../stores/globalStore';
 import { useTranslation } from '../../i18n/translations';
 import { AnimatedJirjirakLogo } from '../ui/AnimatedJirjirakLogo';
-import { DEPARTMENTS } from '../../data/departmentsData';
-import { ChevronDown } from 'lucide-react';
 
 const LANDING_SECTIONS = [
   { id: 'hero' },
@@ -25,7 +23,6 @@ export function Header() {
   const [isVisible, setIsVisible] = useState(true);
   const [activeSectionId, setActiveSectionId] = useState<string>('hero');
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
-  const [mobileDeptsOpen, setMobileDeptsOpen] = useState(false);
 
   const lastScrollY = useRef(0);
   const { currentLang, isNight } = useGlobalStore();
@@ -37,10 +34,7 @@ export function Header() {
   const isHomePage = location.pathname === '/';
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-    setHoveredNav(null);
-  };
+  const closeMenu = () => setIsMenuOpen(false);
 
   // Smooth Section Jump with Lenis Integration
   const handleNavClick = (e: React.MouseEvent, href: string, to: string) => {
@@ -148,7 +142,6 @@ export function Header() {
 
   const navLinks = [
     { href: '#world', to: '/#world', label: t.nav.world, id: 'world' },
-    { href: '/departments/web-development', to: '/departments/web-development', label: t.nav.departments, id: 'departments', hasDropdown: true },
     { href: '#services', to: '/#services', label: t.nav.services, id: 'services' },
     { href: '#work', to: '/#work', label: t.nav.work, id: 'work' },
     { href: '/about', to: '/about', label: t.nav.about, id: 'about' },
@@ -218,109 +211,7 @@ export function Header() {
               onMouseLeave={() => setHoveredNav(null)}
             >
               {navLinks.map((item) => {
-                const isDeptItem = item.id === 'departments';
-                const isActive = isDeptItem
-                  ? location.pathname.startsWith('/departments')
-                  : (isHomePage && activeSectionId === item.id);
-
-                if (item.hasDropdown) {
-                  return (
-                    <div 
-                      key={item.id} 
-                      className="relative"
-                      onMouseEnter={() => setHoveredNav('departments')}
-                    >
-                      {/* Magnetic Floating Hover Pill */}
-                      {hoveredNav === item.id && (
-                        <motion.div
-                          layoutId="headerHoverPill"
-                          className={`absolute inset-0 rounded-full pointer-events-none -z-10 ${
-                            isNight ? 'bg-white/12' : 'bg-black/8'
-                          }`}
-                          transition={{ type: "spring", stiffness: 450, damping: 32 }}
-                        />
-                      )}
-
-                      <Link
-                        to={item.to}
-                        onClick={(e) => handleNavClick(e, item.href, item.to)}
-                        className={`px-3 py-1.5 rounded-full transition-colors duration-200 flex items-center gap-1 select-none ${
-                          isActive
-                            ? (isNight ? 'text-brand-yellow font-bold' : 'text-[#8f6b00] font-bold')
-                            : (isNight ? 'text-white/85 hover:text-brand-yellow' : 'text-brand-dark/85 hover:text-[#8f6b00]')
-                        }`}
-                      >
-                        <span>{item.label}</span>
-                        <ChevronDown 
-                          className={`w-3 h-3 transition-transform duration-200 ${
-                            hoveredNav === 'departments' ? 'rotate-180 text-brand-yellow' : 'opacity-60'
-                          }`} 
-                        />
-                      </Link>
-
-                      {/* Dropdown Menu */}
-                      <AnimatePresence>
-                        {hoveredNav === 'departments' && (
-                          <motion.div
-                            initial={{ opacity: 0, y: 8, scale: 0.96 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: 6, scale: 0.96 }}
-                            transition={{ duration: 0.18, ease: 'easeOut' }}
-                            className={`absolute top-full mt-2 rtl:right-0 ltr:left-0 w-72 sm:w-80 rounded-2xl p-2.5 shadow-2xl border backdrop-blur-2xl z-50 ${
-                              isNight
-                                ? 'bg-[#1c1c1c]/95 border-white/15 text-white shadow-[0_20px_50px_rgba(0,0,0,0.7)]'
-                                : 'bg-white/95 border-black/10 text-brand-dark shadow-[0_20px_50px_rgba(0,0,0,0.12)]'
-                            }`}
-                          >
-                            <div className="px-3 py-1.5 border-b border-neutral-700/20 mb-1.5 flex items-center justify-between">
-                              <span className="text-[10px] font-mono tracking-widest uppercase opacity-50">
-                                {isFa ? 'دپارتمان‌های استودیو' : 'OUR DEPARTMENTS'}
-                              </span>
-                              <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-brand-yellow/20 text-brand-yellow font-bold">
-                                07 // UNITS
-                              </span>
-                            </div>
-
-                            <div className="flex flex-col gap-0.5">
-                              {DEPARTMENTS.map((dept) => {
-                                const isItemActive = location.pathname === `/departments/${dept.slug}`;
-                                return (
-                                  <Link
-                                    key={dept.id}
-                                    to={`/departments/${dept.slug}`}
-                                    onClick={() => {
-                                      setHoveredNav(null);
-                                      closeMenu();
-                                    }}
-                                    className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all group ${
-                                      isItemActive
-                                        ? 'bg-brand-yellow/15 text-brand-yellow font-bold'
-                                        : isNight
-                                        ? 'hover:bg-white/10 text-neutral-300 hover:text-white'
-                                        : 'hover:bg-black/5 text-neutral-700 hover:text-black'
-                                    }`}
-                                  >
-                                    <div className="flex items-center gap-2.5">
-                                      <span className="font-mono text-[10px] opacity-40 group-hover:opacity-100 group-hover:text-brand-yellow transition-opacity">
-                                        {dept.number}
-                                      </span>
-                                      <span className="font-medium tracking-normal normal-case">
-                                        {isFa ? dept.nameFa : dept.nameEn}
-                                      </span>
-                                    </div>
-                                    <span className="text-[10px] font-mono opacity-0 group-hover:opacity-100 transition-opacity text-brand-yellow rtl:rotate-180">
-                                      →
-                                    </span>
-                                  </Link>
-                                );
-                              })}
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  );
-                }
+                const isActive = isHomePage && activeSectionId === item.id;
 
                 return (
                   <div key={item.id} className="relative">
@@ -342,8 +233,8 @@ export function Header() {
                         onMouseEnter={() => setHoveredNav(item.id)}
                         className={`px-3 py-1.5 rounded-full transition-colors duration-200 block select-none ${
                           isActive
-                            ? (isNight ? 'text-brand-yellow font-bold' : 'text-[#8f6b00] font-bold')
-                            : (isNight ? 'text-white/85 hover:text-brand-yellow' : 'text-brand-dark/85 hover:text-[#8f6b00]')
+                            ? (isNight ? 'text-brand-yellow font-bold' : 'text-[#b3a85c] font-bold')
+                            : (isNight ? 'text-white/85 hover:text-brand-yellow' : 'text-brand-dark/85 hover:text-[#b3a85c]')
                         }`}
                       >
                         {item.label}
@@ -355,8 +246,8 @@ export function Header() {
                         onMouseEnter={() => setHoveredNav(item.id)}
                         className={`px-3 py-1.5 rounded-full transition-colors duration-200 block select-none ${
                           (location.pathname === item.to || (item.to === '/journal' && location.pathname.startsWith('/journal')))
-                            ? (isNight ? 'text-brand-yellow font-bold' : 'text-[#8f6b00] font-bold')
-                            : (isNight ? 'text-white/85 hover:text-brand-yellow' : 'text-brand-dark/85 hover:text-[#8f6b00]')
+                            ? (isNight ? 'text-brand-yellow font-bold' : 'text-[#b3a85c] font-bold')
+                            : (isNight ? 'text-white/85 hover:text-brand-yellow' : 'text-brand-dark/85 hover:text-[#b3a85c]')
                         }`}
                       >
                         {item.label}
@@ -375,7 +266,7 @@ export function Header() {
                 className={`px-4 lg:px-5 py-1.5 lg:py-2 rounded-full text-[11px] font-bold uppercase tracking-wider transition-all duration-300 select-none shadow-sm ${
                   isNight
                     ? 'border border-brand-yellow text-brand-yellow hover:bg-brand-yellow hover:text-brand-dark hover:shadow-[0_0_15px_rgba(255,240,131,0.4)]'
-                    : 'border border-[#8f6b00] text-[#8f6b00] hover:bg-[#8f6b00] hover:text-brand-dark hover:shadow-[0_0_15px_rgba(179,168,92,0.3)]'
+                    : 'border border-[#b3a85c] text-[#b3a85c] hover:bg-[#b3a85c] hover:text-brand-dark hover:shadow-[0_0_15px_rgba(179,168,92,0.3)]'
                 }`}
               >
                 {t.nav.enterWorld}
@@ -395,7 +286,7 @@ export function Header() {
                 <motion.span 
                   animate={isMenuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
                   className={`w-6 h-0.5 block transition-all duration-300 ${
-                    isNight ? 'bg-brand-yellow' : 'bg-[#8f6b00]'
+                    isNight ? 'bg-brand-yellow' : 'bg-[#b3a85c]'
                   }`} 
                 />
                 <motion.span 
@@ -407,7 +298,7 @@ export function Header() {
                 <motion.span 
                   animate={isMenuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
                   className={`w-6 h-0.5 block transition-all duration-300 ${
-                    isNight ? 'bg-brand-yellow' : 'bg-[#8f6b00]'
+                    isNight ? 'bg-brand-yellow' : 'bg-[#b3a85c]'
                   }`} 
                 />
               </button>
@@ -437,7 +328,7 @@ export function Header() {
               className={`absolute top-6 right-6 sm:top-8 sm:right-8 w-12 h-12 rounded-full border flex items-center justify-center transition-colors ${
                 isNight 
                   ? 'border-white/20 text-brand-yellow hover:bg-white/10' 
-                  : 'border-brand-dark/20 text-[#8f6b00] hover:bg-black/10'
+                  : 'border-brand-dark/20 text-[#b3a85c] hover:bg-black/10'
               }`}
             >
               <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -448,102 +339,21 @@ export function Header() {
             {/* Decorative Ambient Fireflies Glow */}
             <div className="absolute inset-0 pointer-events-none opacity-20 flex justify-center items-center">
               <div className={`w-[320px] h-[320px] rounded-full filter blur-[120px] ${
-                isNight ? 'bg-brand-yellow' : 'bg-[#8f6b00]'
+                isNight ? 'bg-brand-yellow' : 'bg-[#b3a85c]'
               }`}></div>
             </div>
 
-            <nav className="flex flex-col gap-4 sm:gap-5 text-xl sm:text-2xl font-bold tracking-tight uppercase relative z-10 overflow-y-auto max-h-[75vh] py-2">
-              <motion.div 
-                custom={0} 
-                variants={navItemVariants} 
-                initial="closed" 
-                animate="open" 
-                exit="closed" 
-                className="flex items-center gap-4 group"
-              >
-                <span className={`text-xs font-mono transition-colors ${
-                  isNight ? 'text-brand-yellow/80 group-hover:text-brand-yellow' : 'text-[#8f6b00]/90 group-hover:text-[#8f6b00]'
-                }`}>
-                  {isFa ? '۰۱' : '01'}
-                </span>
-                <a 
-                  href="#world" 
-                  onClick={(e) => handleNavClick(e, '#world', '/#world')}
-                  className={`transition-colors inline-block ${
-                    isNight ? 'hover:text-brand-yellow' : 'hover:text-[#8f6b00]'
-                  }`}
-                >
-                  {t.nav.world}
-                </a>
-              </motion.div>
-
-              {/* Mobile Departments Accordion */}
-              <motion.div 
-                custom={1} 
-                variants={navItemVariants} 
-                initial="closed" 
-                animate="open" 
-                exit="closed" 
-                className="flex flex-col gap-2"
-              >
-                <div 
-                  onClick={() => setMobileDeptsOpen(!mobileDeptsOpen)}
-                  className="flex items-center justify-between cursor-pointer group"
-                >
-                  <div className="flex items-center gap-4">
-                    <span className={`text-xs font-mono transition-colors ${
-                      isNight ? 'text-brand-yellow/80 group-hover:text-brand-yellow' : 'text-[#8f6b00]/90 group-hover:text-[#8f6b00]'
-                    }`}>
-                      {isFa ? '۰۲' : '02'}
-                    </span>
-                    <span className={`transition-colors ${
-                      isNight ? 'group-hover:text-brand-yellow' : 'group-hover:text-[#8f6b00]'
-                    }`}>
-                      {t.nav.departments}
-                    </span>
-                  </div>
-                  <ChevronDown className={`w-5 h-5 transition-transform duration-200 ${mobileDeptsOpen ? 'rotate-180 text-brand-yellow' : 'opacity-60'}`} />
-                </div>
-
-                <AnimatePresence>
-                  {mobileDeptsOpen && (
-                    <motion.div 
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="flex flex-col gap-2 rtl:pr-8 ltr:pl-8 py-2 text-sm normal-case font-normal border-l border-neutral-700/30 my-1 overflow-hidden"
-                    >
-                      {DEPARTMENTS.map((dept) => (
-                        <Link
-                          key={dept.id}
-                          to={`/departments/${dept.slug}`}
-                          onClick={closeMenu}
-                          className={`flex items-center gap-2 py-1.5 transition-colors ${
-                            location.pathname === `/departments/${dept.slug}`
-                              ? 'text-brand-yellow font-bold'
-                              : isNight
-                              ? 'text-neutral-300 hover:text-brand-yellow'
-                              : 'text-neutral-700 hover:text-black'
-                          }`}
-                        >
-                          <span className="font-mono text-xs opacity-50">{dept.number}</span>
-                          <span>{isFa ? dept.nameFa : dept.nameEn}</span>
-                        </Link>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-
+            <nav className="flex flex-col gap-5 sm:gap-6 text-2xl sm:text-3xl font-bold tracking-tight uppercase relative z-10">
               {[
+                { href: '#world', to: '/#world', label: t.nav.world, step: isFa ? '۰۲' : '02' },
                 { href: '#services', to: '/#services', label: t.nav.services, step: isFa ? '۰۳' : '03' },
                 { href: '#work', to: '/#work', label: t.nav.work, step: isFa ? '۰۴' : '04' },
-                { href: '/about', to: '/about', label: t.nav.about, step: isFa ? '۰۵' : '05' },
-                { href: '/journal', to: '/journal', label: t.nav.journal, step: isFa ? '۰۶' : '06' },
-                { href: '/contact', to: '/contact', label: t.nav.contact, step: isFa ? '۰۷' : '07' },
+                { href: '/about', to: '/about', label: t.nav.about, step: isFa ? '۰۶' : '06' },
+                { href: '/journal', to: '/journal', label: t.nav.journal, step: isFa ? '۰۸' : '08' },
+                { href: '/contact', to: '/contact', label: t.nav.contact, step: isFa ? '۰۹' : '09' },
               ].map((item, i) => (
                 <motion.div 
-                  custom={i + 2} 
+                  custom={i} 
                   variants={navItemVariants} 
                   initial="closed" 
                   animate="open" 
@@ -552,7 +362,7 @@ export function Header() {
                   className="flex items-center gap-4 group"
                 >
                   <span className={`text-xs font-mono transition-colors ${
-                    isNight ? 'text-brand-yellow/80 group-hover:text-brand-yellow' : 'text-[#8f6b00]/90 group-hover:text-[#8f6b00]'
+                    isNight ? 'text-brand-yellow/80 group-hover:text-brand-yellow' : 'text-[#b3a85c]/90 group-hover:text-[#b3a85c]'
                   }`}>
                     {item.step}
                   </span>
@@ -561,7 +371,7 @@ export function Header() {
                       href={item.href} 
                       onClick={(e) => handleNavClick(e, item.href, item.to)}
                       className={`transition-colors inline-block ${
-                        isNight ? 'hover:text-brand-yellow' : 'hover:text-[#8f6b00]'
+                        isNight ? 'hover:text-brand-yellow' : 'hover:text-[#b3a85c]'
                       }`}
                     >
                       {item.label}
@@ -571,7 +381,7 @@ export function Header() {
                       to={item.to} 
                       onClick={(e) => handleNavClick(e, item.href, item.to)}
                       className={`transition-colors inline-block ${
-                        isNight ? 'hover:text-brand-yellow' : 'hover:text-[#8f6b00]'
+                        isNight ? 'hover:text-brand-yellow' : 'hover:text-[#b3a85c]'
                       }`}
                     >
                       {item.label}
@@ -595,7 +405,7 @@ export function Header() {
                 className={`inline-block text-center px-6 py-3.5 border-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 w-full shadow-lg ${
                   isNight 
                     ? 'border-brand-yellow text-brand-yellow hover:bg-brand-yellow hover:text-brand-dark' 
-                    : 'border-[#8f6b00] text-[#8f6b00] hover:bg-[#8f6b00] hover:text-brand-dark'
+                    : 'border-[#b3a85c] text-[#b3a85c] hover:bg-[#b3a85c] hover:text-brand-dark'
                 }`}
               >
                 {t.nav.enterWorld}

@@ -25,25 +25,11 @@ export const SHOWCASE_DEPARTMENTS: DepartmentItem[] = [
     iconType: 'seo',
   },
   {
-    id: 'digital-marketing',
-    nameEn: 'Digital Marketing & Growth',
-    nameFa: 'دیجیتال مارکتینگ و رشد',
-    image: '/assets/images/departments/Digital-Marketing-&-Growth.png',
-    iconType: 'marketing',
-  },
-  {
     id: 'branding-identity',
     nameEn: 'Branding & Identity',
     nameFa: 'برندینگ و هویت',
     image: '/assets/images/departments/Branding-&-Identity.png',
     iconType: 'branding',
-  },
-  {
-    id: 'academy-hub',
-    nameEn: 'Academy & Learning',
-    nameFa: 'آموزش و آکادمی',
-    image: '/assets/images/departments/Academy-&-Learning-Hub.png',
-    iconType: 'academy',
   },
   {
     id: 'creative-studio',
@@ -53,11 +39,25 @@ export const SHOWCASE_DEPARTMENTS: DepartmentItem[] = [
     iconType: 'creative',
   },
   {
+    id: 'digital-marketing',
+    nameEn: 'Digital Marketing & Growth',
+    nameFa: 'دیجیتال مارکتینگ و رشد',
+    image: '/assets/images/departments/Digital-Marketing-&-Growth.png',
+    iconType: 'marketing',
+  },
+  {
     id: 'game-interactive',
     nameEn: 'Game Studio & Interactive',
     nameFa: 'بازی‌سازی و تجارب تعاملی',
     image: '/assets/images/departments/Game-Studio-&-Interactive.png',
     iconType: 'game',
+  },
+  {
+    id: 'academy-hub',
+    nameEn: 'Academy & Learning',
+    nameFa: 'آموزش و آکادمی',
+    image: '/assets/images/departments/Academy-&-Learning-Hub.png',
+    iconType: 'academy',
   },
 ];
 
