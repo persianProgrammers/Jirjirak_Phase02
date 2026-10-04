@@ -1,1 +1,128 @@
 @import "tailwindcss";
+
+/* 🇬🇧 English Permanent Font: Momo Trust Display */
+@font-face {
+  font-family: 'Momo Trust Display';
+  src: url('/fonts/MomoTrustDisplay.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 🇮🇷 Persian Permanent Font: Sahel (ساحل) */
+@font-face {
+  font-family: 'Sahel';
+  src: url('/fonts/Sahel-VF.woff2') format('woff2-variations'),
+       url('/fonts/Sahel.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sahel';
+  src: url('/fonts/Sahel-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --active-fa-font: 'Sahel', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --active-en-font: 'Momo Trust Display', sans-serif;
+}
+
+@theme {
+  --color-brand-yellow: #fff083;
+  --color-brand-yellow-dark: #ccc069;
+  --color-brand-dark: #222222;
+  --color-brand-surface: #2c2c2c;
+  --color-brand-surface-light: #383838;
+  --color-brand-light: #e9e9e9;
+  --color-brand-gray: #888c8f;
+
+  --font-sans: "Momo Trust Display", sans-serif;
+  --font-momo: "Momo Trust Display", sans-serif;
+  --font-sahel: "Sahel", system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    overflow-x: hidden;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  html[lang="fa"],
+  html[dir="rtl"],
+  [dir="rtl"] {
+    font-family: var(--active-fa-font) !important;
+  }
+
+  html[lang="en"],
+  html[dir="ltr"],
+  [dir="ltr"] {
+    font-family: var(--active-en-font) !important;
+  }
+
+  input, button, textarea, select {
+    font-family: inherit;
+  }
+
+  button, a, [role="button"], input[type="button"], input[type="submit"] {
+    cursor: pointer;
+  }
+
+  body {
+    @apply bg-brand-dark text-brand-light antialiased selection:bg-brand-yellow selection:text-brand-dark;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  #root {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Universally disable standard page-level native scrollbars while preserving scrollability in modal dialogs */
+body::-webkit-scrollbar,
+html::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+  background: transparent !important;
+}
+
+/* Custom styled visible scrollbars for panels & modals */
+.custom-scrollbar::-webkit-scrollbar {
+  display: block !important;
+  width: 8px !important;
+  height: 8px !important;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 240, 131, 0.35) !important;
+  border-radius: 9999px;
+  border: 2px solid rgba(28, 28, 28, 0.8) !important;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 240, 131, 0.7) !important;
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(255, 240, 131, 0.4) rgba(0, 0, 0, 0.4) !important;
+  -ms-overflow-style: auto !important;
+}
+

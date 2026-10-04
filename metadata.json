@@ -1,6 +1,6 @@
 {
-  "name": "",
-  "description": "",
+  "name": "Jirjirak Studio",
+  "description": "Interactive Creative Website for Jirjirak Studio.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
