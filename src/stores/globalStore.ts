@@ -36,6 +36,10 @@ interface GlobalState {
   setIsPlaying: (playing: boolean) => void;
   togglePlay: () => void;
 
+  // Story / Library Architectural Icon Model ('ancient-codex' | 'library-rotunda' | 'mechanical-quill' | 'archival-lantern' | 'cinema-projector')
+  storyIconModel: string;
+  setStoryIconModel: (id: string) => void;
+
   // Screen Transition State
   transitionPhase: 'idle' | 'covering' | 'paused' | 'uncovering';
   transitionLang?: 'EN' | 'FA';
@@ -45,6 +49,15 @@ interface GlobalState {
 export const useGlobalStore = create<GlobalState>((set, get) => ({
   isWorldLoaded: false,
   setWorldLoaded: (loaded) => set({ isWorldLoaded: loaded }),
+
+  // Story / Library Icon Model (Default to rolling-ladder)
+  storyIconModel: typeof window !== 'undefined' ? localStorage.getItem('jirjirak_story_icon') || 'rolling-ladder' : 'rolling-ladder',
+  setStoryIconModel: (id: string) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('jirjirak_story_icon', id);
+    }
+    set({ storyIconModel: id });
+  },
 
   // Landing Page Architectural Layout Mode
   landingLayoutMode: ((typeof window !== 'undefined' && localStorage.getItem('jirjirak_layout_mode')) as LandingLayoutMode) || 'classic',

@@ -7,6 +7,7 @@ import { useTranslation } from '../../../i18n/translations';
 import { ProjectItem } from '../components/featured-models/types';
 import { KineticBladesModel } from '../components/featured-models/KineticBladesModel';
 import { FilterTabItem } from '../../../components/ui/filters/types';
+import { RollingLadderStoryIcon } from '../components/story-icons/StoryIcons';
 
 // Standard public asset paths served by Vite
 const toyooranImg = '/assets/images/projects/project_toyooran.png';
@@ -86,7 +87,7 @@ function ArchivalBadge({
   );
 }
 
-// Animated Mechanical Vintage Cinema Film Projector (دستگاه آپارات سینمایی کلاسیک با پرتو نور انیمیشنی)
+// Animated Mechanical Vintage Cinema Film Projector (دستگاه آپارات سینمایی کلاسیک با قرقره‌های چرخان، نوار آپارات و پرتو نور انیمیشنی)
 function VintageCinemaProjector({
   isNight,
   isFa,
@@ -95,168 +96,130 @@ function VintageCinemaProjector({
   isFa: boolean;
 }) {
   const activeColor = isNight ? '#FFF083' : '#8f6b00';
-  const bodyColor = isNight ? '#18181b' : '#f5f3ec';
-  const metalStroke = isNight ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.7)';
+  const bodyColor = isNight ? '#0A0A0A' : '#f5f3ec';
+  const metalStroke = isNight ? 'rgba(255,255,255,0.75)' : 'rgba(0,0,0,0.75)';
+  const mutedColor = isNight ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.3)';
 
   return (
     <div 
       className="relative flex items-center shrink-0 select-none group"
-      title={isFa ? 'پروژکتور ۳۵ میلیمتری آرشیو استودیو جیرجیرک' : 'Jirjirak 35mm Archive Projector'}
+      title={isFa ? 'پروژکتور سینمایی ۳۵ میلیمتری آرشیو استودیو جیرجیرک' : 'Jirjirak 35mm Archive Cinema Projector'}
     >
-      <div className={`relative h-10 sm:h-11 px-2 rounded-xl border flex items-center justify-center shrink-0 backdrop-blur-md transition-all duration-300 ${
+      <div className={`relative h-10 sm:h-11 px-2.5 rounded-xl border flex items-center justify-center shrink-0 backdrop-blur-md transition-all duration-300 ${
         isNight
           ? 'bg-neutral-900/80 border-white/10 shadow-[0_0_16px_rgba(255,240,131,0.12)]'
           : 'bg-white/80 border-black/10 shadow-sm'
       }`}>
-        {/* SVG Projector Art - Oriented so light beam points directly into horizontal filters */}
-        <div className={`relative w-[62px] sm:w-[68px] h-[34px] sm:h-[38px] flex items-center justify-center ${
-          isFa ? 'scale-x-[-1]' : ''
+        {/* SVG Projector Art - in Persian (RTL) pointing to the left shines onto filters; in English (LTR) flipped horizontally pointing to the right */}
+        <div className={`relative w-[60px] sm:w-[66px] h-[36px] sm:h-[40px] flex items-center justify-center ${
+          isFa ? '' : 'scale-x-[-1]'
         }`}>
           <svg
-            viewBox="0 0 74 44"
+            viewBox="-20 0 60 48"
             className="w-full h-full overflow-visible drop-shadow-sm"
             fill="none"
             strokeLinecap="round"
             strokeLinejoin="round"
           >
             <defs>
-              <linearGradient id="archiveProjectorBeamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <linearGradient id="archiveProjectorBeamGrad" x1="1" y1="0" x2="0" y2="0">
                 <stop offset="0%" stopColor={activeColor} stopOpacity="0.85" />
-                <stop offset="35%" stopColor={activeColor} stopOpacity="0.35" />
+                <stop offset="40%" stopColor={activeColor} stopOpacity="0.4" />
                 <stop offset="100%" stopColor={activeColor} stopOpacity="0" />
               </linearGradient>
             </defs>
 
-            {/* Glowing Conical Light Beam streaming forward from the lens */}
+            {/* Glowing Conical Light Beam streaming from the front lens */}
             <motion.polygon
-              points="42,22 74,8 74,36"
+              points="12,27 -20,5 -20,49"
               fill="url(#archiveProjectorBeamGrad)"
               animate={{
                 opacity: [0.55, 0.95, 0.65, 1, 0.55],
-                scaleY: [0.97, 1.03, 0.98, 1.02, 0.97],
+                scaleY: [0.98, 1.02, 0.98],
               }}
-              style={{ transformOrigin: '42px 22px' }}
+              style={{ transformOrigin: '12px 27px' }}
               transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
             />
 
             {/* Floating Dust / Cinema Sparkles drifting through the light cone */}
             <motion.circle
-              cx="50"
-              cy="21"
+              cx="-4"
+              cy="23"
               r="0.8"
               fill={activeColor}
               animate={{
-                x: [0, 12, 22],
+                x: [0, -7, -15],
                 y: [0, -3, 2],
                 opacity: [0, 0.9, 0],
               }}
-              transition={{ repeat: Infinity, duration: 2.1, ease: 'easeOut' }}
+              transition={{ repeat: Infinity, duration: 2.2, ease: 'easeOut' }}
             />
             <motion.circle
-              cx="58"
-              cy="24"
+              cx="4"
+              cy="28"
               r="0.7"
               fill={activeColor}
               animate={{
-                x: [0, 8, 15],
+                x: [0, -8, -14],
                 y: [0, 4, -2],
                 opacity: [0, 0.8, 0],
               }}
-              transition={{ repeat: Infinity, duration: 2.4, ease: 'easeOut', delay: 0.6 }}
+              transition={{ repeat: Infinity, duration: 2.5, ease: 'easeOut', delay: 0.7 }}
             />
 
-            {/* Projector Tripod / Stand */}
-            <line x1="26" y1="28" x2="26" y2="39" stroke={metalStroke} strokeWidth="1.6" />
-            <path d="M 18 43 L 26 39 L 34 43" stroke={metalStroke} strokeWidth="1.6" />
-
-            {/* Projector Body Box */}
-            <rect
-              x="17"
-              y="14"
-              width="18"
-              height="15"
-              rx="2.5"
-              fill={bodyColor}
-              stroke={metalStroke}
-              strokeWidth="1.5"
-            />
-
-            {/* Glowing Film Gate Window */}
-            <rect
-              x="22"
-              y="18"
-              width="7"
-              height="7"
-              rx="1"
-              fill={isNight ? '#000' : '#fff'}
-              stroke={activeColor}
-              strokeWidth="1"
-            />
-            <motion.circle
-              cx="25.5"
-              cy="21.5"
-              r="1.8"
-              fill={activeColor}
-              animate={{ opacity: [0.6, 1, 0.7, 1, 0.6] }}
-              transition={{ repeat: Infinity, duration: 0.8, ease: 'linear' }}
-            />
-
-            {/* Top Film Reel Arm & Bracket */}
-            <line x1="17" y1="17" x2="11" y2="8" stroke={metalStroke} strokeWidth="1.6" />
-
-            {/* Top Reel Spool (Spins continuously like Gramophone) */}
+            {/* Reel 2 (Background Reel - Spins smoothly) */}
             <motion.g
               animate={{ rotate: 360 }}
-              style={{ transformOrigin: '11px 8px' }}
-              transition={{ repeat: Infinity, duration: 2.8, ease: 'linear' }}
+              transition={{ repeat: Infinity, duration: 4.5, ease: 'linear' }}
+              style={{ transformOrigin: '28px 12px' }}
             >
-              <circle cx="11" cy="8" r="7.5" fill={bodyColor} stroke={activeColor} strokeWidth="1.4" />
-              {/* Spoke Holes */}
-              <circle cx="11" cy="4" r="1.3" fill={metalStroke} />
-              <circle cx="15" cy="8" r="1.3" fill={metalStroke} />
-              <circle cx="11" cy="12" r="1.3" fill={metalStroke} />
-              <circle cx="7" cy="8" r="1.3" fill={metalStroke} />
-              <circle cx="11" cy="8" r="2.2" fill={metalStroke} />
+              <circle cx="28" cy="12" r="7" fill={bodyColor} stroke={isNight ? 'white' : metalStroke} strokeWidth="1.4" />
+              <circle cx="28" cy="12" r="2" fill="none" stroke={isNight ? 'white' : metalStroke} strokeWidth="1" />
+              <line x1="28" y1="5" x2="28" y2="9" stroke={isNight ? 'white' : metalStroke} strokeWidth="1.2" />
+              <line x1="28" y1="15" x2="28" y2="19" stroke={isNight ? 'white' : metalStroke} strokeWidth="1.2" />
+              <line x1="21" y1="12" x2="25" y2="12" stroke={isNight ? 'white' : metalStroke} strokeWidth="1.2" />
+              <line x1="31" y1="12" x2="35" y2="12" stroke={isNight ? 'white' : metalStroke} strokeWidth="1.2" />
             </motion.g>
 
-            {/* Bottom Film Reel Arm & Bracket */}
-            <line x1="17" y1="26" x2="11" y2="34" stroke={metalStroke} strokeWidth="1.6" />
-
-            {/* Bottom Reel Spool (Spins in sync) */}
-            <motion.g
-              animate={{ rotate: 360 }}
-              style={{ transformOrigin: '11px 34px' }}
-              transition={{ repeat: Infinity, duration: 2.5, ease: 'linear' }}
-            >
-              <circle cx="11" cy="34" r="7.5" fill={bodyColor} stroke={activeColor} strokeWidth="1.4" />
-              {/* Spoke Holes */}
-              <circle cx="11" cy="30" r="1.3" fill={metalStroke} />
-              <circle cx="15" cy="34" r="1.3" fill={metalStroke} />
-              <circle cx="11" cy="38" r="1.3" fill={metalStroke} />
-              <circle cx="7" cy="34" r="1.3" fill={metalStroke} />
-              <circle cx="11" cy="34" r="2.2" fill={metalStroke} />
-            </motion.g>
-
-            {/* Film Ribbon Path between reels */}
-            <path
-              d="M 17 8 Q 23 11 23 15 M 23 27 Q 22 31 16 34"
+            {/* Film Strip (Threading through the machine) */}
+            <motion.path
+              d="M 28 19 C 28 26, 22 26, 18 20 C 14 14, 18 9, 20 9"
+              fill="none"
               stroke={activeColor}
-              strokeWidth="1.2"
-              strokeDasharray="2 1.5"
-            />
-
-            {/* Projection Lens Barrel */}
-            <rect
-              x="35"
-              y="18"
-              width="7"
-              height="8"
-              rx="1.5"
-              fill={activeColor}
-              stroke={metalStroke}
               strokeWidth="1.4"
+              strokeDasharray="2 2.5"
+              animate={{ strokeDashoffset: -20 }}
+              transition={{ repeat: Infinity, duration: 1.9, ease: 'linear' }}
             />
-            <line x1="39" y1="18" x2="39" y2="26" stroke={metalStroke} strokeWidth="1" />
+
+            {/* Projector Body & Legs */}
+            <path d="M 22,34 L 20,40 M 30,34 L 32,40" stroke={isNight ? 'white' : metalStroke} strokeWidth="1.4" strokeLinecap="round" />
+            <line x1="16" y1="40" x2="36" y2="40" stroke={isNight ? 'white' : metalStroke} strokeWidth="1.4" strokeLinecap="round" />
+            
+            <rect x="18" y="20" width="16" height="14" rx="2" fill={bodyColor} stroke={isNight ? 'white' : metalStroke} strokeWidth="1.4" />
+            
+            {/* Body Mechanical Details */}
+            <circle cx="26" cy="27" r="3" fill="none" stroke={isNight ? 'white' : metalStroke} strokeWidth="1" />
+            <line x1="22" y1="27" x2="30" y2="27" stroke={isNight ? 'white' : metalStroke} strokeWidth="1" />
+            <circle cx="26" cy="27" r="1" fill={activeColor} />
+
+            {/* Lens Tube (Front) */}
+            <path d="M 18,24 L 12,22 L 12,32 L 18,30 Z" fill={bodyColor} stroke={isNight ? 'white' : metalStroke} strokeWidth="1.4" />
+            <line x1="15" y1="23" x2="15" y2="31" stroke={activeColor} strokeWidth="1.4" />
+
+            {/* Reel 1 (Foreground Reel - Spins smoothly) */}
+            <motion.g
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 3.8, ease: 'linear' }}
+              style={{ transformOrigin: '20px 16px' }}
+            >
+              <circle cx="20" cy="16" r="7" fill={bodyColor} stroke={activeColor} strokeWidth="1.4" />
+              <circle cx="20" cy="16" r="2" fill="none" stroke={activeColor} strokeWidth="1" />
+              <line x1="20" y1="9" x2="20" y2="13" stroke={activeColor} strokeWidth="1.2" />
+              <line x1="20" y1="19" x2="20" y2="23" stroke={activeColor} strokeWidth="1.2" />
+              <line x1="13" y1="16" x2="17" y2="16" stroke={activeColor} strokeWidth="1.2" />
+              <line x1="23" y1="16" x2="27" y2="16" stroke={activeColor} strokeWidth="1.2" />
+            </motion.g>
           </svg>
         </div>
       </div>
@@ -629,6 +592,118 @@ export function FeaturedProjectsSection() {
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLElement>(null);
 
+  // Buttery-smooth horizontal click+drag and touch+drag scroller with kinetic momentum physics
+  const filtersScrollRef = useRef<HTMLDivElement>(null);
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  const lastMouseX = useRef(0);
+  const lastMouseTime = useRef(0);
+  const mouseVelocity = useRef(0);
+  const momentumRaf = useRef<number | null>(null);
+  const hasDragged = useRef(false);
+  const dragDistance = useRef(0);
+  const touchStartX = useRef(0);
+
+  const stopMomentum = useCallback(() => {
+    if (momentumRaf.current) {
+      cancelAnimationFrame(momentumRaf.current);
+      momentumRaf.current = null;
+    }
+  }, []);
+
+  const handleFiltersMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!filtersScrollRef.current) return;
+    stopMomentum();
+    setIsMouseDown(true);
+    hasDragged.current = false;
+    dragDistance.current = 0;
+    lastMouseX.current = e.clientX;
+    lastMouseTime.current = performance.now();
+    mouseVelocity.current = 0;
+  };
+
+  const handleFiltersMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isMouseDown || !filtersScrollRef.current) return;
+    const now = performance.now();
+    const dt = now - lastMouseTime.current;
+    const dx = e.clientX - lastMouseX.current;
+
+    dragDistance.current += Math.abs(dx);
+    if (dragDistance.current > 4) {
+      hasDragged.current = true;
+    }
+
+    // Direct, light and responsive drag (1.3x for fluid feel)
+    filtersScrollRef.current.scrollLeft -= dx * 1.3;
+
+    if (dt > 0) {
+      mouseVelocity.current = dx / dt;
+    }
+
+    lastMouseX.current = e.clientX;
+    lastMouseTime.current = now;
+  };
+
+  const handleFiltersMouseUp = () => {
+    if (!isMouseDown) return;
+    setIsMouseDown(false);
+
+    // If mouse had flick velocity, apply smooth momentum glide
+    if (Math.abs(mouseVelocity.current) > 0.12 && filtersScrollRef.current) {
+      let currentSpeed = mouseVelocity.current * 18;
+      const glide = () => {
+        if (!filtersScrollRef.current || Math.abs(currentSpeed) < 0.2) {
+          momentumRaf.current = null;
+          return;
+        }
+        filtersScrollRef.current.scrollLeft -= currentSpeed;
+        currentSpeed *= 0.93; // buttery-smooth friction decay
+        momentumRaf.current = requestAnimationFrame(glide);
+      };
+      momentumRaf.current = requestAnimationFrame(glide);
+    }
+
+    setTimeout(() => {
+      hasDragged.current = false;
+    }, 60);
+  };
+
+  const handleFiltersTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    stopMomentum();
+    hasDragged.current = false;
+    if (e.touches.length > 0) {
+      touchStartX.current = e.touches[0].clientX;
+    }
+  };
+
+  const handleFiltersTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (e.touches.length > 0) {
+      const deltaX = Math.abs(e.touches[0].pageX - touchStartX.current);
+      if (deltaX > 7) {
+        hasDragged.current = true;
+      }
+    }
+  };
+
+  const handleFiltersTouchEnd = () => {
+    setTimeout(() => {
+      hasDragged.current = false;
+    }, 60);
+  };
+
+  const handleFiltersWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    if (!filtersScrollRef.current) return;
+    if (e.deltaY !== 0 && !e.shiftKey) {
+      // Smooth horizontal scroll on mouse wheel
+      filtersScrollRef.current.scrollBy({ left: e.deltaY * 0.9, behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      stopMomentum();
+    };
+  }, [stopMomentum]);
+
   // Compute tabs with dynamic real counts
   const filterTabsWithCounts = useMemo(() => {
     return PROJECT_DEPARTMENTS.map((dept) => ({
@@ -749,21 +824,44 @@ export function FeaturedProjectsSection() {
         </div>
 
         {/* ========================================================================= */}
-        {/* ROW 2: ANIMATED CINEMA PROJECTOR & DELICATE HORIZONTAL FILTERS            */}
+        {/* ROW 2: 3-TIER GRAND LIBRARY & GOLDEN ROLLING LADDER ARCHIVAL DOCK         */}
         {/* ========================================================================= */}
-        <div className={`w-full flex items-center gap-2.5 sm:gap-3.5 p-2 sm:p-2.5 rounded-2xl border backdrop-blur-xl transition-all shadow-lg ${
+        <div className={`w-full flex items-center gap-2.5 sm:gap-3.5 p-2 sm:p-2.5 rounded-2xl border transition-all shadow-lg ${
           isNight 
-            ? 'bg-neutral-900/60 border-white/10 shadow-black/40' 
-            : 'bg-white/60 border-black/8 shadow-neutral-200/50'
+            ? 'bg-neutral-900/90 border-white/10 shadow-black/40' 
+            : 'bg-white/95 border-black/8 shadow-neutral-200/50'
         }`}>
-          {/* Animated 35mm Cinema Projector with Glowing Light Beam */}
-          <VintageCinemaProjector isNight={isNight} isFa={isFa} />
+          {/* Authentic 3-Tier Grand Library & Golden Rolling Ladder Icon */}
+          <div className={`relative h-11 sm:h-[46px] px-2.5 rounded-xl border flex items-center justify-center shrink-0 transition-all duration-300 ${
+            isNight
+              ? 'bg-neutral-950/80 border-white/10 shadow-[0_0_16px_rgba(255,240,131,0.08)]'
+              : 'bg-white/90 border-black/10 shadow-sm'
+          }`}>
+            <RollingLadderStoryIcon isNight={isNight} isFa={isFa} />
+          </div>
 
           {/* Vertical Divider Line */}
-          <div className={`h-7 w-[1px] shrink-0 ${isNight ? 'bg-white/10' : 'bg-black/10'}`} />
+          <div className={`h-8 w-[1px] shrink-0 ${isNight ? 'bg-white/10' : 'bg-black/10'}`} />
 
-          {/* Horizontal Refined Archival Filters Dock */}
-          <div className="flex-1 flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5">
+          {/* Horizontal Refined Archival Filters Dock with Click+Drag & Touch+Drag */}
+          <div
+            ref={filtersScrollRef}
+            onMouseDown={handleFiltersMouseDown}
+            onMouseMove={handleFiltersMouseMove}
+            onMouseUp={handleFiltersMouseUp}
+            onMouseLeave={handleFiltersMouseUp}
+            onTouchStart={handleFiltersTouchStart}
+            onTouchMove={handleFiltersTouchMove}
+            onTouchEnd={handleFiltersTouchEnd}
+            onWheel={handleFiltersWheel}
+            style={{
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+            }}
+            className={`flex-1 flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5 select-none ${
+              isMouseDown ? 'cursor-grabbing' : 'cursor-grab'
+            }`}
+          >
             {filterTabsWithCounts.map((dept) => {
               const isActive = selectedDept === dept.id;
               const label = isFa ? dept.labelFa : dept.labelEn;
@@ -771,11 +869,15 @@ export function FeaturedProjectsSection() {
               return (
                 <button
                   key={dept.id}
-                  onClick={() => {
+                  onClick={(e) => {
+                    if (hasDragged.current) {
+                      e.preventDefault();
+                      return;
+                    }
                     setSelectedDept(dept.id);
                     setCurrentIndex(null);
                   }}
-                  className={`group relative flex items-center gap-2 px-3 py-1.5 sm:py-2 rounded-xl text-xs font-semibold whitespace-nowrap cursor-pointer transition-all duration-300 select-none border shrink-0 ${
+                  className={`group relative flex items-center gap-2 px-3 py-1.5 sm:py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-300 select-none border shrink-0 ${
                     isActive
                       ? isNight
                         ? 'bg-[#fff083]/15 text-[#fff083] border-[#fff083]/50 shadow-[0_0_12px_rgba(255,240,131,0.2)]'

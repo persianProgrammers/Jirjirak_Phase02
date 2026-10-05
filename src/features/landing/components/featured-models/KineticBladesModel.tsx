@@ -68,12 +68,14 @@ export function KineticBladesModel({
   return (
     <div className="w-full flex flex-col gap-4">
       {/* Main Kinetic Blades Stage / Architectural Bookshelf */}
-      <div className="relative w-full h-auto min-h-[300px] md:h-[490px] lg:h-[530px] max-h-[85vh] md:max-h-none overflow-y-auto md:overflow-hidden no-scrollbar rounded-3xl border border-white/10 p-2 sm:p-3 bg-black/40 backdrop-blur-md shadow-2xl flex flex-col md:flex-row gap-2 sm:gap-3 justify-center items-center md:items-stretch">
+      <div className={`relative w-full h-auto min-h-[300px] md:h-[490px] lg:h-[530px] max-h-[85vh] md:max-h-none overflow-y-auto md:overflow-hidden no-scrollbar rounded-3xl border p-2 sm:p-3 shadow-2xl flex flex-col md:flex-row gap-2 sm:gap-3 justify-center items-center md:items-stretch transition-colors ${
+        isNight ? 'bg-neutral-950/85 border-white/10' : 'bg-neutral-100/90 border-black/10'
+      }`}>
         <AnimatePresence mode="popLayout" initial={false}>
           {projects.map((project, idx) => {
             const isActive = idx === safeCurrentIndex;
             // Clean staggered upward entrance delay: when previous books are sinking, pause slightly then cascade upwards in turn
-            const enterDelay = (isDeptSwitching ? 0.14 : 0) + idx * 0.055;
+            const enterDelay = (isDeptSwitching ? 0.12 : 0) + idx * 0.045;
 
             return (
               <motion.div
@@ -82,51 +84,51 @@ export function KineticBladesModel({
                 layout
                 initial={{
                   opacity: 0,
-                  scale: 0.94,
-                  y: 75,
-                  filter: 'blur(8px)',
+                  scale: 0.96,
+                  y: 45,
                 }}
                 animate={{
                   opacity: 1,
                   scale: 1,
                   y: 0,
-                  filter: 'blur(0px)',
                   transition: {
                     layout: {
                       type: 'spring',
-                      stiffness: 240,
-                      damping: 26,
-                      mass: 0.85,
+                      stiffness: 260,
+                      damping: 28,
+                      mass: 0.8,
                     },
-                    opacity: { duration: 0.38, delay: enterDelay },
-                    scale: { duration: 0.42, delay: enterDelay },
+                    opacity: { duration: 0.32, delay: enterDelay },
+                    scale: { duration: 0.35, delay: enterDelay },
                     y: {
                       type: 'spring',
-                      stiffness: 220,
-                      damping: 24,
-                      mass: 0.85,
+                      stiffness: 240,
+                      damping: 26,
+                      mass: 0.8,
                       delay: enterDelay,
                     },
-                    filter: { duration: 0.35, delay: enterDelay },
                   },
                 }}
                 exit={{
                   opacity: 0,
-                  scale: 0.94,
-                  y: 75,
-                  filter: 'blur(8px)',
+                  scale: 0.96,
+                  y: 45,
                   transition: {
-                    duration: 0.25,
+                    duration: 0.2,
                     ease: [0.32, 0, 0.67, 0], // Smooth accelerating sink down into the bookshelf floor
-                    delay: idx * 0.025, // Cascade downward in turn
+                    delay: idx * 0.02,
                   },
+                }}
+                style={{
+                  willChange: 'transform, opacity',
+                  transform: 'translateZ(0)',
                 }}
                 transition={{
                   layout: {
                     type: 'spring',
-                    stiffness: 240,
-                    damping: 26,
-                    mass: 0.85,
+                    stiffness: 260,
+                    damping: 28,
+                    mass: 0.8,
                   },
                 }}
                 className={`relative rounded-2xl overflow-hidden cursor-pointer select-none border transition-[border-color,box-shadow] duration-300 ${
@@ -161,7 +163,7 @@ export function KineticBladesModel({
                   className={`w-full h-full object-cover transition-transform duration-700 ${
                     isActive ? 'scale-105' : 'scale-120 filter brightness-75 hover:brightness-90'
                   }`}
-                  loading="eager"
+                  loading="lazy"
                   decoding="async"
                   onError={(e) => {
                     const target = e.currentTarget;
