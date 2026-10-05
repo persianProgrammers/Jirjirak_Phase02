@@ -1,7 +1,6 @@
 {
-  "name": "Untitled",
-  "description": "",
-  "majorCapabilities": [
-    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
-  ]
+  "name": "جیرجیرک - Jirjirak",
+  "description": "پلتفرم آموزشی جیرجیرک - نسخه لندینگ و هیرو",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
