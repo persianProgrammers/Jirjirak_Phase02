@@ -74,6 +74,7 @@ export function KineticBladesModel({
         <AnimatePresence mode="popLayout" initial={false}>
           {projects.map((project, idx) => {
             const isActive = idx === safeCurrentIndex;
+            const brandColor = project.accentColor || (isNight ? '#fff083' : '#8f6b00');
             // Clean staggered upward entrance delay: when previous books are sinking, pause slightly then cascade upwards in turn
             const enterDelay = (isDeptSwitching ? 0.12 : 0) + idx * 0.045;
 
@@ -182,12 +183,40 @@ export function KineticBladesModel({
                   }`} 
                 />
 
-                {/* Ambient Colored Backlight on active edge */}
+                {/* Exquisite Client Brand Spine Edge Indicator (Delicate Luminous Optical Fiber) */}
                 {isActive && (
                   <div 
-                    className="absolute top-0 bottom-0 left-0 w-1.5 opacity-90 shadow-[0_0_16px_#fff083]"
-                    style={{ backgroundColor: project.accentColor || '#fff083' }}
-                  />
+                    className="absolute top-0 bottom-0 pointer-events-none z-20 transition-all duration-500 rtl:right-0 rtl:left-auto ltr:left-0 ltr:right-auto flex items-center justify-center"
+                    style={{ width: '28px' }}
+                  >
+                    {/* Soft atmospheric colored ambient bloom radiating inwards */}
+                    <div 
+                      className="absolute inset-y-0 w-full pointer-events-none opacity-60"
+                      style={{
+                        background: isFa
+                          ? `radial-gradient(ellipse 26px 70% at 100% 50%, ${brandColor}55 0%, transparent 80%)`
+                          : `radial-gradient(ellipse 26px 70% at 0% 50%, ${brandColor}55 0%, transparent 80%)`,
+                      }}
+                    />
+
+                    {/* Fine 2.5px Luminous Optical Spine Line with vertical taper */}
+                    <div 
+                      className="absolute inset-y-3 w-[2.5px] rounded-full rtl:right-0 ltr:left-0"
+                      style={{
+                        background: `linear-gradient(to bottom, transparent, ${brandColor} 12%, ${brandColor} 88%, transparent)`,
+                        boxShadow: `0 0 10px ${brandColor}, 0 0 20px ${brandColor}70`,
+                      }}
+                    />
+
+                    {/* Precision Central Jewel Pip */}
+                    <div 
+                      className="absolute w-1 h-5 rounded-full rtl:right-[-1px] ltr:left-[-1px] shadow-sm"
+                      style={{
+                        backgroundColor: '#ffffff',
+                        boxShadow: `0 0 8px #ffffff, 0 0 14px ${brandColor}`,
+                      }}
+                    />
+                  </div>
                 )}
               </div>
 
@@ -259,11 +288,23 @@ export function KineticBladesModel({
                     </span>
                   </div>
 
-                  <span className="md:hidden text-[11px] sm:text-xs font-bold text-neutral-200 line-clamp-1 mx-2 tracking-wide">
-                    {isFa ? project.titleFa : project.titleEn}
-                  </span>
-
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow/70 shrink-0" />
+                  {/* Client Brand Accent Dot (Synchronized with open state brand color) */}
+                  <div 
+                    className="relative flex items-center justify-center shrink-0"
+                    title={isFa ? `رنگ برند پروژه: ${project.titleFa}` : `Brand Color: ${project.titleEn}`}
+                  >
+                    <span 
+                      className="w-2 h-2 rounded-full transition-all duration-300 group-hover:scale-125 shadow-sm"
+                      style={{
+                        backgroundColor: brandColor,
+                        boxShadow: `0 0 6px ${brandColor}, 0 0 10px ${brandColor}80`,
+                      }}
+                    />
+                    <span 
+                      className="absolute w-3.5 h-3.5 rounded-full opacity-25 pointer-events-none" 
+                      style={{ backgroundColor: brandColor }}
+                    />
+                  </div>
                 </div>
               )}
             </motion.div>

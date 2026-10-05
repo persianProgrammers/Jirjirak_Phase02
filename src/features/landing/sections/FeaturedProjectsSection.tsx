@@ -27,7 +27,7 @@ const PROJECT_DEPARTMENTS: FilterTabItem[] = [
   { id: 'academy', labelEn: 'Academy', labelFa: 'آموزش و آکادمی' },
 ];
 
-// Distinctive Architectural Archival Seal / Chamfered Badge (Finesse matching Hero HUD)
+// Exact Geometric Sci-Fi Hexagon Badge (identical to HeroDepartmentShowcase)
 function ArchivalBadge({
   active,
   children,
@@ -39,45 +39,45 @@ function ArchivalBadge({
   isNight: boolean;
   size?: 'sm' | 'md';
 }) {
-  const sizeClass = size === 'sm' ? 'w-6 h-6 sm:w-7 sm:h-7' : 'w-8 h-8 sm:w-9 sm:h-9';
+  const sizeClass = size === 'sm' ? 'w-7 h-8' : 'w-8 h-9 sm:w-9 sm:h-10';
   return (
     <div className={`relative ${sizeClass} flex items-center justify-center shrink-0`}>
       <svg
-        viewBox="0 0 32 32"
+        viewBox="0 0 28 32"
         className={`w-full h-full transition-all duration-300 ${
           active
             ? isNight
-              ? 'text-[#fff083] drop-shadow-[0_0_12px_rgba(255,240,131,0.7)] scale-105'
-              : 'text-[#8f6b00] drop-shadow-[0_0_10px_rgba(143,107,0,0.4)] scale-105'
+              ? 'text-brand-yellow drop-shadow-[0_0_10px_rgba(255,240,131,0.85)] scale-105'
+              : 'text-[#8f6b00] drop-shadow-[0_0_8px_rgba(143,107,0,0.5)] scale-105'
             : isNight
-            ? 'text-neutral-500 group-hover:text-[#fff083] group-hover:drop-shadow-[0_0_6px_rgba(255,240,131,0.35)]'
+            ? 'text-neutral-500 group-hover:text-brand-yellow group-hover:drop-shadow-[0_0_6px_rgba(255,240,131,0.4)]'
             : 'text-neutral-400 group-hover:text-[#8f6b00] group-hover:drop-shadow-[0_0_6px_rgba(143,107,0,0.3)]'
         }`}
         fill="none"
       >
         <polygon
-          points="16,2 30,8 30,24 16,30 2,24 2,8"
+          points="14,1.5 26.5,8.8 26.5,23.2 14,30.5 1.5,23.2 1.5,8.8"
           fill={
             active
               ? isNight
                 ? 'rgba(255, 240, 131, 0.18)'
-                : 'rgba(143, 107, 0, 0.14)'
+                : 'rgba(143, 107, 0, 0.15)'
               : isNight
               ? 'rgba(20, 20, 20, 0.75)'
               : 'rgba(240, 238, 232, 0.85)'
           }
           stroke="currentColor"
-          strokeWidth={active ? '1.75' : '1.15'}
+          strokeWidth={active ? '1.6' : '1.1'}
         />
       </svg>
       <div
         className={`absolute inset-0 flex items-center justify-center transition-colors duration-300 ${
           active
             ? isNight
-              ? 'text-[#fff083]'
+              ? 'text-brand-yellow'
               : 'text-[#8f6b00]'
             : isNight
-            ? 'text-neutral-400 group-hover:text-[#fff083]'
+            ? 'text-neutral-400 group-hover:text-brand-yellow'
             : 'text-neutral-600 group-hover:text-[#8f6b00]'
         }`}
       >
@@ -776,47 +776,47 @@ export function FeaturedProjectsSection() {
       <div className="max-w-[1600px] mx-auto w-full flex flex-col gap-8 sm:gap-10 lg:gap-12">
         
         {/* ========================================================================= */}
-        {/* ROW 1: EDITORIAL TEXT HEADER & CHALLENGE CTA BUTTON                       */}
+        {/* ROW 1: EDITORIAL TEXT HEADER & PUNCHY CHALLENGER CTA                      */}
         {/* ========================================================================= */}
-        <div className="w-full flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-8">
-          <div className="flex flex-col items-start max-w-3xl">
+        <div className="w-full flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-8 pb-1">
+          <div className="flex flex-col items-start max-w-2xl">
             {/* Pre-title / Step Badge */}
-            <div className="flex items-center gap-4 mb-4 sm:mb-5">
+            <div className="flex items-center gap-4 mb-3 sm:mb-4">
               <span className={`text-xs font-semibold tracking-widest font-mono ${accentText}`}>
                 {isFa ? '۰۲ / ۰۶' : '02 / 06'}
               </span>
-              <span className="text-xs font-semibold tracking-widest uppercase">
+              <span className="text-xs font-semibold tracking-widest uppercase opacity-75">
                 {isFa ? 'آثار برگزیده' : 'Featured Works'}
               </span>
             </div>
 
             {/* Main Title */}
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-3 tracking-tight">
               {isFa ? 'داستان هر پروژه در یک کتاب' : 'Every Project, A Story'}
             </h2>
 
-            {/* Pale Gray Description */}
+            {/* Crisp & Concise Description */}
             <p className={`text-sm sm:text-base leading-relaxed ${
               isNight ? 'text-neutral-400' : 'text-neutral-600'
             }`}>
               {isFa
-                ? 'مجموعه‌ای گزیده از ایده‌ها و ساخته‌های تجربی استودیو جیرجیرک. هر پروژه یک داستان و هویت مستقل از معماری تجربی و مهندسی خلاق است.'
-                : 'A curated anthology of ideas and spatial experiments by Jirjirak Studio. Every project holds an authentic narrative of engineered solutions and spatial craft.'}
+                ? 'آرشیو زنده ساخته‌های تجربی استودیو جیرجیرک؛ هر پرونده هویت، ساختار و مهندسی مستقل خود را دارد.'
+                : 'Jirjirak’s living archive of spatial experiments; each volume holds an authentic engineered narrative.'}
             </p>
           </div>
 
-          {/* Action CTA Button challenging visitor to join the shelf (Matching Previous Section Tone) */}
+          {/* Integrated Archival Challenge Box (Compact, Punchy & Provocative) */}
           <div className="shrink-0 pb-1">
             <button
               onClick={() => navigate('/contact')}
-              className={`group text-xs sm:text-sm font-bold uppercase tracking-widest transition-all duration-300 flex items-center gap-2.5 px-6 py-3.5 rounded-full border cursor-pointer active:scale-95 ${
+              className={`group text-xs sm:text-sm font-bold tracking-wider transition-all duration-300 flex items-center gap-2 px-5 py-2.5 sm:py-3 rounded-full border cursor-pointer active:scale-95 shadow-sm ${
                 isNight 
-                  ? 'border-[#fff083] text-[#fff083] hover:bg-[#fff083] hover:text-[#1a1a1a] shadow-sm hover:shadow-[#fff083]/20' 
-                  : 'border-[#8f6b00] text-[#8f6b00] hover:bg-[#8f6b00] hover:text-white shadow-sm hover:shadow-[#8f6b00]/20'
+                  ? 'border-[#fff083] text-[#fff083] hover:bg-[#fff083] hover:text-[#1a1a1a] hover:shadow-[0_0_20px_rgba(255,240,131,0.25)]' 
+                  : 'border-[#8f6b00] text-[#8f6b00] hover:bg-[#8f6b00] hover:text-white hover:shadow-[0_0_20px_rgba(143,107,0,0.25)]'
               }`}
             >
-              <span>{isFa ? 'کتاب بعدی این قفسه را شما بنویسید' : 'Write The Next Book In This Shelf'}</span>
-              <svg className="w-4 h-4 rtl:rotate-180 transition-transform duration-300 group-hover:translate-x-1.5 rtl:group-hover:-translate-x-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <span>{isFa ? 'پرونده‌تان را به ما بسپارید' : 'Entrust Your Case File'}</span>
+              <svg className="w-3.5 h-3.5 rtl:rotate-180 transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
             </button>
@@ -826,11 +826,16 @@ export function FeaturedProjectsSection() {
         {/* ========================================================================= */}
         {/* ROW 2: 3-TIER GRAND LIBRARY & GOLDEN ROLLING LADDER ARCHIVAL DOCK         */}
         {/* ========================================================================= */}
-        <div className={`w-full flex items-center gap-2.5 sm:gap-3.5 p-2 sm:p-2.5 rounded-2xl border transition-all shadow-lg ${
-          isNight 
-            ? 'bg-neutral-900/90 border-white/10 shadow-black/40' 
-            : 'bg-white/95 border-black/8 shadow-neutral-200/50'
-        }`}>
+        <div 
+          data-suppress-header="true"
+          onMouseEnter={() => window.dispatchEvent(new CustomEvent('jirjirak:suppress-header', { detail: true }))}
+          onMouseLeave={() => window.dispatchEvent(new CustomEvent('jirjirak:suppress-header', { detail: false }))}
+          className={`w-full flex items-center gap-2.5 sm:gap-3.5 p-2 sm:p-2.5 rounded-2xl border transition-all shadow-lg ${
+            isNight 
+              ? 'bg-neutral-900/90 border-white/10 shadow-black/40' 
+              : 'bg-white/95 border-black/8 shadow-neutral-200/50'
+          }`}
+        >
           {/* Authentic 3-Tier Grand Library & Golden Rolling Ladder Icon */}
           <div className={`relative h-11 sm:h-[46px] px-2.5 rounded-xl border flex items-center justify-center shrink-0 transition-all duration-300 ${
             isNight
@@ -914,7 +919,12 @@ export function FeaturedProjectsSection() {
         {/* ========================================================================= */}
         {/* ROW 3: FULL-WIDTH ARCHITECTURAL BOOKSHELF (DEDICATED FULL ROW)            */}
         {/* ========================================================================= */}
-        <div className="w-full">
+        <div 
+          data-suppress-header="true"
+          onMouseEnter={() => window.dispatchEvent(new CustomEvent('jirjirak:suppress-header', { detail: true }))}
+          onMouseLeave={() => window.dispatchEvent(new CustomEvent('jirjirak:suppress-header', { detail: false }))}
+          className="w-full"
+        >
           <KineticBladesModel
             projects={filteredProjects}
             currentIndex={currentIndex}
