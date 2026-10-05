@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from 'react';
-import { motion } from 'motion/react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { BaseFilterProps } from '../types';
-import { Folder } from 'lucide-react';
+import { Folder, ChevronLeft, ChevronRight, ChevronDown, Check, SlidersHorizontal, X } from 'lucide-react';
 
 /* ========================================================================= */
 /* MODEL 01: SLIDING CAPSULE (الگوی کپسول لغزان معماری)                         */
@@ -90,45 +90,176 @@ export function Model05_MagneticIsland<T extends string>({
   isFa,
   isDarkBg,
   className = '',
+  layoutId = 'model05',
 }: BaseFilterProps<T>) {
-  return (
-    <div className={`relative w-full flex justify-center ${className}`}>
-      <div
-        className={`relative inline-flex items-center p-1.5 rounded-full border shadow-2xl backdrop-blur-xl overflow-x-auto max-w-full no-scrollbar ${
-          isDarkBg
-            ? 'bg-neutral-900/80 border-white/15 shadow-black/80'
-            : 'bg-white/80 border-black/10 shadow-neutral-300/60'
-        }`}
-      >
-        {items.map((item) => {
-          const isActive = item.id === activeId;
-          const label = isFa ? item.labelFa : item.labelEn;
+  const mobileRailRef = useRef<HTMLDivElement>(null);
+  const activeTabMobileRef = useRef<HTMLButtonElement>(null);
+  const isDraggingRef = useRef(false);
+  const startXRef = useRef(0);
+  const scrollLeftRef = useRef(0);
+  const [isMouseDown, setIsMouseDown] = useState(false);
 
-          return (
-            <button
-              key={item.id}
-              onClick={() => onChange(item.id)}
-              className={`relative px-4 py-2 rounded-full text-xs font-semibold transition-colors duration-200 cursor-pointer shrink-0 z-10 ${
-                isActive
-                  ? isDarkBg ? 'text-[#222] font-black' : 'text-white font-black'
-                  : isDarkBg ? 'text-neutral-400 hover:text-white' : 'text-neutral-600 hover:text-black'
-              }`}
-            >
-              {isActive && (
-                <motion.div
-                  layoutId="model05-aura"
-                  transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-                  className={`absolute inset-0 rounded-full shadow-lg -z-10 ${
-                    isDarkBg
-                      ? 'bg-[#fff083] shadow-[#fff083]/30'
-                      : 'bg-[#8f6b00] shadow-[#8f6b00]/30'
-                  }`}
-                />
-              )}
-              <span className="whitespace-nowrap">{label}</span>
-            </button>
-          );
-        })}
+  // Mouse drag-to-scroll handlers for mobile rail
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!mobileRailRef.current) return;
+    setIsMouseDown(true);
+    isDraggingRef.current = false;
+    startXRef.current = e.pageX - mobileRailRef.current.offsetLeft;
+    scrollLeftRef.current = mobileRailRef.current.scrollLeft;
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isMouseDown || !mobileRailRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - mobileRailRef.current.offsetLeft;
+    const walk = (x - startXRef.current) * 1.5;
+    if (Math.abs(walk) > 5) {
+      isDraggingRef.current = true;
+    }
+    mobileRailRef.current.scrollLeft = scrollLeftRef.current - walk;
+  };
+
+  const handleMouseUp = () => {
+    setIsMouseDown(false);
+    setTimeout(() => {
+      isDraggingRef.current = false;
+    }, 60);
+  };
+
+  const handleMouseLeave = () => {
+    setIsMouseDown(false);
+    setTimeout(() => {
+      isDraggingRef.current = false;
+    }, 60);
+  };
+
+  // Auto-scroll the active mobile pill into center view smoothly
+  useEffect(() => {
+    if (activeTabMobileRef.current) {
+      activeTabMobileRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center',
+      });
+    }
+  }, [activeId]);
+
+  return (
+    <div className={`relative w-full ${className}`}>
+      {/* ========================================================================= */}
+      {/* 1. DESKTOP & TABLET: ICONIC FLOATING ISLAND DOCK (sm screens and above)   */}
+      {/* ========================================================================= */}
+      <div className="hidden sm:flex w-full justify-center">
+        <div
+          className={`relative inline-flex items-center p-1.5 rounded-full border shadow-2xl backdrop-blur-xl max-w-full overflow-x-auto no-scrollbar ${
+            isDarkBg
+              ? 'bg-neutral-900/85 border-white/15 shadow-black/80'
+              : 'bg-white/85 border-black/10 shadow-neutral-300/60'
+          }`}
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {items.map((item) => {
+            const isActive = item.id === activeId;
+            const label = isFa ? item.labelFa : item.labelEn;
+
+            return (
+              <button
+                key={item.id}
+                onClick={() => onChange(item.id)}
+                className={`relative px-4 py-2 rounded-full text-xs font-semibold transition-colors duration-200 cursor-pointer shrink-0 z-10 flex items-center gap-2 select-none ${
+                  isActive
+                    ? isDarkBg ? 'text-[#222] font-black' : 'text-white font-black'
+                    : isDarkBg ? 'text-neutral-400 hover:text-white' : 'text-neutral-600 hover:text-black'
+                }`}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId={`${layoutId}-desktop-aura`}
+                    transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+                    className={`absolute inset-0 rounded-full shadow-lg -z-10 ${
+                      isDarkBg
+                        ? 'bg-[#fff083] shadow-[0_0_18px_rgba(255,240,131,0.35)]'
+                        : 'bg-[#8f6b00] shadow-[0_0_15px_rgba(143,107,0,0.3)]'
+                    }`}
+                  />
+                )}
+                <span className="whitespace-nowrap">{label}</span>
+                {item.count !== undefined && (
+                  <span
+                    className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full font-bold transition-colors ${
+                      isActive
+                        ? isDarkBg ? 'bg-black/15 text-[#222]' : 'bg-white/20 text-white'
+                        : isDarkBg ? 'bg-white/10 text-neutral-400' : 'bg-black/10 text-neutral-600'
+                    }`}
+                  >
+                    {isFa ? String(item.count).replace(/\d/g, (d) => '۰۱۲۳۴۵۶۷۸۹'[+d]) : item.count}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ========================================================================= */}
+      {/* 2. MOBILE: SINGLE ROW HORIZONTALLY DRAGGABLE DOCK (Sleek, fluid, no clutter) */}
+      {/* ========================================================================= */}
+      <div className="flex sm:hidden w-full relative">
+        <div
+          ref={mobileRailRef}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
+          className={`w-full flex items-center gap-2 overflow-x-auto no-scrollbar py-2 px-3 scroll-smooth touch-pan-x select-none cursor-grab active:cursor-grabbing rounded-2xl border shadow-lg backdrop-blur-xl ${
+            isDarkBg
+              ? 'bg-neutral-900/90 border-white/15 shadow-black/60'
+              : 'bg-white/90 border-black/10 shadow-neutral-300/60'
+          }`}
+          style={{
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+            WebkitOverflowScrolling: 'touch',
+          }}
+        >
+          {items.map((item) => {
+            const isActive = item.id === activeId;
+            const label = isFa ? item.labelFa : item.labelEn;
+
+            return (
+              <button
+                key={item.id}
+                ref={isActive ? activeTabMobileRef : null}
+                onClick={() => {
+                  if (isDraggingRef.current) return;
+                  onChange(item.id);
+                }}
+                className={`relative shrink-0 flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                  isActive
+                    ? isDarkBg
+                      ? 'bg-[#fff083] text-[#222] font-black shadow-md shadow-[#fff083]/20'
+                      : 'bg-[#8f6b00] text-white font-black shadow-md shadow-[#8f6b00]/20'
+                    : isDarkBg
+                      ? 'bg-white/5 text-neutral-400 border border-white/10 hover:text-white'
+                      : 'bg-black/5 text-neutral-600 border border-black/10 hover:text-black'
+                }`}
+              >
+                <span className="whitespace-nowrap">{label}</span>
+                {item.count !== undefined && (
+                  <span
+                    className={`text-[9px] font-mono px-1.5 py-0.5 rounded-full font-bold ${
+                      isActive
+                        ? isDarkBg ? 'bg-black/15 text-[#222]' : 'bg-white/20 text-white'
+                        : isDarkBg ? 'bg-white/10 text-neutral-400' : 'bg-black/10 text-neutral-600'
+                    }`}
+                  >
+                    {isFa ? String(item.count).replace(/\d/g, (d) => '۰۱۲۳۴۵۶۷۸۹'[+d]) : item.count}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

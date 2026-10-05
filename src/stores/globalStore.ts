@@ -55,14 +55,14 @@ export const useGlobalStore = create<GlobalState>((set, get) => ({
     set({ landingLayoutMode: mode });
   },
 
-  // Curated Filter Models Switcher State (Models 01, 05, 17)
+  // Curated Filter Models State (Model 05 - Floating Island)
   filterModelId: (() => {
-    if (typeof window === 'undefined') return 'model-01';
+    if (typeof window === 'undefined') return 'model-05';
     const stored = localStorage.getItem('jirjirak_filter_model');
-    if (stored === 'model-01' || stored === 'model-05' || stored === 'model-17') {
-      return stored;
+    if (stored === 'model-05' || stored === 'model-01' || stored === 'model-17') {
+      return 'model-05';
     }
-    return 'model-01';
+    return 'model-05';
   })(),
   setFilterModelId: (modelId: string) => {
     if (typeof window !== 'undefined') {

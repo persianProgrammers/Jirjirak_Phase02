@@ -147,10 +147,10 @@ export function StudioTeamAtelier({ isNight, isFa }: Props) {
   return (
     <div className="w-full flex flex-col gap-6 select-none">
       
-      {/* 1. DISCIPLINED ARCHITECTURAL DEPARTMENT SELECTOR (20-MODELS ENGINE) */}
+      {/* 1. DISCIPLINED ARCHITECTURAL DEPARTMENT SELECTOR (MODEL 05 FLOATING ISLAND) */}
       <div className="w-full">
         <MasterFilterRenderer<DepartmentCategory>
-          modelId={filterModelId}
+          modelId="model-05"
           items={teamFilterTabs}
           activeId={selectedDept}
           onChange={setSelectedDept}

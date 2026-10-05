@@ -15,13 +15,13 @@ export function MasterFilterRenderer<T extends string = string>(props: MasterFil
 
   switch (modelId) {
     case 'model-01':
-      return <Model01_SlidingCapsule {...props} />;
+      return <Model05_MagneticIsland {...props} />;
     case 'model-05':
       return <Model05_MagneticIsland {...props} />;
     case 'model-17':
-      return <Model17_ArchivalIndexFolder {...props} />;
+      return <Model05_MagneticIsland {...props} />;
     default:
-      return <Model01_SlidingCapsule {...props} />;
+      return <Model05_MagneticIsland {...props} />;
   }
 }
 

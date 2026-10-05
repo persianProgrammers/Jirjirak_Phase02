@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence, type Variants } from 'motion/react';
+import { Folder, Layers } from 'lucide-react';
 import { useGlobalStore } from '../../../stores/globalStore';
 import { useTranslation } from '../../../i18n/translations';
 import { ProjectItem } from '../components/featured-models/types';
 import { KineticBladesModel } from '../components/featured-models/KineticBladesModel';
 import { FilterTabItem } from '../../../components/ui/filters/types';
-import { MasterFilterRenderer } from '../../../components/ui/filters/MasterFilterRenderer';
-import { FilterSwitcherPanel } from '../../../components/ui/filters/FilterSwitcherPanel';
 
 // Standard public asset paths served by Vite
 const toyooranImg = '/assets/images/projects/project_toyooran.png';
@@ -25,6 +25,305 @@ const PROJECT_DEPARTMENTS: FilterTabItem[] = [
   { id: 'marketing', labelEn: 'Marketing', labelFa: 'دیجیتال مارکتینگ' },
   { id: 'academy', labelEn: 'Academy', labelFa: 'آموزش و آکادمی' },
 ];
+
+// Distinctive Architectural Archival Seal / Chamfered Badge (Finesse matching Hero HUD)
+function ArchivalBadge({
+  active,
+  children,
+  isNight,
+  size = 'md',
+}: {
+  active: boolean;
+  children: React.ReactNode;
+  isNight: boolean;
+  size?: 'sm' | 'md';
+}) {
+  const sizeClass = size === 'sm' ? 'w-6 h-6 sm:w-7 sm:h-7' : 'w-8 h-8 sm:w-9 sm:h-9';
+  return (
+    <div className={`relative ${sizeClass} flex items-center justify-center shrink-0`}>
+      <svg
+        viewBox="0 0 32 32"
+        className={`w-full h-full transition-all duration-300 ${
+          active
+            ? isNight
+              ? 'text-[#fff083] drop-shadow-[0_0_12px_rgba(255,240,131,0.7)] scale-105'
+              : 'text-[#8f6b00] drop-shadow-[0_0_10px_rgba(143,107,0,0.4)] scale-105'
+            : isNight
+            ? 'text-neutral-500 group-hover:text-[#fff083] group-hover:drop-shadow-[0_0_6px_rgba(255,240,131,0.35)]'
+            : 'text-neutral-400 group-hover:text-[#8f6b00] group-hover:drop-shadow-[0_0_6px_rgba(143,107,0,0.3)]'
+        }`}
+        fill="none"
+      >
+        <polygon
+          points="16,2 30,8 30,24 16,30 2,24 2,8"
+          fill={
+            active
+              ? isNight
+                ? 'rgba(255, 240, 131, 0.18)'
+                : 'rgba(143, 107, 0, 0.14)'
+              : isNight
+              ? 'rgba(20, 20, 20, 0.75)'
+              : 'rgba(240, 238, 232, 0.85)'
+          }
+          stroke="currentColor"
+          strokeWidth={active ? '1.75' : '1.15'}
+        />
+      </svg>
+      <div
+        className={`absolute inset-0 flex items-center justify-center transition-colors duration-300 ${
+          active
+            ? isNight
+              ? 'text-[#fff083]'
+              : 'text-[#8f6b00]'
+            : isNight
+            ? 'text-neutral-400 group-hover:text-[#fff083]'
+            : 'text-neutral-600 group-hover:text-[#8f6b00]'
+        }`}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// Animated Mechanical Vintage Cinema Film Projector (دستگاه آپارات سینمایی کلاسیک با پرتو نور انیمیشنی)
+function VintageCinemaProjector({
+  isNight,
+  isFa,
+}: {
+  isNight: boolean;
+  isFa: boolean;
+}) {
+  const activeColor = isNight ? '#FFF083' : '#8f6b00';
+  const bodyColor = isNight ? '#18181b' : '#f5f3ec';
+  const metalStroke = isNight ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.7)';
+
+  return (
+    <div 
+      className="relative flex items-center shrink-0 select-none group"
+      title={isFa ? 'پروژکتور ۳۵ میلیمتری آرشیو استودیو جیرجیرک' : 'Jirjirak 35mm Archive Projector'}
+    >
+      <div className={`relative h-10 sm:h-11 px-2 rounded-xl border flex items-center justify-center shrink-0 backdrop-blur-md transition-all duration-300 ${
+        isNight
+          ? 'bg-neutral-900/80 border-white/10 shadow-[0_0_16px_rgba(255,240,131,0.12)]'
+          : 'bg-white/80 border-black/10 shadow-sm'
+      }`}>
+        {/* SVG Projector Art - Oriented so light beam points directly into horizontal filters */}
+        <div className={`relative w-[62px] sm:w-[68px] h-[34px] sm:h-[38px] flex items-center justify-center ${
+          isFa ? 'scale-x-[-1]' : ''
+        }`}>
+          <svg
+            viewBox="0 0 74 44"
+            className="w-full h-full overflow-visible drop-shadow-sm"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <defs>
+              <linearGradient id="archiveProjectorBeamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor={activeColor} stopOpacity="0.85" />
+                <stop offset="35%" stopColor={activeColor} stopOpacity="0.35" />
+                <stop offset="100%" stopColor={activeColor} stopOpacity="0" />
+              </linearGradient>
+            </defs>
+
+            {/* Glowing Conical Light Beam streaming forward from the lens */}
+            <motion.polygon
+              points="42,22 74,8 74,36"
+              fill="url(#archiveProjectorBeamGrad)"
+              animate={{
+                opacity: [0.55, 0.95, 0.65, 1, 0.55],
+                scaleY: [0.97, 1.03, 0.98, 1.02, 0.97],
+              }}
+              style={{ transformOrigin: '42px 22px' }}
+              transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
+            />
+
+            {/* Floating Dust / Cinema Sparkles drifting through the light cone */}
+            <motion.circle
+              cx="50"
+              cy="21"
+              r="0.8"
+              fill={activeColor}
+              animate={{
+                x: [0, 12, 22],
+                y: [0, -3, 2],
+                opacity: [0, 0.9, 0],
+              }}
+              transition={{ repeat: Infinity, duration: 2.1, ease: 'easeOut' }}
+            />
+            <motion.circle
+              cx="58"
+              cy="24"
+              r="0.7"
+              fill={activeColor}
+              animate={{
+                x: [0, 8, 15],
+                y: [0, 4, -2],
+                opacity: [0, 0.8, 0],
+              }}
+              transition={{ repeat: Infinity, duration: 2.4, ease: 'easeOut', delay: 0.6 }}
+            />
+
+            {/* Projector Tripod / Stand */}
+            <line x1="26" y1="28" x2="26" y2="39" stroke={metalStroke} strokeWidth="1.6" />
+            <path d="M 18 43 L 26 39 L 34 43" stroke={metalStroke} strokeWidth="1.6" />
+
+            {/* Projector Body Box */}
+            <rect
+              x="17"
+              y="14"
+              width="18"
+              height="15"
+              rx="2.5"
+              fill={bodyColor}
+              stroke={metalStroke}
+              strokeWidth="1.5"
+            />
+
+            {/* Glowing Film Gate Window */}
+            <rect
+              x="22"
+              y="18"
+              width="7"
+              height="7"
+              rx="1"
+              fill={isNight ? '#000' : '#fff'}
+              stroke={activeColor}
+              strokeWidth="1"
+            />
+            <motion.circle
+              cx="25.5"
+              cy="21.5"
+              r="1.8"
+              fill={activeColor}
+              animate={{ opacity: [0.6, 1, 0.7, 1, 0.6] }}
+              transition={{ repeat: Infinity, duration: 0.8, ease: 'linear' }}
+            />
+
+            {/* Top Film Reel Arm & Bracket */}
+            <line x1="17" y1="17" x2="11" y2="8" stroke={metalStroke} strokeWidth="1.6" />
+
+            {/* Top Reel Spool (Spins continuously like Gramophone) */}
+            <motion.g
+              animate={{ rotate: 360 }}
+              style={{ transformOrigin: '11px 8px' }}
+              transition={{ repeat: Infinity, duration: 2.8, ease: 'linear' }}
+            >
+              <circle cx="11" cy="8" r="7.5" fill={bodyColor} stroke={activeColor} strokeWidth="1.4" />
+              {/* Spoke Holes */}
+              <circle cx="11" cy="4" r="1.3" fill={metalStroke} />
+              <circle cx="15" cy="8" r="1.3" fill={metalStroke} />
+              <circle cx="11" cy="12" r="1.3" fill={metalStroke} />
+              <circle cx="7" cy="8" r="1.3" fill={metalStroke} />
+              <circle cx="11" cy="8" r="2.2" fill={metalStroke} />
+            </motion.g>
+
+            {/* Bottom Film Reel Arm & Bracket */}
+            <line x1="17" y1="26" x2="11" y2="34" stroke={metalStroke} strokeWidth="1.6" />
+
+            {/* Bottom Reel Spool (Spins in sync) */}
+            <motion.g
+              animate={{ rotate: 360 }}
+              style={{ transformOrigin: '11px 34px' }}
+              transition={{ repeat: Infinity, duration: 2.5, ease: 'linear' }}
+            >
+              <circle cx="11" cy="34" r="7.5" fill={bodyColor} stroke={activeColor} strokeWidth="1.4" />
+              {/* Spoke Holes */}
+              <circle cx="11" cy="30" r="1.3" fill={metalStroke} />
+              <circle cx="15" cy="34" r="1.3" fill={metalStroke} />
+              <circle cx="11" cy="38" r="1.3" fill={metalStroke} />
+              <circle cx="7" cy="34" r="1.3" fill={metalStroke} />
+              <circle cx="11" cy="34" r="2.2" fill={metalStroke} />
+            </motion.g>
+
+            {/* Film Ribbon Path between reels */}
+            <path
+              d="M 17 8 Q 23 11 23 15 M 23 27 Q 22 31 16 34"
+              stroke={activeColor}
+              strokeWidth="1.2"
+              strokeDasharray="2 1.5"
+            />
+
+            {/* Projection Lens Barrel */}
+            <rect
+              x="35"
+              y="18"
+              width="7"
+              height="8"
+              rx="1.5"
+              fill={activeColor}
+              stroke={metalStroke}
+              strokeWidth="1.4"
+            />
+            <line x1="39" y1="18" x2="39" y2="26" stroke={metalStroke} strokeWidth="1" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function renderArchivalIcon(deptId: string) {
+  switch (deptId) {
+    case 'all':
+      return (
+        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="round" />
+        </svg>
+      );
+    case 'web-dev':
+      return (
+        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l-4 3 4 3M16 9l4 3-4 3M14 4l-4 16" />
+        </svg>
+      );
+    case 'branding':
+      return (
+        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </svg>
+      );
+    case 'game':
+      return (
+        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <rect x="2" y="6" width="20" height="12" rx="6" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 12h4m-2-2v4m9-2h.01m3 0h.01" />
+        </svg>
+      );
+    case 'seo-analytics':
+      return (
+        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+          <circle cx="13" cy="7" r="1.5" fill="currentColor" />
+        </svg>
+      );
+    case 'creative':
+      return (
+        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        </svg>
+      );
+    case 'marketing':
+      return (
+        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7c-.571 0-1.115.12-1.564.337z" />
+        </svg>
+      );
+    case 'academy':
+      return (
+        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+        </svg>
+      );
+    default:
+      return (
+        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <circle cx="12" cy="12" r="8" />
+        </svg>
+      );
+  }
+}
 
 // Rich, believable featured projects for every department
 const ALL_ARCHIVE_PROJECTS: ProjectItem[] = [
@@ -321,12 +620,13 @@ const childVariants: Variants = {
 };
 
 export function FeaturedProjectsSection() {
+  const navigate = useNavigate();
   const { isNight, currentLang, landingLayoutMode, filterModelId } = useGlobalStore();
   const t = useTranslation()(currentLang);
   const isFa = currentLang === 'FA';
 
   const [selectedDept, setSelectedDept] = useState<string>('all');
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLElement>(null);
 
   // Compute tabs with dynamic real counts
@@ -345,23 +645,30 @@ export function FeaturedProjectsSection() {
     return ALL_ARCHIVE_PROJECTS.filter((p) => p.department === selectedDept);
   }, [selectedDept]);
 
-  // Ensure currentIndex stays within bounds when filtering
+  // Ensure currentIndex stays within bounds when filtering, otherwise reset to closed
   useEffect(() => {
-    if (currentIndex >= filteredProjects.length) {
-      setCurrentIndex(0);
+    if (currentIndex !== null && currentIndex >= filteredProjects.length) {
+      setCurrentIndex(null);
     }
   }, [filteredProjects.length, currentIndex]);
 
   const handleNext = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % filteredProjects.length);
+    setCurrentIndex((prev) => {
+      if (prev === null) return 0;
+      return (prev + 1) % filteredProjects.length;
+    });
   }, [filteredProjects.length]);
 
   const handlePrev = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length);
+    setCurrentIndex((prev) => {
+      if (prev === null) return filteredProjects.length - 1;
+      return (prev - 1 + filteredProjects.length) % filteredProjects.length;
+    });
   }, [filteredProjects.length]);
 
+  // Toggle book: clicking open book closes it, clicking closed book opens it
   const handleSelect = useCallback((idx: number) => {
-    setCurrentIndex(idx);
+    setCurrentIndex((prev) => (prev === idx ? null : idx));
   }, []);
 
   // Keyboard navigation
@@ -379,205 +686,142 @@ export function FeaturedProjectsSection() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleNext, handlePrev, isFa]);
 
-  const activeProject = filteredProjects[currentIndex] || filteredProjects[0];
+  const activeProject = currentIndex !== null ? filteredProjects[currentIndex] : null;
+  const accentText = isNight ? 'text-[#fff083]' : 'text-[#8f6b00]';
 
   return (
     <section 
       id="work" 
       ref={containerRef} 
       data-cursor="project" 
-      className={`py-20 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-12 xl:px-16 overflow-hidden transition-colors duration-700 ease-in-out ${
+      className={`py-28 sm:py-32 px-6 sm:px-8 lg:px-12 xl:px-16 overflow-hidden transition-colors duration-700 ease-in-out ${
         isNight ? 'bg-brand-dark text-brand-light' : 'bg-brand-light text-brand-dark'
       }`}
     >
-      <div className="max-w-[1600px] mx-auto w-full flex flex-col">
+      <div className="max-w-[1600px] mx-auto w-full flex flex-col gap-8 sm:gap-10 lg:gap-12">
         
         {/* ========================================================================= */}
-        {/* SECTION HEADER: STEP BADGE, TITLE, AND DYNAMIC STATUS                     */}
+        {/* ROW 1: EDITORIAL TEXT HEADER & CHALLENGE CTA BUTTON                       */}
         {/* ========================================================================= */}
-        <div className="w-full flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6 sm:mb-8">
-          <div className="flex flex-col items-start">
-            <div className="flex items-center gap-3 mb-3">
-              <span className={`text-xs font-semibold tracking-widest ${isNight ? 'text-[#fff083]' : 'text-[#8f6b00]'}`}>
-                {t.featuredProjects.step}
+        <div className="w-full flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-8">
+          <div className="flex flex-col items-start max-w-3xl">
+            {/* Pre-title / Step Badge */}
+            <div className="flex items-center gap-4 mb-4 sm:mb-5">
+              <span className={`text-xs font-semibold tracking-widest font-mono ${accentText}`}>
+                {isFa ? '۰۲ / ۰۶' : '02 / 06'}
               </span>
-              <span className="text-xs font-semibold tracking-widest uppercase text-brand-gray">
-                {t.featuredProjects.category || 'JIRJIRAK ARCHIVE'}
+              <span className="text-xs font-semibold tracking-widest uppercase">
+                {isFa ? 'آثار برگزیده' : 'Featured Works'}
               </span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
-              {isFa ? 'آرشیو آثار و پروژه‌های شاخص' : 'Featured Works & Archive'}
+            {/* Main Title */}
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4 tracking-tight">
+              {isFa ? 'داستان هر پروژه در یک کتاب' : 'Every Project, A Story'}
             </h2>
-          </div>
 
-          {/* Active Projects Counter Pill */}
-          <div className={`hidden sm:flex items-center gap-2.5 text-xs font-mono font-semibold px-3.5 py-1.5 rounded-full border shrink-0 ${
-            isNight ? 'bg-white/5 border-white/10 text-neutral-300' : 'bg-black/5 border-black/10 text-neutral-700'
-          }`}>
-            <span className={`w-2 h-2 rounded-full ${isNight ? 'bg-[#fff083] animate-pulse' : 'bg-[#8f6b00] animate-pulse'}`} />
-            <span>
+            {/* Pale Gray Description */}
+            <p className={`text-sm sm:text-base leading-relaxed ${
+              isNight ? 'text-neutral-400' : 'text-neutral-600'
+            }`}>
               {isFa
-                ? `${filteredProjects.length} پروژه در این شاخه`
-                : `${filteredProjects.length} Projects in Department`}
-            </span>
+                ? 'مجموعه‌ای گزیده از ایده‌ها و ساخته‌های تجربی استودیو جیرجیرک. هر پروژه یک داستان و هویت مستقل از معماری تجربی و مهندسی خلاق است.'
+                : 'A curated anthology of ideas and spatial experiments by Jirjirak Studio. Every project holds an authentic narrative of engineered solutions and spatial craft.'}
+            </p>
+          </div>
+
+          {/* Action CTA Button challenging visitor to join the shelf (Matching Previous Section Tone) */}
+          <div className="shrink-0 pb-1">
+            <button
+              onClick={() => navigate('/contact')}
+              className={`group text-xs sm:text-sm font-bold uppercase tracking-widest transition-all duration-300 flex items-center gap-2.5 px-6 py-3.5 rounded-full border cursor-pointer active:scale-95 ${
+                isNight 
+                  ? 'border-[#fff083] text-[#fff083] hover:bg-[#fff083] hover:text-[#1a1a1a] shadow-sm hover:shadow-[#fff083]/20' 
+                  : 'border-[#8f6b00] text-[#8f6b00] hover:bg-[#8f6b00] hover:text-white shadow-sm hover:shadow-[#8f6b00]/20'
+              }`}
+            >
+              <span>{isFa ? 'کتاب بعدی این قفسه را شما بنویسید' : 'Write The Next Book In This Shelf'}</span>
+              <svg className="w-4 h-4 rtl:rotate-180 transition-transform duration-300 group-hover:translate-x-1.5 rtl:group-hover:-translate-x-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
           </div>
         </div>
 
         {/* ========================================================================= */}
-        {/* INTERACTIVE 20-MODELS SWITCHER PANEL & ACTIVE MODEL FILTER DOCK           */}
+        {/* ROW 2: ANIMATED CINEMA PROJECTOR & DELICATE HORIZONTAL FILTERS            */}
         {/* ========================================================================= */}
-        <div className="w-full flex flex-col gap-4 mb-8 sm:mb-12">
-          {/* Creative Switcher Control Panel */}
-          <FilterSwitcherPanel
-            isNight={isNight}
-            isFa={isFa}
-            isDarkBg={isNight}
-          />
+        <div className={`w-full flex items-center gap-2.5 sm:gap-3.5 p-2 sm:p-2.5 rounded-2xl border backdrop-blur-xl transition-all shadow-lg ${
+          isNight 
+            ? 'bg-neutral-900/60 border-white/10 shadow-black/40' 
+            : 'bg-white/60 border-black/8 shadow-neutral-200/50'
+        }`}>
+          {/* Animated 35mm Cinema Projector with Glowing Light Beam */}
+          <VintageCinemaProjector isNight={isNight} isFa={isFa} />
 
-          {/* Render Current Selected Filter Model from the 20 Models */}
-          <MasterFilterRenderer
-            modelId={filterModelId}
-            items={filterTabsWithCounts}
-            activeId={selectedDept}
-            onChange={(deptId) => {
-              setSelectedDept(deptId);
-              setCurrentIndex(0);
-            }}
-            isNight={isNight}
-            isFa={isFa}
-            isDarkBg={isNight}
-            layoutId="featuredProjectsDeptFilter"
-          />
-        </div>
+          {/* Vertical Divider Line */}
+          <div className={`h-7 w-[1px] shrink-0 ${isNight ? 'bg-white/10' : 'bg-black/10'}`} />
 
-        {/* ========================================================================= */}
-        {/* 2-COLUMN SHOWCASE: META INFO (LEFT) & KINETIC BLADES (RIGHT)              */}
-        {/* ========================================================================= */}
-        <div className={`w-full flex flex-col ${
-          landingLayoutMode === 'editorial' ? 'xl:flex-row-reverse' : 'xl:flex-row'
-        } gap-10 lg:gap-14 items-center transition-all duration-500`}>
-          
-          {/* ===================== LEFT COLUMN (PROJECT META & CONTEXT WITH FLUID TRANSITIONS) ===================== */}
-          <div className="xl:w-[32%] flex flex-col items-start z-20 relative w-full">
-            
-            {/* Project Index in Current Department */}
-            <div className="flex items-center gap-3 mb-4 sm:mb-6">
-              <span className="text-xs font-semibold tracking-widest uppercase text-brand-gray">
-                {isFa ? 'پروژه منتخب' : 'FEATURED DELIVERABLE'}
-              </span>
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={`${selectedDept}-${currentIndex}`}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.25 }}
-                  className={`text-[10px] font-mono px-2 py-0.5 rounded font-bold border ${
-                    isNight 
-                      ? 'bg-[#fff083]/15 text-[#fff083] border-[#fff083]/30' 
-                      : 'bg-[#8f6b00]/15 text-[#8f6b00] border-[#8f6b00]/30'
+          {/* Horizontal Refined Archival Filters Dock */}
+          <div className="flex-1 flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5">
+            {filterTabsWithCounts.map((dept) => {
+              const isActive = selectedDept === dept.id;
+              const label = isFa ? dept.labelFa : dept.labelEn;
+
+              return (
+                <button
+                  key={dept.id}
+                  onClick={() => {
+                    setSelectedDept(dept.id);
+                    setCurrentIndex(null);
+                  }}
+                  className={`group relative flex items-center gap-2 px-3 py-1.5 sm:py-2 rounded-xl text-xs font-semibold whitespace-nowrap cursor-pointer transition-all duration-300 select-none border shrink-0 ${
+                    isActive
+                      ? isNight
+                        ? 'bg-[#fff083]/15 text-[#fff083] border-[#fff083]/50 shadow-[0_0_12px_rgba(255,240,131,0.2)]'
+                        : 'bg-[#8f6b00]/12 text-[#8f6b00] border-[#8f6b00]/40 shadow-sm'
+                      : isNight
+                      ? 'text-neutral-400 hover:text-white border-transparent hover:bg-white/5 hover:border-white/10'
+                      : 'text-neutral-600 hover:text-black border-transparent hover:bg-black/5 hover:border-black/10'
                   }`}
                 >
-                  0{currentIndex + 1} / 0{filteredProjects.length}
-                </motion.span>
-              </AnimatePresence>
-            </div>
+                  {/* Miniature Chamfered Archival Badge */}
+                  <ArchivalBadge active={isActive} isNight={isNight} size="sm">
+                    {renderArchivalIcon(dept.id)}
+                  </ArchivalBadge>
 
-            {/* Dynamic Text Information Animating on Project Change */}
-            <div className="w-full min-h-[290px] flex flex-col justify-start">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeProject.id}
-                  variants={containerVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                  className="flex flex-col items-start w-full"
-                >
-                  {/* Main Title */}
-                  <motion.h3 
-                    variants={childVariants}
-                    className="text-3xl sm:text-4xl lg:text-[44px] font-bold leading-[1.1] mb-3 tracking-tight"
-                  >
-                    {isFa ? activeProject.titleFa : activeProject.titleEn}
-                  </motion.h3>
+                  {/* Department Title */}
+                  <span className="truncate">
+                    {label}
+                  </span>
 
-                  {/* Category Subtitle */}
-                  <motion.p 
-                    variants={childVariants}
-                    className={`text-xs font-mono tracking-wider uppercase mb-3 font-semibold ${
-                      isNight ? 'text-[#fff083]' : 'text-[#8f6b00]'
-                    }`}
-                  >
-                    {isFa ? activeProject.categoryFa : activeProject.categoryEn}
-                  </motion.p>
-                  
-                  {/* Description */}
-                  <motion.p 
-                    variants={childVariants}
-                    className={`text-sm sm:text-base leading-relaxed mb-6 max-w-md ${
-                      isNight ? 'text-neutral-400' : 'text-neutral-700'
-                    }`}
-                  >
-                    {isFa ? activeProject.descFa : activeProject.descEn}
-                  </motion.p>
-
-                  {/* Client & Tech Spec Tags */}
-                  <motion.div 
-                    variants={childVariants}
-                    className="flex flex-wrap gap-2 mb-8"
-                  >
-                    {activeProject.techStack?.map((tag, idx) => (
-                      <span
-                        key={idx}
-                        className={`text-[11px] font-mono px-2.5 py-1 rounded-lg border transition-all ${
-                          isNight
-                            ? 'bg-white/5 border-white/10 text-neutral-300'
-                            : 'bg-black/5 border-black/10 text-neutral-700'
-                        }`}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </motion.div>
-                  
-                  {/* View All Projects Action */}
-                  <motion.a 
-                    variants={childVariants}
-                    href="#work" 
-                    className={`text-xs font-bold uppercase tracking-widest border-b-2 pb-1 transition-colors flex items-center gap-2 group cursor-pointer ${
-                      isNight 
-                        ? 'text-[#fff083] border-[#fff083] hover:text-white hover:border-white' 
-                        : 'text-[#8f6b00] border-[#8f6b00] hover:text-black hover:border-black'
-                    }`}
-                  >
-                    {t.featuredProjects.viewAll}
-                    <svg className="w-4 h-4 rtl:rotate-180 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                  </motion.a>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
+                  {/* Monospace Document Count Stamp */}
+                  <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full transition-colors font-bold ${
+                    isActive
+                      ? isNight ? 'bg-[#fff083]/25 text-[#fff083]' : 'bg-[#8f6b00]/20 text-[#8f6b00]'
+                      : isNight ? 'bg-white/5 text-neutral-400 group-hover:text-white' : 'bg-black/5 text-neutral-600 group-hover:text-black'
+                  }`}>
+                    {isFa ? String(dept.count).replace(/\d/g, (d) => '۰۱۲۳۴۵۶۷۸۹'[+d]) : dept.count}
+                  </span>
+                </button>
+              );
+            })}
           </div>
-
-          {/* ===================== RIGHT COLUMN (ARCHITECTURAL KINETIC BLADES) ===================== */}
-          <div className="xl:w-[68%] relative w-full flex items-center justify-center">
-            <div className="w-full">
-              <KineticBladesModel
-                key={selectedDept}
-                projects={filteredProjects}
-                currentIndex={currentIndex}
-                onSelect={handleSelect}
-                isNight={isNight}
-                isFa={isFa}
-              />
-            </div>
-          </div>
-
         </div>
+
+        {/* ========================================================================= */}
+        {/* ROW 3: FULL-WIDTH ARCHITECTURAL BOOKSHELF (DEDICATED FULL ROW)            */}
+        {/* ========================================================================= */}
+        <div className="w-full">
+          <KineticBladesModel
+            projects={filteredProjects}
+            currentIndex={currentIndex}
+            onSelect={handleSelect}
+            isNight={isNight}
+            isFa={isFa}
+          />
+        </div>
+
       </div>
     </section>
   );
