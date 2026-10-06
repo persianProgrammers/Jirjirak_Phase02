@@ -288,22 +288,25 @@ export function KineticBladesModel({
                     </span>
                   </div>
 
-                  {/* Client Brand Accent Dot (Synchronized with open state brand color) */}
+                  {/* Client Brand Accent Dot - Laser-Sharp Precision Diode (قاطع، لیزری و بدون بلور) */}
                   <div 
-                    className="relative flex items-center justify-center shrink-0"
+                    className="relative flex items-center justify-center shrink-0 w-4 h-4"
                     title={isFa ? `رنگ برند پروژه: ${project.titleFa}` : `Brand Color: ${project.titleEn}`}
                   >
-                    <span 
-                      className="w-2 h-2 rounded-full transition-all duration-300 group-hover:scale-125 shadow-sm"
-                      style={{
-                        backgroundColor: brandColor,
-                        boxShadow: `0 0 6px ${brandColor}, 0 0 10px ${brandColor}80`,
-                      }}
-                    />
-                    <span 
-                      className="absolute w-3.5 h-3.5 rounded-full opacity-25 pointer-events-none" 
-                      style={{ backgroundColor: brandColor }}
-                    />
+                    {/* Precision Optical Chassis Ring (نگهدارنده مشکی تراش‌خورده با کانتراست قاطع) */}
+                    <div className="w-3.5 h-3.5 rounded-full bg-black/85 border border-white/20 flex items-center justify-center shadow-[0_1px_3px_rgba(0,0,0,0.8)]">
+                      {/* Laser Diode Core (هسته لیزری درخشان و قاطع با رنگ اصلی برند) */}
+                      <div 
+                        className="w-2 h-2 rounded-full transition-transform duration-300 group-hover:scale-110 flex items-center justify-center relative"
+                        style={{
+                          backgroundColor: brandColor,
+                          boxShadow: `0 0 0 0.5px rgba(0,0,0,0.6), 0 0 4px ${brandColor}`,
+                        }}
+                      >
+                        {/* High-Intensity Laser Micro-Focal Point (نقطه کانونی فوق‌العاده تیز لیزر) */}
+                        <span className="w-0.5 h-0.5 rounded-full bg-white opacity-95 shadow-[0_0_1px_#fff]" />
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}
