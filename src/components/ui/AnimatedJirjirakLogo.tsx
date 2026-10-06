@@ -489,3 +489,51 @@ export function AnimatedJirjirakLogo({
     </svg>
   );
 }
+
+// ============================================================================
+// 🎨 سایر طرح‌های لوگو کامنت‌شده و آماده استفاده (Commented Alternative Logo Variants)
+// برای استفاده از هرکدام، کافیست کامنت آن را باز کرده و در هدر/فوتر فراخوانی کنید:
+// ============================================================================
+
+/*
+// ۱. لوگوی تخت کلاسیک دو بعدی (اورجینال - Classic Flat 2D)
+export function ClassicFlatLogo(props: Omit<AnimatedJirjirakLogoProps, 'style3d'>) {
+  return <AnimatedJirjirakLogo {...props} style3d="classic-flat" />;
+}
+*/
+
+/*
+// ۲. لوگوی شیشه مات و درخشش درونی (Frosted Glass & Core Glow)
+export function FrostedGlassLogo(props: Omit<AnimatedJirjirakLogoProps, 'style3d'>) {
+  return <AnimatedJirjirakLogo {...props} style3d="glass-frosted-neon" />;
+}
+*/
+
+/*
+// ۳. لوگوی کریستال منشوری و پخ شفاف (Prismatic Beveled Crystal - هم‌اکنون استایل پیش‌فرض فعال است)
+export function CrystalPrismLogo(props: Omit<AnimatedJirjirakLogoProps, 'style3d'>) {
+  return <AnimatedJirjirakLogo {...props} style3d="glass-crystal-prism" />;
+}
+*/
+
+/*
+// ۴. لوگوی شیشه دودی و کهربایی ژرف (Deep Amber & Smoked Glass)
+export function SmokedGlassLogo(props: Omit<AnimatedJirjirakLogoProps, 'style3d'>) {
+  return <AnimatedJirjirakLogo {...props} style3d="glass-tinted-smoked" />;
+}
+*/
+
+/*
+// ۵. لوگوی آکرلیک مایع و انحنای براق (Liquid Acrylic & Convex Gloss)
+export function LiquidGlossLogo(props: Omit<AnimatedJirjirakLogoProps, 'style3d'>) {
+  return <AnimatedJirjirakLogo {...props} style3d="glass-liquid-gloss" />;
+}
+*/
+
+/*
+// ۶. لوگوی شیشه شیاردار معماری (Architectural Fluted Glass)
+export function FlutedGlassLogo(props: Omit<AnimatedJirjirakLogoProps, 'style3d'>) {
+  return <AnimatedJirjirakLogo {...props} style3d="glass-architectural-fluted" />;
+}
+*/
+

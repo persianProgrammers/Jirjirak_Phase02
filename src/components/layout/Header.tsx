@@ -202,23 +202,62 @@ export function Header() {
         >
           <div className="flex items-center justify-between w-full relative z-10">
             {/* 
-              Brand Logo
-              - In Night: Header gets yellow-wing logo ('header')
-              - In Day: Header gets dark-wing logo ('footer')
-              - Footer always uses the opposite!
+              Brand Logo (جیرجیرک):
+              - لوگوی فعال اصلی: کریستال منشوری با پخ شفاف (glass-crystal-prism)
+              - استایل‌های دیگر کامنت‌شده زیر جهت انتخاب و سوییچ سریع در دسترس هستند:
             */}
             <Link 
               to="/" 
-              className="flex items-center group focus:outline-none" 
+              className="flex items-center group focus:outline-none cursor-pointer" 
               onClick={closeMenu}
               aria-label="Jirjirak Studio"
             >
+              {/* ✨ لوگوی پیش‌فرض و منتخب: کریستال منشوری (Prismatic Beveled Crystal) */}
               <AnimatedJirjirakLogo 
                 variant={isNight ? 'header' : 'footer'}
                 className={`transition-all duration-300 ${
                   isScrolled ? 'h-8 sm:h-9 w-auto' : 'h-10 md:h-12 w-auto'
                 }`} 
               />
+
+              {/* 
+                === گزینه‌های دیگر لوگو که کامنت شده‌اند و می‌توانید جایگزین کنید ===
+
+                ۱. شیشه مات نئونی (Frosted Glass & Core Glow):
+                <AnimatedJirjirakLogo 
+                  style3d="glass-frosted-neon"
+                  variant={isNight ? 'header' : 'footer'}
+                  className={isScrolled ? 'h-8 sm:h-9 w-auto' : 'h-10 md:h-12 w-auto'} 
+                />
+
+                ۲. شیشه دودی و کهربایی ژرف (Deep Amber & Smoked Glass):
+                <AnimatedJirjirakLogo 
+                  style3d="glass-tinted-smoked"
+                  variant={isNight ? 'header' : 'footer'}
+                  className={isScrolled ? 'h-8 sm:h-9 w-auto' : 'h-10 md:h-12 w-auto'} 
+                />
+
+                ۳. آکرلیک مایع و انحنای براق (Liquid Acrylic & Convex Gloss):
+                <AnimatedJirjirakLogo 
+                  style3d="glass-liquid-gloss"
+                  variant={isNight ? 'header' : 'footer'}
+                  className={isScrolled ? 'h-8 sm:h-9 w-auto' : 'h-10 md:h-12 w-auto'} 
+                />
+
+                ۴. شیشه شیاردار معماری (Architectural Fluted Glass):
+                <AnimatedJirjirakLogo 
+                  style3d="glass-architectural-fluted"
+                  variant={isNight ? 'header' : 'footer'}
+                  className={isScrolled ? 'h-8 sm:h-9 w-auto' : 'h-10 md:h-12 w-auto'} 
+                />
+
+                ۵. وکتور فلت کلاسیک دو بعدی (Classic Flat 2D):
+                <AnimatedJirjirakLogo 
+                  style3d="classic-flat"
+                  variant={isNight ? 'header' : 'footer'}
+                  className={isScrolled ? 'h-8 sm:h-9 w-auto' : 'h-10 md:h-12 w-auto'} 
+                />
+              */}
             </Link>
 
             {/* Desktop Navigation Links with Magnetic Floating Pill */}
@@ -247,7 +286,7 @@ export function Header() {
                         href={item.href}
                         onClick={(e) => handleNavClick(e, item.href, item.to)}
                         onMouseEnter={() => setHoveredNav(item.id)}
-                        className={`px-3 py-1.5 rounded-full transition-colors duration-200 block select-none ${
+                        className={`px-3 py-1.5 rounded-full transition-colors duration-200 block select-none cursor-pointer ${
                           isActive
                             ? (isNight ? 'text-brand-yellow font-bold' : 'text-[#b3a85c] font-bold')
                             : (isNight ? 'text-white/85 hover:text-brand-yellow' : 'text-brand-dark/85 hover:text-[#b3a85c]')
@@ -260,7 +299,7 @@ export function Header() {
                         to={item.to}
                         onClick={(e) => handleNavClick(e, item.href, item.to)}
                         onMouseEnter={() => setHoveredNav(item.id)}
-                        className={`px-3 py-1.5 rounded-full transition-colors duration-200 block select-none ${
+                        className={`px-3 py-1.5 rounded-full transition-colors duration-200 block select-none cursor-pointer ${
                           (location.pathname === item.to || (item.to === '/journal' && location.pathname.startsWith('/journal')))
                             ? (isNight ? 'text-brand-yellow font-bold' : 'text-[#b3a85c] font-bold')
                             : (isNight ? 'text-white/85 hover:text-brand-yellow' : 'text-brand-dark/85 hover:text-[#b3a85c]')
@@ -279,7 +318,7 @@ export function Header() {
               <a 
                 href="#world" 
                 onClick={(e) => handleNavClick(e, '#world', '/#world')}
-                className={`px-4 lg:px-5 py-1.5 lg:py-2 rounded-full text-[11px] font-bold uppercase tracking-wider transition-all duration-300 select-none shadow-sm ${
+                className={`px-4 lg:px-5 py-1.5 lg:py-2 rounded-full text-[11px] font-bold uppercase tracking-wider transition-all duration-300 select-none shadow-sm cursor-pointer ${
                   isNight
                     ? 'border border-brand-yellow text-brand-yellow hover:bg-brand-yellow hover:text-brand-dark hover:shadow-[0_0_15px_rgba(255,240,131,0.4)]'
                     : 'border border-[#b3a85c] text-[#b3a85c] hover:bg-[#b3a85c] hover:text-brand-dark hover:shadow-[0_0_15px_rgba(179,168,92,0.3)]'

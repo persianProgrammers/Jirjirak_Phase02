@@ -37,6 +37,25 @@ export default function MainLayout() {
     root.setAttribute('dir', currentLang === 'FA' ? 'rtl' : 'ltr');
   }, [currentLang]);
 
+  // Universal interactive hover pointer enforcement across all elements
+  useEffect(() => {
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+
+      const interactive = target.closest(
+        'a, button, [role="button"], [role="tab"], [role="link"], [role="switch"], [role="menuitem"], .cursor-pointer, input[type="button"], input[type="submit"], input[type="checkbox"], input[type="radio"], select, summary, label'
+      );
+      if (interactive) {
+        if (target.style.cursor !== 'pointer' && getComputedStyle(target).cursor !== 'pointer') {
+          target.style.cursor = 'pointer';
+        }
+      }
+    };
+    document.addEventListener('mouseover', handleMouseOver, { passive: true });
+    return () => document.removeEventListener('mouseover', handleMouseOver);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col relative bg-brand-dark text-brand-light overflow-x-hidden w-full max-w-full">
       {/* 🎭 Vintage Screen Transition Curtain (Full-Screen Overlay with exact Hamburger spring & official logo) */}

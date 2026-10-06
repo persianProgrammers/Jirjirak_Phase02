@@ -288,24 +288,28 @@ export function KineticBladesModel({
                     </span>
                   </div>
 
-                  {/* Client Brand Accent Dot - Laser-Sharp Precision Diode (قاطع، لیزری و بدون بلور) */}
+                  {/* Client Brand Accent Dot - Crisp Laser Optical Jewel (Harmonized with Open Book Edge Style) */}
                   <div 
-                    className="relative flex items-center justify-center shrink-0 w-4 h-4"
+                    className="relative flex items-center justify-center shrink-0 w-3.5 h-3.5"
                     title={isFa ? `رنگ برند پروژه: ${project.titleFa}` : `Brand Color: ${project.titleEn}`}
                   >
-                    {/* Precision Optical Chassis Ring (نگهدارنده مشکی تراش‌خورده با کانتراست قاطع) */}
-                    <div className="w-3.5 h-3.5 rounded-full bg-black/85 border border-white/20 flex items-center justify-center shadow-[0_1px_3px_rgba(0,0,0,0.8)]">
-                      {/* Laser Diode Core (هسته لیزری درخشان و قاطع با رنگ اصلی برند) */}
-                      <div 
-                        className="w-2 h-2 rounded-full transition-transform duration-300 group-hover:scale-110 flex items-center justify-center relative"
+                    {/* Precision Laser Bezel in client brand color */}
+                    <div 
+                      className="w-2.5 h-2.5 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-125"
+                      style={{
+                        backgroundColor: `${brandColor}33`,
+                        border: `1.2px solid ${brandColor}`,
+                        boxShadow: `0 0 4px ${brandColor}, inset 0 0 2px ${brandColor}`,
+                      }}
+                    >
+                      {/* Central Pure White Laser Jewel Pip (Matching active edge jewel) */}
+                      <span 
+                        className="w-1 h-1 rounded-full shrink-0"
                         style={{
-                          backgroundColor: brandColor,
-                          boxShadow: `0 0 0 0.5px rgba(0,0,0,0.6), 0 0 4px ${brandColor}`,
+                          backgroundColor: '#ffffff',
+                          boxShadow: `0 0 3px #ffffff, 0 0 5px ${brandColor}`,
                         }}
-                      >
-                        {/* High-Intensity Laser Micro-Focal Point (نقطه کانونی فوق‌العاده تیز لیزر) */}
-                        <span className="w-0.5 h-0.5 rounded-full bg-white opacity-95 shadow-[0_0_1px_#fff]" />
-                      </div>
+                      />
                     </div>
                   </div>
                 </div>
