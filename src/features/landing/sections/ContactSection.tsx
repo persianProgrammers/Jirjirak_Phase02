@@ -489,7 +489,7 @@ export function ContactSection() {
                                : 'text-neutral-400 opacity-60 hover:opacity-100'
                            }`}
                          >
-                           {isFa ? tier.numFa : tier.roman}
+                           {isFa ? tier.numFa : `0${tier.id + 1}`}
                          </button>
                        );
                      })}
