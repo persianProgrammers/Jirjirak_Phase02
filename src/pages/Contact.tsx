@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLenis } from 'lenis/react';
 import { useGlobalStore } from '../stores/globalStore';
@@ -157,95 +157,99 @@ export default function Contact() {
           </div>
 
           {/* DESKTOP VISUAL PATHWAY */}
-          <div className="hidden md:block relative py-12 px-6">
-            
-            {/* Guide line connecting the stations */}
-            <div
-              className={`absolute top-[4.25rem] left-16 right-16 h-[2px] ${
-                isNight ? 'bg-white/15' : 'bg-black/15'
-              }`}
-            />
-
-            {/* Glowing active line extending to hovered node */}
-            {activeRoadmapStep !== null && (
-              <div
-                className={`absolute top-[4.25rem] h-[2px] transition-all duration-300 ${
-                  isNight ? 'bg-[#fff083]' : 'bg-[#8f6b00]'
-                }`}
-                style={{
-                  [isFa ? 'right' : 'left']: '4rem',
-                  width: `${(activeRoadmapStep / 3) * 78}%`,
-                }}
-              />
-            )}
-
-            {/* 4 Stations */}
-            <div className="relative z-10 flex justify-between items-start">
-              {ROADMAP_STEPS.map((step, idx) => {
+          <div className="hidden md:block relative py-12 px-4 max-w-5xl mx-auto">
+            <div className="flex items-start w-full">
+              {ROADMAP_STEPS.map((step, idx, arr) => {
                 const isHovered = activeRoadmapStep === idx;
+                const isSegmentActive =
+                  activeRoadmapStep !== null && activeRoadmapStep >= idx + 1;
 
                 return (
-                  <div
-                    key={step.id}
-                    onMouseEnter={() => setActiveRoadmapStep(idx)}
-                    onMouseLeave={() => setActiveRoadmapStep(null)}
-                    className="flex flex-col items-center cursor-pointer group relative w-44"
-                  >
-                    {/* Station Node Badge */}
+                  <Fragment key={step.id}>
+                    {/* Station Node Column */}
                     <div
-                      className={`w-14 h-14 rounded-full border-2 flex items-center justify-center font-bold text-sm transition-all duration-300 select-none shadow-md ${
-                        isHovered
-                          ? isNight
-                            ? 'bg-neutral-900 border-[#fff083] text-[#fff083] scale-110 shadow-[0_0_24px_rgba(255,240,131,0.5)]'
-                            : 'bg-white border-[#8f6b00] text-[#8f6b00] scale-110 shadow-[0_0_24px_rgba(143,107,0,0.35)]'
-                          : isNight
-                          ? 'bg-neutral-900 border-white/20 text-neutral-300 group-hover:border-white/50'
-                          : 'bg-white border-black/20 text-neutral-700 group-hover:border-black/50'
-                      }`}
+                      onMouseEnter={() => setActiveRoadmapStep(idx)}
+                      onMouseLeave={() => setActiveRoadmapStep(null)}
+                      className="flex flex-col items-center cursor-pointer group relative shrink-0 z-10 select-none"
+                      style={{ minWidth: '100px', maxWidth: '160px' }}
                     >
-                      {isFa ? step.numFa : step.num}
+                      {/* Station Node Badge */}
+                      <div
+                        className={`w-14 h-14 rounded-full border-2 flex items-center justify-center font-bold text-sm transition-all duration-300 select-none shadow-md ${
+                          isHovered
+                            ? isNight
+                              ? 'bg-neutral-900 border-[#fff083] text-[#fff083] scale-110 shadow-[0_0_24px_rgba(255,240,131,0.5)]'
+                              : 'bg-white border-[#8f6b00] text-[#8f6b00] scale-110 shadow-[0_0_24px_rgba(143,107,0,0.35)]'
+                            : isNight
+                            ? 'bg-neutral-900 border-white/20 text-neutral-300 group-hover:border-white/50'
+                            : 'bg-white border-black/20 text-neutral-700 group-hover:border-black/50'
+                        }`}
+                      >
+                        {isFa ? step.numFa : step.num}
+                      </div>
+
+                      {/* Step Title Underneath Node */}
+                      <span
+                        className={`mt-4 text-sm font-bold tracking-tight transition-colors duration-200 text-center ${
+                          isHovered
+                            ? isNight
+                              ? 'text-[#fff083]'
+                              : 'text-[#8f6b00]'
+                            : ''
+                        }`}
+                      >
+                        {isFa ? step.titleFa : step.titleEn}
+                      </span>
+
+                      {/* Floating Tooltip Reveal on Hover */}
+                      <AnimatePresence>
+                        {isHovered && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 4, scale: 0.95 }}
+                            transition={{ duration: 0.18 }}
+                            className={`absolute bottom-full mb-3 w-56 p-3.5 rounded-2xl border text-xs text-center shadow-xl pointer-events-none z-30 ${
+                              isNight
+                                ? 'bg-neutral-900/95 border-[#fff083]/40 text-neutral-200 backdrop-blur-md'
+                                : 'bg-white/95 border-[#8f6b00]/40 text-neutral-800 backdrop-blur-md shadow-lg'
+                            }`}
+                          >
+                            <p className="leading-relaxed">
+                              {isFa ? step.descFa : step.descEn}
+                            </p>
+                            {/* Tooltip pointer */}
+                            <div
+                              className={`absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 rotate-45 border-r border-b ${
+                                isNight ? 'bg-neutral-900 border-[#fff083]/40' : 'bg-white border-[#8f6b00]/40'
+                              }`}
+                            />
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
 
-                    {/* Step Title Underneath Node */}
-                    <span
-                      className={`mt-4 text-sm font-bold tracking-tight transition-colors duration-200 text-center ${
-                        isHovered
-                          ? isNight
-                            ? 'text-[#fff083]'
-                            : 'text-[#8f6b00]'
-                          : ''
-                      }`}
-                    >
-                      {isFa ? step.titleFa : step.titleEn}
-                    </span>
-
-                    {/* Floating Tooltip Reveal on Hover */}
-                    <AnimatePresence>
-                      {isHovered && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 8, scale: 0.95 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: 4, scale: 0.95 }}
-                          transition={{ duration: 0.18 }}
-                          className={`absolute bottom-full mb-3 w-56 p-3.5 rounded-2xl border text-xs text-center shadow-xl pointer-events-none z-30 ${
-                            isNight
-                              ? 'bg-neutral-900/95 border-[#fff083]/40 text-neutral-200 backdrop-blur-md'
-                              : 'bg-white/95 border-[#8f6b00]/40 text-neutral-800 backdrop-blur-md shadow-lg'
+                    {/* Connecting Line Segment between Station idx and idx+1 */}
+                    {idx < arr.length - 1 && (
+                      <div className="flex-1 mt-7 h-[2px] relative -mx-3 z-0 overflow-hidden">
+                        {/* Background track */}
+                        <div
+                          className={`absolute inset-0 ${
+                            isNight ? 'bg-white/15' : 'bg-black/15'
                           }`}
-                        >
-                          <p className="leading-relaxed">
-                            {isFa ? step.descFa : step.descEn}
-                          </p>
-                          {/* Tooltip pointer */}
-                          <div
-                            className={`absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 rotate-45 border-r border-b ${
-                              isNight ? 'bg-neutral-900 border-[#fff083]/40' : 'bg-white border-[#8f6b00]/40'
-                            }`}
-                          />
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
+                        />
+                        {/* Active line when hovering forward nodes */}
+                        <div
+                          className={`absolute inset-y-0 start-0 transition-all duration-300 ease-out ${
+                            isNight ? 'bg-[#fff083]' : 'bg-[#8f6b00]'
+                          }`}
+                          style={{
+                            width: isSegmentActive ? '100%' : '0%',
+                          }}
+                        />
+                      </div>
+                    )}
+                  </Fragment>
                 );
               })}
             </div>

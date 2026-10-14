@@ -232,6 +232,9 @@ interface ContactTiersColumnProps {
       huge: string;
     };
   };
+  initialTier?: number;
+  initialTimeline?: number;
+  initialBudget?: number;
   onTierChange?: (tier: number) => void;
   onTimelineChange?: (timeline: number) => void;
   onBudgetChange?: (budget: number) => void;
@@ -243,6 +246,9 @@ export function ContactTiersColumn({
   accentText,
   mutedGrayText,
   t,
+  initialTier = 1,
+  initialTimeline = 1,
+  initialBudget = 1,
   onTierChange,
   onTimelineChange,
   onBudgetChange,
@@ -258,14 +264,14 @@ export function ContactTiersColumn({
   const isDraggingBudgetRef = useRef(false);
 
   // 1. Idea Scope Tier & Celestial Astrolabe State
-  const [selectedTier, setSelectedTier] = useState<number>(1);
+  const [selectedTier, setSelectedTier] = useState<number>(initialTier);
   const [spinRotation, setSpinRotation] = useState<number>(0);
 
   // 2. Timeline Tier State (Lotus Bloom)
-  const [selectedTimeline, setSelectedTimeline] = useState<number>(1);
+  const [selectedTimeline, setSelectedTimeline] = useState<number>(initialTimeline);
 
   // 3. Budget Tier State (Treasure Chest)
-  const [selectedBudget, setSelectedBudget] = useState<number>(1);
+  const [selectedBudget, setSelectedBudget] = useState<number>(initialBudget);
 
   // 4. Interactive Explanation Box State ('idea' | 'timeline' | 'budget' | null)
   const [activeExplanation, setActiveExplanation] = useState<'idea' | 'timeline' | 'budget' | null>(null);
