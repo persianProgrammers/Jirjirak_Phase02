@@ -167,10 +167,7 @@ export function StudioToolboxDock() {
           }}
         />
 
-        {/* Status Indicator (Pulse when music is active or toolbox is open) */}
-        {isPlaying && !isOpen && (
-          <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-brand-yellow shadow-[0_0_8px_#fff083] animate-ping pointer-events-none" />
-        )}
+
 
         {/* Steampunk Toolbox SVG Icon with Real Mechanical Opening Lid & Rising Gear/Tools */}
         <div className="relative flex items-center justify-center pointer-events-none w-full h-full p-1">

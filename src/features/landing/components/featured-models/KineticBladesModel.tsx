@@ -121,8 +121,8 @@ export function KineticBladesModel({
                   },
                 }}
                 style={{
-                  willChange: 'transform, opacity',
                   transform: 'translateZ(0)',
+                  contain: 'layout paint',
                 }}
                 transition={{
                   layout: {
@@ -151,18 +151,18 @@ export function KineticBladesModel({
                         // On Desktop: narrow rectangular book spine (max-width prevents stretching, shrink allows 15 books)
                         'md:w-auto md:h-full md:flex-1 md:max-w-[76px] lg:max-w-[84px] md:min-w-[28px] md:shrink',
                         isNight
-                          ? 'border-white/10 hover:border-white/40 hover:brightness-110'
-                          : 'border-black/10 hover:border-black/40 hover:brightness-95',
+                          ? 'border-white/10 hover:border-white/40'
+                          : 'border-black/10 hover:border-black/40',
                       ].join(' ')
                 } ${isNight ? 'bg-neutral-900' : 'bg-white'}`}
               >
-              {/* Project Image */}
+              {/* Project Image - 60fps GPU Composited (No heavy filters) */}
               <div className="absolute inset-0 w-full h-full overflow-hidden">
                 <img
                   src={project.image}
                   alt={project.titleEn}
                   className={`w-full h-full object-cover transition-transform duration-700 ${
-                    isActive ? 'scale-105' : 'scale-120 filter brightness-75 hover:brightness-90'
+                    isActive ? 'scale-105' : 'scale-120'
                   }`}
                   loading="lazy"
                   decoding="async"
@@ -176,10 +176,10 @@ export function KineticBladesModel({
 
                 {/* Subtle Cinematic Shading */}
                 <div 
-                  className={`absolute inset-0 transition-opacity duration-500 ${
+                  className={`absolute inset-0 transition-opacity duration-300 ${
                     isActive 
                       ? 'bg-gradient-to-t from-black/85 via-black/20 to-black/10' 
-                      : 'bg-black/50 hover:bg-black/30'
+                      : 'bg-black/55 group-hover:bg-black/35'
                   }`} 
                 />
 
@@ -225,7 +225,7 @@ export function KineticBladesModel({
                 <div className="relative z-10 w-full h-full p-3.5 sm:p-5 md:p-8 flex flex-col justify-between text-white">
                   {/* Top Bar inside active blade */}
                   <div className="flex items-center justify-between shrink-0">
-                    <span className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-mono tracking-wider bg-black/60 backdrop-blur-md border border-white/20 text-brand-yellow font-bold uppercase">
+                    <span className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-mono tracking-wider bg-black/85 border border-white/20 text-brand-yellow font-bold uppercase shadow-sm">
                       {isFa ? project.categoryFa : project.categoryEn}
                     </span>
 
@@ -237,13 +237,13 @@ export function KineticBladesModel({
                         }}
                         title={isFa ? 'بستن کتاب' : 'Close Book'}
                         aria-label="Close Book"
-                        className="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-black/60 hover:bg-black/90 backdrop-blur-md border border-white/25 text-white/90 hover:text-white transition-all cursor-pointer flex items-center gap-1.5 active:scale-95 shadow-md"
+                        className="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-black/80 hover:bg-black/95 border border-white/25 text-white/90 hover:text-white transition-all cursor-pointer flex items-center gap-1.5 active:scale-95 shadow-md"
                       >
                         <X className="w-3.5 h-3.5" />
                         <span>{isFa ? 'بستن' : 'Close'}</span>
                       </button>
 
-                      <span className="px-2.5 py-1 rounded-lg text-[10px] font-mono bg-white/20 backdrop-blur-md border border-white/20 font-bold">
+                      <span className="px-2.5 py-1 rounded-lg text-[10px] font-mono bg-neutral-800/90 border border-white/20 font-bold shadow-sm">
                         0{idx + 1}
                       </span>
                     </div>
@@ -274,7 +274,7 @@ export function KineticBladesModel({
                 /* ================= IF COLLAPSED: VERTICAL PILLAR (DESKTOP) / HORIZONTAL STRIP (MOBILE) ================= */
                 <div className="relative z-10 w-full h-full px-2.5 py-1 sm:p-2 md:p-3 flex md:flex-col items-center justify-between text-white">
                   {/* Project Number */}
-                  <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-[9px] sm:text-[10px] font-mono font-bold flex items-center justify-center text-brand-yellow shrink-0">
+                  <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#0e0e11]/90 border border-white/20 text-[9px] sm:text-[10px] font-mono font-bold flex items-center justify-center text-brand-yellow shrink-0 shadow-sm">
                     0{idx + 1}
                   </span>
 

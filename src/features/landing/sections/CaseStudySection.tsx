@@ -401,7 +401,11 @@ export function CaseStudySection() {
     <section
       id="case-study"
       data-cursor="project"
-      className="relative w-full min-h-screen py-16 sm:py-20 lg:py-24 px-4 sm:px-8 lg:px-12 xl:px-16 overflow-hidden bg-[#0A0A0C] text-[#EDEDED] select-none"
+      style={{
+        contain: 'paint',
+        transform: 'translateZ(0)',
+      }}
+      className="relative w-full min-h-screen py-16 sm:py-20 lg:py-24 px-4 sm:px-8 lg:px-12 xl:px-16 overflow-hidden transform-gpu bg-[#0A0A0C] text-[#EDEDED] select-none"
     >
       {/* ===================================================================== */}
       {/* ATMOSPHERIC BACKGROUND: Rocky Obsidian Terrain & Warm Ground Beams     */}
@@ -630,7 +634,9 @@ export function CaseStudySection() {
                   <img
                     src={currentProject.heroImage}
                     alt={currentProject.title}
-                    className="w-full h-full object-cover object-center filter brightness-95 group-hover:scale-105 transition-transform duration-700 ease-out"
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                    loading="lazy"
+                    decoding="async"
                   />
                   {/* Dark gradient overlay for text readability */}
                   <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent pointer-events-none" />
@@ -705,7 +711,9 @@ export function CaseStudySection() {
                   <img
                     src={currentProject.heroImage}
                     alt="Mobile View"
-                    className="w-full h-full object-cover object-center filter brightness-90"
+                    className="w-full h-full object-cover object-center"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/40 pointer-events-none" />
                   
@@ -780,7 +788,9 @@ export function CaseStudySection() {
                       <img
                         src={item.image}
                         alt={item.captionEn}
-                        className="w-full h-full object-cover object-center group-hover:scale-106 transition-transform duration-500 ease-out filter brightness-90 group-hover:brightness-100"
+                        className="w-full h-full object-cover object-center group-hover:scale-106 transition-transform duration-500 ease-out"
+                        loading="lazy"
+                        decoding="async"
                       />
                       
                       {/* Gradient Shadow Mask (Top & Bottom for text clarity) */}

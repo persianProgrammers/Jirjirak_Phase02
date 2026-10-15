@@ -328,8 +328,6 @@ export function DepartmentFlipBoard() {
                 }}
                 className={`absolute inset-0 w-full h-full object-contain p-4 sm:p-6 lg:p-8 scale-[0.86] origin-center filter blur-md transition-opacity duration-700 ease-out ${
                   loadedHighResMap[currentDept.id] ? 'opacity-0' : 'opacity-100'
-                } ${
-                  isNight ? 'brightness-[0.75] contrast-[1.08]' : 'brightness-[0.95] contrast-[1.05]'
                 }`}
               />
             )}
@@ -343,6 +341,8 @@ export function DepartmentFlipBoard() {
               }}
               src={currentDept.bgImage}
               alt=""
+              loading="lazy"
+              decoding="async"
               onLoad={() => {
                 setLoadedHighResMap((prev) => ({ ...prev, [currentDept.id]: true }));
               }}
@@ -362,10 +362,6 @@ export function DepartmentFlipBoard() {
                 loadedHighResMap[currentDept.id] 
                   ? 'opacity-100 blur-0 scale-[0.86]' 
                   : 'opacity-0 blur-sm scale-[0.88]'
-              } ${
-                isNight 
-                  ? 'brightness-[0.75] contrast-[1.08] saturate-[1.05]' 
-                  : 'brightness-[0.92] contrast-[1.08] saturate-[1.05]'
               }`}
             />
 
