@@ -690,6 +690,14 @@ export function FeaturedProjectsSection() {
     }, 60);
   };
 
+  const handleFiltersWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    if (!filtersScrollRef.current) return;
+    if (e.deltaY !== 0 && !e.shiftKey) {
+      // Smooth horizontal scroll on mouse wheel
+      filtersScrollRef.current.scrollBy({ left: e.deltaY * 0.9, behavior: 'smooth' });
+    }
+  };
+
   useEffect(() => {
     return () => {
       stopMomentum();
@@ -761,11 +769,7 @@ export function FeaturedProjectsSection() {
       id="work" 
       ref={containerRef} 
       data-cursor="project" 
-      style={{
-        contain: 'paint',
-        transform: 'translateZ(0)',
-      }}
-      className={`py-28 sm:py-32 px-6 sm:px-8 lg:px-12 xl:px-16 overflow-hidden transform-gpu transition-colors duration-700 ease-in-out ${
+      className={`py-28 sm:py-32 px-6 sm:px-8 lg:px-12 xl:px-16 overflow-hidden transition-colors duration-700 ease-in-out ${
         isNight ? 'bg-brand-dark text-brand-light' : 'bg-brand-light text-brand-dark'
       }`}
     >
@@ -854,6 +858,7 @@ export function FeaturedProjectsSection() {
             onTouchStart={handleFiltersTouchStart}
             onTouchMove={handleFiltersTouchMove}
             onTouchEnd={handleFiltersTouchEnd}
+            onWheel={handleFiltersWheel}
             style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',
