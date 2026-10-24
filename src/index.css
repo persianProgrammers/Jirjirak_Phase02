@@ -210,27 +210,17 @@ textarea::-webkit-scrollbar-thumb:hover {
 }
 
 /* =========================================================================
-   Universal Interactive Cursor Pointer Policy
-   Guarantees cursor: pointer on all interactive elements across the website
+   Interactive Cursor Pointer Policy
    ========================================================================= */
 a,
-a *,
 button,
-button *,
 [role="button"],
-[role="button"] *,
 [role="tab"],
-[role="tab"] *,
 [role="link"],
-[role="link"] *,
 [role="switch"],
-[role="switch"] *,
 [role="menuitem"],
-[role="menuitem"] *,
 .cursor-pointer,
-.cursor-pointer *,
 [data-cursor="pointer"],
-[data-cursor="pointer"] *,
 input[type="button"],
 input[type="submit"],
 input[type="reset"],
@@ -240,31 +230,20 @@ select,
 summary,
 label,
 #Jirjirak_Header_Logo,
-#Jirjirak_Header_Logo *,
-#Jirjirak_Footer_Logo,
-#Jirjirak_Footer_Logo *,
-nav a,
-nav a *,
-nav button,
-nav button *,
-[data-suppress-header] button,
-[data-suppress-header] button * {
-  cursor: pointer !important;
+#Jirjirak_Footer_Logo {
+  cursor: pointer;
 }
 
 button:disabled,
-button:disabled *,
-[aria-disabled="true"],
-[aria-disabled="true"] * {
-  cursor: not-allowed !important;
+[aria-disabled="true"] {
+  cursor: not-allowed;
 }
 
 .cursor-grab {
-  cursor: grab !important;
+  cursor: grab;
 }
-.cursor-grabbing,
-.cursor-grabbing * {
-  cursor: grabbing !important;
+.cursor-grabbing {
+  cursor: grabbing;
 }
 
 @keyframes dashMove {

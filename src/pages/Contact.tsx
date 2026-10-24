@@ -85,12 +85,14 @@ export default function Contact() {
             : 'bg-brand-dark text-brand-light border-white/10'
         }`}
       >
-        {/* Ambient Radial Vignette */}
+        {/* Ambient Radial Vignette - Pure CSS gradient without expensive Gaussian blur shader */}
         <div
           aria-hidden="true"
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] rounded-full blur-[140px] pointer-events-none -z-10"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] rounded-full pointer-events-none -z-10"
           style={{
-            backgroundColor: isNight ? 'rgba(143,107,0,0.06)' : 'rgba(255,240,131,0.04)',
+            background: isNight
+              ? 'radial-gradient(ellipse at center, rgba(143,107,0,0.12) 0%, transparent 70%)'
+              : 'radial-gradient(ellipse at center, rgba(255,240,131,0.08) 0%, transparent 70%)',
           }}
         />
 

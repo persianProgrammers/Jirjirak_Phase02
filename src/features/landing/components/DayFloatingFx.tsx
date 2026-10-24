@@ -479,9 +479,14 @@ const InteractiveDandelionsFx: React.FC = () => {
   const mousePos = useRef({ x: -1000, y: -1000 });
 
   useEffect(() => {
-    // Mouse listener to create gentle breeze repulsion
-    const handleMouseMove = (e: MouseEvent) => {
-      mousePos.current = { x: e.clientX, y: e.clientY };
+    let rafId: number | null = null;
+    let lastClientX = -1000;
+    let lastClientY = -1000;
+
+    const processMove = () => {
+      rafId = null;
+      const clientX = lastClientX;
+      const clientY = lastClientY;
 
       dandelionsRef.current.forEach((seed) => {
         if (!seed) return;
@@ -489,8 +494,8 @@ const InteractiveDandelionsFx: React.FC = () => {
         const seedCenterX = rect.left + rect.width / 2;
         const seedCenterY = rect.top + rect.height / 2;
 
-        const distX = seedCenterX - e.clientX;
-        const distY = seedCenterY - e.clientY;
+        const distX = seedCenterX - clientX;
+        const distY = seedCenterY - clientY;
         const distance = Math.sqrt(distX * distX + distY * distY);
 
         // Within 140px, gently push seed away
@@ -511,7 +516,20 @@ const InteractiveDandelionsFx: React.FC = () => {
       });
     };
 
+    const handleMouseMove = (e: MouseEvent) => {
+      lastClientX = e.clientX;
+      lastClientY = e.clientY;
+      if (rafId === null) {
+        rafId = requestAnimationFrame(processMove);
+      }
+    };
+
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
+  }, []);
 
     const ctx = gsap.context(() => {
       dandelionsRef.current.forEach((seed, i) => {

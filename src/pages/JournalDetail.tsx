@@ -35,27 +35,35 @@ export default function JournalDetail() {
 
   // Calculate reading progress & active heading
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalHeight > 0) {
-        const currentProgress = (window.scrollY / totalHeight) * 100;
-        setScrollProgress(Math.min(100, Math.max(0, currentProgress)));
-      }
-
-      // Check headings
-      const headingElements = article.headings.map((h) => document.getElementById(h.id)).filter(Boolean);
-      for (let i = headingElements.length - 1; i >= 0; i--) {
-        const el = headingElements[i];
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 180) {
-            setActiveHeadingId(article.headings[i].id);
-            return;
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+          if (totalHeight > 0) {
+            const currentProgress = (window.scrollY / totalHeight) * 100;
+            setScrollProgress(Math.min(100, Math.max(0, currentProgress)));
           }
-        }
-      }
-      if (headingElements.length > 0 && window.scrollY < 250) {
-        setActiveHeadingId('');
+
+          // Check headings
+          const headingElements = article.headings.map((h) => document.getElementById(h.id)).filter(Boolean);
+          for (let i = headingElements.length - 1; i >= 0; i--) {
+            const el = headingElements[i];
+            if (el) {
+              const rect = el.getBoundingClientRect();
+              if (rect.top <= 180) {
+                setActiveHeadingId(article.headings[i].id);
+                ticking = false;
+                return;
+              }
+            }
+          }
+          if (headingElements.length > 0 && window.scrollY < 250) {
+            setActiveHeadingId('');
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 

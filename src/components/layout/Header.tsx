@@ -79,22 +79,6 @@ export function Header() {
           }
 
           lastScrollY.current = currentScrollY;
-
-          // Track active section for nav link highlight (without showing section counter)
-          if (isHomePage) {
-            const probeY = 140;
-            for (const section of LANDING_SECTIONS) {
-              const el = document.getElementById(section.id);
-              if (el) {
-                const rect = el.getBoundingClientRect();
-                if (rect.top <= probeY && rect.bottom > probeY) {
-                  setActiveSectionId(section.id);
-                  break;
-                }
-              }
-            }
-          }
-
           ticking = false;
         });
         ticking = true;
@@ -105,6 +89,28 @@ export function Header() {
     handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
+  }, [isHomePage]);
+
+  // Active section tracking via zero-cost IntersectionObserver (no layout thrashing on scroll)
+  useEffect(() => {
+    if (!isHomePage) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSectionId(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: '-20% 0px -60% 0px', threshold: 0.1 }
+    );
+
+    LANDING_SECTIONS.forEach((section) => {
+      const el = document.getElementById(section.id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
   }, [isHomePage]);
 
   // Header suppression state (e.g. when interacting with filter dock in #work section)
@@ -123,15 +129,15 @@ export function Header() {
   // and NOT when hovering over elements that request header suppression (like filter dock)
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      const target = e.target as HTMLElement | null;
-      if (target?.closest('[data-suppress-header="true"]')) {
-        return;
-      }
       if (e.clientY < 10) {
+        const target = e.target;
+        if (target instanceof Element && target.closest('[data-suppress-header="true"]')) {
+          return;
+        }
         setIsVisible(true);
       }
     };
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 

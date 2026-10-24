@@ -37,16 +37,10 @@ const queryClient = new QueryClient({
 // ============================================================================
 function NativeScrollSetup() {
   useEffect(() => {
-    document.documentElement.style.scrollBehavior = 'smooth';
-
-    const handleScroll = () => {
-      ScrollTrigger.update();
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
     const handleAnchorClick = (e: MouseEvent) => {
-      const anchor = (e.target as HTMLElement).closest('a');
+      const target = e.target;
+      if (!(target instanceof Element)) return;
+      const anchor = target.closest('a');
       if (!anchor) return;
 
       const href = anchor.getAttribute('href');
@@ -60,9 +54,7 @@ function NativeScrollSetup() {
     };
 
     document.addEventListener('click', handleAnchorClick);
-
     return () => {
-      window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('click', handleAnchorClick);
     };
   }, []);

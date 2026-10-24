@@ -65,11 +65,14 @@ export function PageHeader({
         />
       </div>
 
-      {/* Atmospheric Soft Light Orb */}
+      {/* Atmospheric Soft Light Orb (Pure radial-gradient without Gaussian blur) */}
       <div
-        className={`absolute top-1/3 -start-24 w-96 h-96 rounded-full blur-[140px] pointer-events-none opacity-25 ${
-          isNight ? 'bg-[#fff083]' : 'bg-[#8f6b00]'
-        }`}
+        className={`absolute top-1/3 -start-24 w-96 h-96 rounded-full pointer-events-none opacity-25`}
+        style={{
+          background: isNight
+            ? 'radial-gradient(circle, #fff083 0%, transparent 70%)'
+            : 'radial-gradient(circle, #8f6b00 0%, transparent 70%)',
+        }}
       />
 
       {/* Top Meta Bar: Breadcrumbs */}
