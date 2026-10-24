@@ -3,6 +3,7 @@ import { useLenis } from 'lenis/react';
 import { useGlobalStore } from '../stores/globalStore';
 import { useTranslation } from '../i18n/translations';
 import { PageHeader } from '../components/layout/PageHeader';
+import { DirectChannelsSection } from '../features/landing/sections/DirectChannelsSection';
 import { ContactSection } from '../features/landing/sections/ContactSection';
 import { WhatWeBuildSection } from '../features/landing/sections/WhatWeBuildSection';
 import { Model1ChronoCompass } from '../features/contact-models/WorkflowModels';
@@ -41,8 +42,8 @@ export default function Contact() {
     window.scrollTo(0, 0);
   }, []);
 
-  // Section 2 color tokens (Inverted rhythm matching landing page WorldSection & CaseStudySection)
-  const s2AccentText = isNight ? 'text-[#8f6b00]' : 'text-[#fff083]';
+  // Section 1 color tokens (Inverted rhythm: Light in Night, Dark in Day - opposite of Hero)
+  const s1AccentText = isNight ? 'text-[#8f6b00]' : 'text-[#fff083]';
 
   return (
     <div
@@ -51,8 +52,8 @@ export default function Contact() {
       }`}
     >
       {/* =========================================================================
-          1. FULL 100VH HERO HEADER
-             Theme: Standard (Night: Dark / Day: Light)
+          HERO HEADER (100VH)
+          Theme: Standard (Night: Dark / Day: Light)
          ========================================================================= */}
       <PageHeader
         fullHeight={true}
@@ -73,9 +74,8 @@ export default function Contact() {
       />
 
       {/* =========================================================================
-          2. VISUAL COLLABORATION WORKFLOW SECTION: "How We Work Together"
-             Position: 2nd Section on the Contact Page
-             Design: Chrono-Compass (Single, elegant, clean)
+          SECTION 01 / 04: "How We Work Together" (Workflow: Chrono-Compass)
+          Theme: Inverted (Night: Light / Day: Dark) - Alternating after Hero
          ========================================================================= */}
       <section
         id="what-happens-next"
@@ -97,32 +97,29 @@ export default function Contact() {
         <div className="max-w-5xl mx-auto">
           {/* Section Header - Consistent Landing Page Format (Centered) */}
           <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-            {/* Pre-title / Step Badge (Matching Landing format) */}
             <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-              <span className={`text-xs font-semibold tracking-widest font-mono ${s2AccentText}`}>
-                {isFa ? '۰۱ / ۰۳' : '01 / 03'}
+              <span className={`text-xs font-semibold tracking-widest font-mono ${s1AccentText}`}>
+                {isFa ? '۰۱ / ۰۴' : '01 / 04'}
               </span>
               <span className="text-xs font-semibold tracking-widest uppercase opacity-75">
                 {isFa ? 'مسیر همکاری' : 'WORKFLOW'}
               </span>
             </div>
 
-            {/* Challenging & Bold Title */}
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4 tracking-tight">
               {isFa ? (
                 <>
                   ایده بزرگ دارید؟ <br />
-                  <span className={s2AccentText}>این‌گونه در ۴ گام به واقعیت تبدیلش می‌کنیم.</span>
+                  <span className={s1AccentText}>این‌گونه در ۴ گام به واقعیت تبدیلش می‌کنیم.</span>
                 </>
               ) : (
                 <>
                   Got a bold vision? <br />
-                  <span className={s2AccentText}>Here is how we build it in 4 clear steps.</span>
+                  <span className={s1AccentText}>Here is how we build it in 4 clear steps.</span>
                 </>
               )}
             </h2>
 
-            {/* Crisp & Concise Description */}
             <p className="text-sm sm:text-base leading-relaxed opacity-75 max-w-xl mx-auto">
               {isFa
                 ? 'پیش از ارسال بریف، دقیقا بدانید از اولین ارتباط تا تحویل شاهکار نهایی چه اتفاقی خواهد افتاد؛ شفافیت کامل، بدون بروکراسی و بدون غافلگیری.'
@@ -135,7 +132,7 @@ export default function Contact() {
             className={`rounded-3xl p-6 sm:p-10 lg:p-12 border relative backdrop-blur-md transition-all duration-500 shadow-2xl flex items-center justify-center ${
               isNight
                 ? 'bg-white/80 border-black/10 text-neutral-900 shadow-xl'
-                : 'bg-neutral-900/40 border-white/10 text-neutral-100 shadow-2xl'
+                : 'bg-neutral-900/60 border-white/10 text-neutral-100 shadow-2xl'
             }`}
           >
             <Model1ChronoCompass
@@ -157,32 +154,36 @@ export default function Contact() {
       </section>
 
       {/* =========================================================================
-          3. EXACT LANDING PAGE CONTACT SECTION (QUESTIONNAIRE WIZARD & FORM)
-             Position: 2nd Section after Hero (02 / 03)
+          SECTION 02 / 04: DIRECT CHANNELS & SOCIAL ECOSYSTEM
+          Theme: Standard (Night: Dark / Day: Light) - Alternating after Sec 01
          ========================================================================= */}
-      <ContactSection
-        step="02 / 03"
-        stepFa="۰۲ / ۰۳"
-        badge="PROJECT BRIEF"
-        badgeFa="ارسال بریف"
-        titleLine1={isFa ? 'آماده‌اید مرزهای برندتان را جابه‌جا کنیم؟' : 'Ready to push brand boundaries?'}
-        titleLine2={isFa ? 'در سه گام چابک، ماموریت را برایمان بگویید.' : 'Define your mission in three swift steps.'}
-        description={
-          isFa
-            ? 'نوع خدمات، افق زمانی و حدود بودجه‌تان را مشخص کنید تا استودیو ظرف کمتر از ۲۴ ساعت کاری نقشه راه اختصاصی شما را آماده کند.'
-            : 'Select your services, timeline, and scope so our studio engineers can craft your tailored roadmap within 24 hours.'
-        }
+      <DirectChannelsSection
+        step="02 / 04"
+        stepFa="۰۲ / ۰۴"
+        badge="DIRECT CHANNELS"
+        badgeFa="تماس مستقیم"
       />
 
       {/* =========================================================================
-          4. EXACT LANDING PAGE FAQ / WHAT WE BUILD ACCORDION
-             Position: 3rd Section after Hero (03 / 03)
+          SECTION 03 / 04: EXACT LANDING PAGE CONTACT SECTION (QUESTIONNAIRE WIZARD)
+          Theme: Inverted (Night: Light / Day: Dark) - Alternating after Sec 02
+         ========================================================================= */}
+      <ContactSection
+        step="03 / 04"
+        stepFa="۰۳ / ۰۴"
+        inverted={true}
+      />
+
+      {/* =========================================================================
+          SECTION 04 / 04: EXACT LANDING PAGE FAQ / WHAT WE BUILD ACCORDION
+          Theme: Standard (Night: Dark / Day: Light) - Alternating after Sec 03
          ========================================================================= */}
       <WhatWeBuildSection
-        step="03 / 03"
-        stepFa="۰۳ / ۰۳"
+        step="04 / 04"
+        stepFa="۰۴ / ۰۴"
         badge="WHAT WE BUILD"
         badgeFa="آنچه خلق می‌کنیم"
+        inverted={true}
       />
     </div>
   );

@@ -102,6 +102,7 @@ export interface ContactSectionProps {
   titleLine1?: string;
   titleLine2?: string;
   description?: string;
+  inverted?: boolean;
 }
 
 export function ContactSection({
@@ -112,11 +113,13 @@ export function ContactSection({
   titleLine1,
   titleLine2,
   description,
+  inverted = false,
 }: ContactSectionProps = {}) {
   const containerRef = useRef<HTMLElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
-  const { currentLang, isNight } = useGlobalStore();
+  const { currentLang, isNight: storeIsNight } = useGlobalStore();
+  const isNight = inverted ? !storeIsNight : storeIsNight;
   const t = useTranslation()(currentLang);
   const isFa = currentLang === 'FA';
 

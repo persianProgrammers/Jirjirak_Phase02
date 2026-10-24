@@ -7,8 +7,7 @@
 import React, { Component, ReactNode, useEffect } from 'react';
 import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactLenis, useLenis } from 'lenis/react';
-import { gsap, ScrollTrigger } from './animations/gsap';
+import { ScrollTrigger } from './animations/gsap';
 
 // Core Layout & All Architectural Pages
 import MainLayout from './layouts/MainLayout';
@@ -34,23 +33,18 @@ const queryClient = new QueryClient({
 });
 
 // ============================================================================
-// 2. SMOOTH SCROLL INTEGRATION: GSAP ScrollTrigger + Lenis
+// 2. NATIVE SMOOTH SCROLL & GSAP SCROLLTRIGGER PASSIVE SYNC
 // ============================================================================
-function GsapLenisIntegration() {
-  const lenis = useLenis(ScrollTrigger.update);
-
+function NativeScrollSetup() {
   useEffect(() => {
-    if (!lenis) return;
+    document.documentElement.style.scrollBehavior = 'smooth';
 
-    function update(time: number) {
-      lenis?.raf(time * 1000);
-    }
+    const handleScroll = () => {
+      ScrollTrigger.update();
+    };
 
-    // Sync GSAP ticker with Lenis
-    gsap.ticker.add(update);
-    gsap.ticker.lagSmoothing(0);
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
-    // Global smooth anchor scroll interceptor for 100% consistent scrolling
     const handleAnchorClick = (e: MouseEvent) => {
       const anchor = (e.target as HTMLElement).closest('a');
       if (!anchor) return;
@@ -61,17 +55,17 @@ function GsapLenisIntegration() {
       const targetEl = document.querySelector(href);
       if (targetEl) {
         e.preventDefault();
-        lenis.scrollTo(href, { offset: -30, duration: 1.2 });
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     };
 
     document.addEventListener('click', handleAnchorClick);
 
     return () => {
-      gsap.ticker.remove(update);
+      window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('click', handleAnchorClick);
     };
-  }, [lenis]);
+  }, []);
 
   return null;
 }
@@ -177,10 +171,8 @@ export default function App() {
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
-        <ReactLenis root options={{ autoRaf: false }}>
-          <GsapLenisIntegration />
-          <RouterProvider router={router} />
-        </ReactLenis>
+        <NativeScrollSetup />
+        <RouterProvider router={router} />
       </QueryClientProvider>
     </ErrorBoundary>
   );

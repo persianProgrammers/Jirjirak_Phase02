@@ -154,6 +154,7 @@ export interface WhatWeBuildSectionProps {
   stepFa?: string;
   badge?: string;
   badgeFa?: string;
+  inverted?: boolean;
 }
 
 export function WhatWeBuildSection({
@@ -161,9 +162,11 @@ export function WhatWeBuildSection({
   stepFa = '۰۲ / ۰۶',
   badge = 'WHAT WE BUILD',
   badgeFa = 'آنچه خلق می‌کنیم',
+  inverted = false,
 }: WhatWeBuildSectionProps = {}) {
   const containerRef = useRef<HTMLElement>(null);
-  const { currentLang, isNight } = useGlobalStore();
+  const { currentLang, isNight: storeIsNight } = useGlobalStore();
+  const isNight = inverted ? !storeIsNight : storeIsNight;
   const isFa = currentLang === 'FA';
   const navigate = useNavigate();
 

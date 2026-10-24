@@ -1,0 +1,6 @@
+{
+  "name": "جیرجیرک - Jirjirak",
+  "description": "پلتفرم آموزشی جیرجیرک - نسخه لندینگ و صفحه تماس با ما",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
