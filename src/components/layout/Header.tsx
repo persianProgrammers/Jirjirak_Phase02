@@ -167,13 +167,6 @@ export function Header() {
 
   return (
     <>
-      {/* 
-        ✨ JIRJIRAK SMART FLOATING DOCK
-        - Stable color theme tied to isNight (no jarring section-by-section flickering).
-        - Frosted glass shield (backdrop-blur-2xl) prevents text collision with page content.
-        - Direction-aware auto-hide: tucks away when scrolling down for pure focus; glides back down on scroll up.
-        - Logo swaps wings between Header & Footer across Day & Night.
-      */}
       <header 
         className={`fixed top-0 left-0 w-full z-[60] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none ${
           isVisible && !isSuppressed ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
@@ -190,74 +183,27 @@ export function Header() {
               : 'max-w-[1600px] w-full py-1 bg-transparent border-transparent'
           } ${
             isNight
-              // 🌙 Night Mode: exact section dark color (bg-brand-dark / #222222)
               ? (isScrolled 
                   ? 'bg-brand-dark/95 border-white/10 text-brand-light shadow-[0_12px_40px_rgba(0,0,0,0.5)]' 
                   : 'text-brand-light')
-              // ☀️ Day Mode: exact section light color (bg-brand-light / #e9e9e9)
               : (isScrolled 
                   ? 'bg-brand-light/95 border-brand-dark/15 text-brand-dark shadow-[0_12px_40px_rgba(0,0,0,0.08)]' 
                   : 'text-brand-dark')
           }`}
         >
           <div className="flex items-center justify-between w-full relative z-10">
-            {/* 
-              Brand Logo (جیرجیرک):
-              - لوگوی فعال اصلی: کریستال منشوری با پخ شفاف (glass-crystal-prism)
-              - استایل‌های دیگر کامنت‌شده زیر جهت انتخاب و سوییچ سریع در دسترس هستند:
-            */}
             <Link 
               to="/" 
               className="flex items-center group focus:outline-none cursor-pointer" 
               onClick={closeMenu}
               aria-label="Jirjirak Studio"
             >
-              {/* ✨ لوگوی پیش‌فرض و منتخب: کریستال منشوری (Prismatic Beveled Crystal) */}
               <AnimatedJirjirakLogo 
                 variant={isNight ? 'header' : 'footer'}
                 className={`transition-all duration-300 ${
                   isScrolled ? 'h-8 sm:h-9 w-auto' : 'h-10 md:h-12 w-auto'
                 }`} 
               />
-
-              {/* 
-                === گزینه‌های دیگر لوگو که کامنت شده‌اند و می‌توانید جایگزین کنید ===
-
-                ۱. شیشه مات نئونی (Frosted Glass & Core Glow):
-                <AnimatedJirjirakLogo 
-                  style3d="glass-frosted-neon"
-                  variant={isNight ? 'header' : 'footer'}
-                  className={isScrolled ? 'h-8 sm:h-9 w-auto' : 'h-10 md:h-12 w-auto'} 
-                />
-
-                ۲. شیشه دودی و کهربایی ژرف (Deep Amber & Smoked Glass):
-                <AnimatedJirjirakLogo 
-                  style3d="glass-tinted-smoked"
-                  variant={isNight ? 'header' : 'footer'}
-                  className={isScrolled ? 'h-8 sm:h-9 w-auto' : 'h-10 md:h-12 w-auto'} 
-                />
-
-                ۳. آکرلیک مایع و انحنای براق (Liquid Acrylic & Convex Gloss):
-                <AnimatedJirjirakLogo 
-                  style3d="glass-liquid-gloss"
-                  variant={isNight ? 'header' : 'footer'}
-                  className={isScrolled ? 'h-8 sm:h-9 w-auto' : 'h-10 md:h-12 w-auto'} 
-                />
-
-                ۴. شیشه شیاردار معماری (Architectural Fluted Glass):
-                <AnimatedJirjirakLogo 
-                  style3d="glass-architectural-fluted"
-                  variant={isNight ? 'header' : 'footer'}
-                  className={isScrolled ? 'h-8 sm:h-9 w-auto' : 'h-10 md:h-12 w-auto'} 
-                />
-
-                ۵. وکتور فلت کلاسیک دو بعدی (Classic Flat 2D):
-                <AnimatedJirjirakLogo 
-                  style3d="classic-flat"
-                  variant={isNight ? 'header' : 'footer'}
-                  className={isScrolled ? 'h-8 sm:h-9 w-auto' : 'h-10 md:h-12 w-auto'} 
-                />
-              */}
             </Link>
 
             {/* Desktop Navigation Links with Magnetic Floating Pill */}
@@ -270,7 +216,6 @@ export function Header() {
 
                 return (
                   <div key={item.id} className="relative">
-                    {/* Magnetic Floating Hover Pill */}
                     {hoveredNav === item.id && (
                       <motion.div
                         layoutId="headerHoverPill"
@@ -362,9 +307,7 @@ export function Header() {
         </div>
       </header>
 
-      {/* 
-        🎭 Mobile Fullscreen Curtained Drawer
-      */}
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div 
@@ -376,7 +319,6 @@ export function Header() {
               isNight ? 'bg-brand-dark text-brand-light' : 'bg-brand-light text-brand-dark'
             }`}
           >
-            {/* Close Button inside Drawer */}
             <button
               onClick={closeMenu}
               aria-label={t.nav.close}
@@ -391,7 +333,6 @@ export function Header() {
               </svg>
             </button>
 
-            {/* Decorative Ambient Fireflies Glow */}
             <div className="absolute inset-0 pointer-events-none opacity-20 flex justify-center items-center">
               <div className={`w-[320px] h-[320px] rounded-full filter blur-[120px] ${
                 isNight ? 'bg-brand-yellow' : 'bg-[#b3a85c]'

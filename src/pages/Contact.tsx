@@ -1,74 +1,16 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { useEffect } from 'react';
 import { useLenis } from 'lenis/react';
 import { useGlobalStore } from '../stores/globalStore';
 import { useTranslation } from '../i18n/translations';
 import { PageHeader } from '../components/layout/PageHeader';
 import { ContactSection } from '../features/landing/sections/ContactSection';
 import { WhatWeBuildSection } from '../features/landing/sections/WhatWeBuildSection';
-import {
-  Model1ChronoCompass,
-  Model10NixieTubes,
-  ModelTreasureIsland,
-  ModelTopoExpedition,
-  ModelCelestialStarmap,
-} from '../features/contact-models/WorkflowModels';
-
-const WORKFLOW_MODELS = [
-  {
-    id: 2,
-    badgeFa: 'نقشه گنج ۱',
-    badgeEn: 'Treasure Map 1',
-    nameFa: 'نقشه گنج مجمع‌الجزایر',
-    nameEn: 'Pirate Treasure Map',
-    descFa: 'مسیر دریانوردی نقطه‌چین، کشتی متحرک و ضربدر گنج',
-    descEn: 'Animated dotted sailing trail & pirate ship',
-  },
-  {
-    id: 3,
-    badgeFa: 'نقشه گنج ۲',
-    badgeEn: 'Treasure Map 2',
-    nameFa: 'رول نقشه توپوگرافی صعود',
-    nameEn: 'Topo Adventure Trail',
-    descFa: 'خطوط ارتفاعی، ایستگاه‌ها و کمپ‌های صعود',
-    descEn: 'Contour curves & waypoint surveyor flags',
-  },
-  {
-    id: 4,
-    badgeFa: 'نقشه گنج ۳',
-    badgeEn: 'Treasure Map 3',
-    nameFa: 'نقشه آسمانی و صور فلکی',
-    nameEn: 'Celestial Constellation',
-    descFa: 'مسیر نقطه‌چین کهکشانی و مدار ستاره‌ها',
-    descEn: 'Dotted starlight trails & orbit probes',
-  },
-  {
-    id: 1,
-    badgeFa: 'طرح ۱',
-    badgeEn: 'Model 1',
-    nameFa: 'قطب‌نمای مکانیکی',
-    nameEn: 'Chrono-Compass',
-    descFa: 'عقربه فیزیکی، چرخ‌دنده و دیسک مدرج',
-    descEn: 'Mechanical dial & spring needle',
-  },
-  {
-    id: 10,
-    badgeFa: 'طرح ۱۰',
-    badgeEn: 'Model 10',
-    nameFa: 'لامپ‌های نیکسی رترو',
-    nameEn: 'Nixie Tubes',
-    descFa: 'حباب شیشه‌ای با فیلامان درخشان نئون',
-    descEn: 'Warm neon gas glow filaments',
-  },
-];
+import { Model1ChronoCompass } from '../features/contact-models/WorkflowModels';
 
 export default function Contact() {
   const { currentLang, isNight } = useGlobalStore();
   const t = useTranslation()(currentLang);
   const isFa = currentLang === 'FA';
-
-  // Active temporary model selection (defaults to new Treasure Map model)
-  const [selectedModel, setSelectedModel] = useState<number>(2);
 
   const lenis = useLenis();
 
@@ -101,8 +43,6 @@ export default function Contact() {
 
   // Section 2 color tokens (Inverted rhythm matching landing page WorldSection & CaseStudySection)
   const s2AccentText = isNight ? 'text-[#8f6b00]' : 'text-[#fff083]';
-  const s2AccentBg = isNight ? 'bg-[#8f6b00]' : 'bg-[#fff083]';
-  const s2AccentBorder = isNight ? 'border-[#8f6b00]' : 'border-[#fff083]';
 
   return (
     <div
@@ -134,9 +74,8 @@ export default function Contact() {
 
       {/* =========================================================================
           2. VISUAL COLLABORATION WORKFLOW SECTION: "How We Work Together"
-             Position: 2nd Section on the Contact Page (As requested)
-             Theme: Alternating / Inverted (Night: Light / Day: Dark)
-             Zero clutter, fun treasure map trails with marching dots, preserved Models 1 & 10
+             Position: 2nd Section on the Contact Page
+             Design: Chrono-Compass (Single, elegant, clean)
          ========================================================================= */}
       <section
         id="what-happens-next"
@@ -156,150 +95,54 @@ export default function Contact() {
         />
 
         <div className="max-w-5xl mx-auto">
-          {/* Section Header - Clean typography, zero icons */}
-          <div className="text-center max-w-xl mx-auto mb-12 sm:mb-16">
-            <div className="flex items-center justify-center gap-3 mb-3">
-              <span className={`text-xs font-semibold tracking-widest ${s2AccentText}`}>
-                {isFa ? 'مسیر همکاری' : 'COLLABORATION'}
+          {/* Section Header - Consistent Landing Page Format (Centered) */}
+          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+            {/* Pre-title / Step Badge (Matching Landing format) */}
+            <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+              <span className={`text-xs font-semibold tracking-widest font-mono ${s2AccentText}`}>
+                {isFa ? '۰۱ / ۰۳' : '01 / 03'}
               </span>
-              <span className="text-xs opacity-30">•</span>
-              <span className="text-xs font-semibold tracking-widest uppercase opacity-60">
-                {isFa ? 'چهار فاز سرراست' : 'FOUR PHASES'}
+              <span className="text-xs font-semibold tracking-widest uppercase opacity-75">
+                {isFa ? 'مسیر همکاری' : 'WORKFLOW'}
               </span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight mb-3">
-              {isFa ? 'مسیر همکاری؛ کوتاه، شفاف و لذت‌بخش.' : 'The Atelier Workflow.'}
+
+            {/* Challenging & Bold Title */}
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4 tracking-tight">
+              {isFa ? (
+                <>
+                  ایده بزرگ دارید؟ <br />
+                  <span className={s2AccentText}>این‌گونه در ۴ گام به واقعیت تبدیلش می‌کنیم.</span>
+                </>
+              ) : (
+                <>
+                  Got a bold vision? <br />
+                  <span className={s2AccentText}>Here is how we build it in 4 clear steps.</span>
+                </>
+              )}
             </h2>
-            <p className="text-xs sm:text-sm opacity-70">
+
+            {/* Crisp & Concise Description */}
+            <p className="text-sm sm:text-base leading-relaxed opacity-75 max-w-xl mx-auto">
               {isFa
-                ? 'بی‌نیاز از تشریفات و بروکراسی؛ مسیر از ارتباط اولیه تا رسیدن به گنجینه نهایی پروژه را ببینید.'
-                : 'A transparent expedition from first ping to final delivery.'}
+                ? 'پیش از ارسال بریف، دقیقا بدانید از اولین ارتباط تا تحویل شاهکار نهایی چه اتفاقی خواهد افتاد؛ شفافیت کامل، بدون بروکراسی و بدون غافلگیری.'
+                : 'Before you submit your brief, see the exact expedition from initial ping to final launch—complete clarity, no bureaucracy, no surprises.'}
             </p>
           </div>
 
-          {/* 🎛️ TEMPORARY TESTING SUITE & SELECTOR PANEL */}
+          {/* CHRONO COMPASS CONTAINER */}
           <div
-            className={`mb-8 p-4 sm:p-6 rounded-2xl border backdrop-blur-md transition-all duration-300 ${
-              isNight
-                ? 'bg-white/90 border-black/10 shadow-lg text-neutral-900'
-                : 'bg-neutral-900/90 border-white/10 shadow-2xl text-neutral-100'
-            }`}
-          >
-            {/* Panel Top Bar */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pb-3 mb-4 border-b border-current/10">
-              <div className="flex items-center gap-2.5">
-                <span className={`w-2.5 h-2.5 rounded-full animate-ping ${s2AccentBg}`} />
-                <span className="text-xs font-bold tracking-wider">
-                  {isFa ? 'پنل انتخاب مدل طراحی مسیر' : 'DESIGN SELECTION LAB'}
-                </span>
-                <span
-                  className="text-[10px] px-2 py-0.5 rounded-full font-mono font-bold border"
-                  style={{
-                    borderColor: isNight ? 'rgba(143,107,0,0.5)' : 'rgba(255,240,131,0.5)',
-                    color: isNight ? '#8f6b00' : '#fff083',
-                  }}
-                >
-                  {WORKFLOW_MODELS.findIndex((m) => m.id === selectedModel) + 1} / {WORKFLOW_MODELS.length}
-                </span>
-              </div>
-              <p className="text-[11px] opacity-75 text-center sm:text-right">
-                {isFa
-                  ? 'طرح‌های ۱ و ۱۰ نگه‌داشته شدند + ۳ مدل نقشه گنج و مسیر نقطه‌چین اضافه شدند.'
-                  : 'Models 1 & 10 preserved + 3 Treasure Map dotted trails.'}
-              </p>
-            </div>
-
-            {/* Model Tab Buttons */}
-            <div className="grid grid-cols-1 sm:grid-cols-5 gap-2 select-none">
-              {WORKFLOW_MODELS.map((model) => {
-                const isCurrent = selectedModel === model.id;
-                return (
-                  <button
-                    key={model.id}
-                    type="button"
-                    onClick={() => setSelectedModel(model.id)}
-                    className={`flex flex-col items-center justify-center py-2.5 px-3 rounded-xl border text-center transition-all cursor-pointer active:scale-95 ${
-                      isCurrent
-                        ? isNight
-                          ? 'bg-[#8f6b00] text-white border-[#8f6b00] font-bold shadow-[0_0_14px_rgba(143,107,0,0.3)] scale-[1.02]'
-                          : 'bg-[#fff083] text-[#1a1a1a] border-[#fff083] font-bold shadow-[0_0_18px_rgba(255,240,131,0.4)] scale-[1.02]'
-                        : isNight
-                        ? 'bg-neutral-100/80 border-black/10 text-neutral-700 hover:text-black hover:bg-neutral-200/70'
-                        : 'bg-neutral-800/60 border-white/10 text-neutral-300 hover:text-white hover:bg-neutral-800'
-                    }`}
-                  >
-                    <div className="flex items-center gap-1.5 mb-1">
-                      <span className="text-[9.5px] font-mono px-1.5 py-0.2 rounded-full border opacity-75">
-                        {isFa ? model.badgeFa : model.badgeEn}
-                      </span>
-                      <span className="text-xs leading-tight font-medium">
-                        {isFa ? model.nameFa : model.nameEn}
-                      </span>
-                    </div>
-                    <span className="text-[10px] opacity-60 truncate w-full hidden sm:block">
-                      {isFa ? model.descFa : model.descEn}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* 🎭 ACTIVE MODEL CONTAINER CANVAS */}
-          <div
-            className={`rounded-3xl p-6 sm:p-10 lg:p-12 border relative backdrop-blur-md shadow-2xl transition-all duration-500 min-h-[440px] flex items-center justify-center ${
+            className={`rounded-3xl p-6 sm:p-10 lg:p-12 border relative backdrop-blur-md transition-all duration-500 shadow-2xl flex items-center justify-center ${
               isNight
                 ? 'bg-white/80 border-black/10 text-neutral-900 shadow-xl'
                 : 'bg-neutral-900/40 border-white/10 text-neutral-100 shadow-2xl'
             }`}
           >
-            <div className="w-full">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={selectedModel}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.22, ease: 'easeOut' }}
-                >
-                  {selectedModel === 2 && (
-                    <ModelTreasureIsland
-                      isNight={isNight}
-                      isFa={isFa}
-                      onScrollToForm={handleScrollToForm}
-                    />
-                  )}
-                  {selectedModel === 3 && (
-                    <ModelTopoExpedition
-                      isNight={isNight}
-                      isFa={isFa}
-                      onScrollToForm={handleScrollToForm}
-                    />
-                  )}
-                  {selectedModel === 4 && (
-                    <ModelCelestialStarmap
-                      isNight={isNight}
-                      isFa={isFa}
-                      onScrollToForm={handleScrollToForm}
-                    />
-                  )}
-                  {selectedModel === 1 && (
-                    <Model1ChronoCompass
-                      isNight={isNight}
-                      isFa={isFa}
-                      onScrollToForm={handleScrollToForm}
-                    />
-                  )}
-                  {selectedModel === 10 && (
-                    <Model10NixieTubes
-                      isNight={isNight}
-                      isFa={isFa}
-                      onScrollToForm={handleScrollToForm}
-                    />
-                  )}
-                </motion.div>
-              </AnimatePresence>
-            </div>
+            <Model1ChronoCompass
+              isNight={isNight}
+              isFa={isFa}
+              onScrollToForm={handleScrollToForm}
+            />
           </div>
 
           {/* Minimal 3-Point Reassurance Footer Strip */}
@@ -315,17 +158,32 @@ export default function Contact() {
 
       {/* =========================================================================
           3. EXACT LANDING PAGE CONTACT SECTION (QUESTIONNAIRE WIZARD & FORM)
-             Position: 3rd Section on the Contact Page (As requested)
-             Theme: Alternating / Standard (Night: Dark / Day: Light)
+             Position: 2nd Section after Hero (02 / 03)
          ========================================================================= */}
-      <ContactSection />
+      <ContactSection
+        step="02 / 03"
+        stepFa="۰۲ / ۰۳"
+        badge="PROJECT BRIEF"
+        badgeFa="ارسال بریف"
+        titleLine1={isFa ? 'آماده‌اید مرزهای برندتان را جابه‌جا کنیم؟' : 'Ready to push brand boundaries?'}
+        titleLine2={isFa ? 'در سه گام چابک، ماموریت را برایمان بگویید.' : 'Define your mission in three swift steps.'}
+        description={
+          isFa
+            ? 'نوع خدمات، افق زمانی و حدود بودجه‌تان را مشخص کنید تا استودیو ظرف کمتر از ۲۴ ساعت کاری نقشه راه اختصاصی شما را آماده کند.'
+            : 'Select your services, timeline, and scope so our studio engineers can craft your tailored roadmap within 24 hours.'
+        }
+      />
 
       {/* =========================================================================
           4. EXACT LANDING PAGE FAQ / WHAT WE BUILD ACCORDION
-             Position: 4th Section on the Contact Page
-             Theme: Alternating / Inverted (Night: Light / Day: Dark)
+             Position: 3rd Section after Hero (03 / 03)
          ========================================================================= */}
-      <WhatWeBuildSection />
+      <WhatWeBuildSection
+        step="03 / 03"
+        stepFa="۰۳ / ۰۳"
+        badge="WHAT WE BUILD"
+        badgeFa="آنچه خلق می‌کنیم"
+      />
     </div>
   );
 }

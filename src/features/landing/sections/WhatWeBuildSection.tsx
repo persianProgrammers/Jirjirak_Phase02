@@ -149,7 +149,19 @@ const ACCORDION_ITEMS: ConversionAccordionItem[] = [
   },
 ];
 
-export function WhatWeBuildSection() {
+export interface WhatWeBuildSectionProps {
+  step?: string;
+  stepFa?: string;
+  badge?: string;
+  badgeFa?: string;
+}
+
+export function WhatWeBuildSection({
+  step = '02 / 06',
+  stepFa = '۰۲ / ۰۶',
+  badge = 'WHAT WE BUILD',
+  badgeFa = 'آنچه خلق می‌کنیم',
+}: WhatWeBuildSectionProps = {}) {
   const containerRef = useRef<HTMLElement>(null);
   const { currentLang, isNight } = useGlobalStore();
   const isFa = currentLang === 'FA';
@@ -198,10 +210,10 @@ export function WhatWeBuildSection() {
           {/* Pre-title / Step Badge (Matching CaseStudy & Journal sections) */}
           <div className="flex items-center gap-4 mb-6 sm:mb-8">
             <span className={`text-xs font-semibold tracking-widest font-mono ${accentText}`}>
-              {isFa ? '۰۲ / ۰۶' : '02 / 06'}
+              {isFa ? stepFa : step}
             </span>
             <span className="text-xs font-semibold tracking-widest uppercase">
-              {isFa ? 'آنچه خلق می‌کنیم' : 'WHAT WE BUILD'}
+              {isFa ? badgeFa : badge}
             </span>
           </div>
 

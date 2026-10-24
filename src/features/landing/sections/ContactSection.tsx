@@ -94,7 +94,25 @@ const BUDGET_LABELS = {
   en: ['Lean Seed', 'Studio Standard', 'Unrestricted Bold'],
 };
 
-export function ContactSection() {
+export interface ContactSectionProps {
+  step?: string;
+  stepFa?: string;
+  badge?: string;
+  badgeFa?: string;
+  titleLine1?: string;
+  titleLine2?: string;
+  description?: string;
+}
+
+export function ContactSection({
+  step = '06 / 06',
+  stepFa = '۰۶ / ۰۶',
+  badge = 'PROJECT BRIEF',
+  badgeFa = 'ارسال بریف',
+  titleLine1,
+  titleLine2,
+  description,
+}: ContactSectionProps = {}) {
   const containerRef = useRef<HTMLElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -310,15 +328,34 @@ export function ContactSection() {
         {/* Row 1: Centered Section Title & Intro Description                         */}
         {/* ========================================================================= */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-5 tracking-tight">
-            <span>{t.contact.titleLine1}</span>{' '}
-            <span className={accentText}>{t.contact.titleLine2}</span>
+          {/* Pre-title / Step Badge (Matching Landing format) */}
+          <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+            <span className={`text-xs font-semibold tracking-widest font-mono ${accentText}`}>
+              {isFa ? stepFa : step}
+            </span>
+            <span className="text-xs font-semibold tracking-widest uppercase opacity-75">
+              {isFa ? badgeFa : badge}
+            </span>
+          </div>
+
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4 tracking-tight">
+            {titleLine1 ? (
+              <>
+                <span>{titleLine1}</span> <br />
+                <span className={accentText}>{titleLine2}</span>
+              </>
+            ) : (
+              <>
+                <span>{t.contact.titleLine1}</span>{' '}
+                <span className={accentText}>{t.contact.titleLine2}</span>
+              </>
+            )}
           </h2>
 
           <p className={`text-sm sm:text-base leading-relaxed max-w-xl mx-auto ${mutedGrayText}`}>
-            {isFa
+            {description || (isFa
               ? 'در سه گام کوتاه، نقشه راه، مقیاس و جزئیات پروژه خود را مشخص کنید تا دقیق‌ترین پیشنهاد ممکن را از جیرجیرک دریافت نمایید.'
-              : 'In three quick steps, outline your vision, scope, and parameters to receive a tailored proposal from Jirjirak Studio.'}
+              : 'In three quick steps, outline your vision, scope, and parameters to receive a tailored proposal from Jirjirak Studio.')}
           </p>
         </div>
 
