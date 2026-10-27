@@ -69,7 +69,9 @@ export function KineticBladesModel({
   return (
     <div className="w-full flex flex-col gap-4">
       {/* Main Kinetic Blades Stage / Architectural Bookshelf */}
-      <div className={`relative w-full h-auto min-h-[300px] md:h-[490px] lg:h-[530px] max-h-[85vh] md:max-h-none overflow-y-auto md:overflow-hidden no-scrollbar rounded-3xl border p-2 sm:p-3 shadow-2xl flex flex-col md:flex-row gap-2 sm:gap-3 justify-center items-center md:items-stretch transition-colors ${
+      <div 
+        style={{ contain: 'paint' }}
+        className={`relative w-full h-auto min-h-[300px] md:h-[490px] lg:h-[530px] max-h-[85vh] md:max-h-none overflow-y-auto md:overflow-hidden no-scrollbar rounded-3xl border p-2 sm:p-3 shadow-2xl flex flex-col md:flex-row gap-2 sm:gap-3 justify-center items-center md:items-stretch transition-colors ${
         isNight ? 'bg-neutral-950/85 border-white/10' : 'bg-neutral-100/90 border-black/10'
       }`}>
         <AnimatePresence mode="popLayout" initial={false}>
@@ -94,12 +96,6 @@ export function KineticBladesModel({
                   scale: 1,
                   y: 0,
                   transition: {
-                    layout: {
-                      type: 'spring',
-                      stiffness: 260,
-                      damping: 28,
-                      mass: 0.8,
-                    },
                     opacity: { duration: 0.32, delay: enterDelay },
                     scale: { duration: 0.35, delay: enterDelay },
                     y: {
@@ -121,16 +117,10 @@ export function KineticBladesModel({
                     delay: idx * 0.02,
                   },
                 }}
-                style={{
-                  willChange: 'transform, opacity',
-                  transform: 'translateZ(0)',
-                }}
                 transition={{
                   layout: {
-                    type: 'spring',
-                    stiffness: 260,
-                    damping: 28,
-                    mass: 0.8,
+                    duration: 0.42,
+                    ease: [0.25, 1, 0.5, 1],
                   },
                 }}
                 className={`relative rounded-2xl overflow-hidden cursor-pointer select-none border transition-[border-color,box-shadow] duration-300 ${
@@ -207,7 +197,7 @@ export function KineticBladesModel({
 
               {/* ================= IF ACTIVE: EXPANDED FULL VIEW ================= */}
               {isActive ? (
-                <div className="relative z-10 w-full h-full p-3.5 sm:p-5 md:p-8 flex flex-col justify-between text-white">
+                <div className="relative z-10 w-full h-full p-3.5 sm:p-5 md:p-8 flex flex-col justify-between text-white transition-opacity duration-300">
                   {/* Top Bar inside active blade */}
                   <div className="flex items-center justify-between shrink-0">
                     <span className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-mono tracking-wider bg-black/60 backdrop-blur-md border border-white/20 text-brand-yellow font-bold uppercase">
@@ -257,9 +247,9 @@ export function KineticBladesModel({
                 </div>
               ) : (
                 /* ================= IF COLLAPSED: VERTICAL PILLAR (DESKTOP) / HORIZONTAL STRIP (MOBILE) ================= */
-                <div className="relative z-10 w-full h-full px-2.5 py-1 sm:p-2 md:p-3 flex md:flex-col items-center justify-between text-white">
+                <div className="relative z-10 w-full h-full px-2.5 py-1 sm:p-2 md:p-3 flex md:flex-col items-center justify-between text-white transition-opacity duration-300">
                   {/* Project Number */}
-                  <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-[9px] sm:text-[10px] font-mono font-bold flex items-center justify-center text-brand-yellow shrink-0">
+                  <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-neutral-900/90 border border-white/20 text-[9px] sm:text-[10px] font-mono font-bold flex items-center justify-center text-brand-yellow shrink-0 shadow-sm">
                     0{idx + 1}
                   </span>
 

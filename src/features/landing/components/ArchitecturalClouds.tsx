@@ -168,7 +168,7 @@ const ContourCloudSvg: React.FC<ContourCloudSvgProps> = ({ index }) => {
       viewBox="0 0 280 54" 
       fill="none" 
       xmlns="http://www.w3.org/2000/svg"
-      className="text-brand-dark drop-shadow-[0_1px_2px_rgba(0,0,0,0.02)]"
+      className="text-brand-dark"
     >
       {/* Outer Contour Level 0 */}
       <path 

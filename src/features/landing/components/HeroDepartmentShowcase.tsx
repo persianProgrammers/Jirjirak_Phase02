@@ -172,7 +172,6 @@ export function HeroDepartmentShowcase({
 
   const [hoveredDeptId, setHoveredDeptId] = useState<string | null>(null);
   const [lockedDeptId, setLockedDeptId] = useState<string | null>(null);
-  const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
 
   // Active department resolution:
   // If user is actively hovering on an item, show that item.
@@ -182,17 +181,11 @@ export function HeroDepartmentShowcase({
   const isDisplayingDept = activeDeptId !== null;
   const activeDept = SHOWCASE_DEPARTMENTS.find((d) => d.id === activeDeptId);
 
-  // Preload all department images instantly on mount for zero-latency switching
+  // Preload all department images in background cache without triggering React re-renders
   useEffect(() => {
     SHOWCASE_DEPARTMENTS.forEach((dept) => {
       const img = new Image();
       img.src = dept.image;
-      img.onload = () => {
-        setLoadedImages((prev) => ({ ...prev, [dept.id]: true }));
-      };
-      img.onerror = () => {
-        setLoadedImages((prev) => ({ ...prev, [dept.id]: true }));
-      };
     });
   }, []);
 
@@ -245,12 +238,19 @@ export function HeroDepartmentShowcase({
         {/* ========================================================================= */}
         <div className="lg:col-span-8 relative flex flex-col items-center justify-center">
           {/* Main Visual Display Frame with Futuristic HUD Styling */}
-          <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[16/10] max-h-[75vh] flex items-center justify-center rounded-2xl overflow-hidden group">
-            {/* Ambient Background Aura */}
+          <div 
+            style={{ transform: 'translate3d(0, 0, 0)', willChange: 'transform' }}
+            className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[16/10] max-h-[75vh] flex items-center justify-center rounded-2xl overflow-hidden group"
+          >
+            {/* Ambient Background Aura (Using smooth radial-gradient - 0ms blur cost) */}
             <div
-              className={`absolute -inset-10 pointer-events-none rounded-full blur-[100px] transition-all duration-1000 ${
-                isNight ? 'bg-indigo-950/25 opacity-100' : 'bg-amber-100/30 opacity-60'
-              }`}
+              className="absolute -inset-10 pointer-events-none rounded-full transition-opacity duration-1000"
+              style={{
+                background: isNight
+                  ? 'radial-gradient(ellipse at center, rgba(30, 27, 75, 0.4) 0%, rgba(30, 27, 75, 0.1) 45%, transparent 70%)'
+                  : 'radial-gradient(ellipse at center, rgba(254, 243, 199, 0.5) 0%, rgba(254, 243, 199, 0.1) 45%, transparent 70%)',
+                opacity: isNight ? 1 : 0.6,
+              }}
             />
 
             {/* Futuristic Corner Brackets on the Visual Container */}
@@ -317,57 +317,46 @@ export function HeroDepartmentShowcase({
             </div>
 
             {/* ------------------------------------------------------------- */}
-            {/* LAYER 1 & 2: DEFAULT ISOMETRIC BUILDING (Day and Night Modes)  */}
+            {/* LAYER 1: DEFAULT ISOMETRIC BUILDING (Day and Night Modes)     */}
             {/* ------------------------------------------------------------- */}
             <div
-              className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ease-in-out ${
+              className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ease-in-out ${
                 !isDisplayingDept
                   ? 'opacity-100 scale-100 pointer-events-auto'
                   : 'opacity-0 scale-[0.98] pointer-events-none'
               }`}
             >
-              {/* Day Image Layer */}
               <img
-                src="/assets/images/ui/hero-building-day.png"
-                alt="Jirjirak Studio (Day)"
-                className={`w-full h-full object-contain origin-center select-none transition-all duration-700 ease-in-out ${
-                  !isNight ? 'opacity-100' : 'opacity-0 absolute inset-0 pointer-events-none'
-                } ${isDayImageLoaded ? 'blur-0' : 'blur-lg'}`}
-              />
-
-              {/* Night Image Layer */}
-              <img
-                src="/assets/images/ui/hero-building-night.png"
-                alt="Jirjirak Studio (Night)"
-                className={`w-full h-full object-contain origin-center select-none transition-all duration-700 ease-in-out ${
-                  isNight ? 'opacity-100' : 'opacity-0 absolute inset-0 pointer-events-none'
-                } ${isNightImageLoaded ? 'blur-0' : 'blur-lg'}`}
+                src={isNight ? "/assets/images/ui/hero-building-night.png" : "/assets/images/ui/hero-building-day.png"}
+                alt={isNight ? "Jirjirak Studio (Night)" : "Jirjirak Studio (Day)"}
+                className="w-full h-full object-contain origin-center select-none"
+                loading="eager"
+                decoding="async"
               />
             </div>
 
             {/* ------------------------------------------------------------- */}
-            {/* LAYERS 3 TO 9: THE 7 DEPARTMENT IMAGES                        */}
+            {/* LAYER 2: ACTIVE DEPARTMENT DISPLAY (Only renders active item) */}
             {/* ------------------------------------------------------------- */}
-            {SHOWCASE_DEPARTMENTS.map((dept) => {
-              const isCurrent = activeDeptId === dept.id;
-              return (
-                <div
-                  key={dept.id}
-                  className={`absolute inset-0 flex items-center justify-center p-2 sm:p-4 transition-all duration-500 ease-out ${
-                    isCurrent
-                      ? 'opacity-100 scale-100 pointer-events-auto z-15'
-                      : 'opacity-0 scale-[0.97] pointer-events-none z-10'
-                  }`}
-                >
-                  <img
-                    src={dept.image}
-                    alt={dept.nameEn}
-                    className="w-full h-full object-contain rounded-xl drop-shadow-[0_10px_30px_rgba(0,0,0,0.7)] select-none"
-                    loading="eager"
-                  />
-                </div>
-              );
-            })}
+            {activeDept && (
+              <div
+                key={activeDept.id}
+                className="absolute inset-0 flex items-center justify-center p-2 sm:p-4 transition-all duration-400 ease-out z-15 pointer-events-auto"
+              >
+                <img
+                  src={activeDept.image}
+                  alt={activeDept.nameEn}
+                  className="w-full h-full object-contain rounded-xl select-none"
+                  style={{
+                    filter: isNight
+                      ? 'drop-shadow(0 10px 24px rgba(0,0,0,0.8))'
+                      : 'drop-shadow(0 10px 20px rgba(0,0,0,0.3))',
+                  }}
+                  loading="eager"
+                  decoding="async"
+                />
+              </div>
+            )}
           </div>
         </div>
 

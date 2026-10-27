@@ -9,7 +9,6 @@ import { AnimatedJirjirakLogo } from '../ui/AnimatedJirjirakLogo';
 const LANDING_SECTIONS = [
   { id: 'hero' },
   { id: 'services' },
-  { id: 'world' },
   { id: 'work' },
   { id: 'case-study' },
   { id: 'about' },
@@ -56,50 +55,58 @@ export function Header() {
     }
   };
 
-  // 1. Direction-Aware Smart Conceal & Active Section Detection
+  // 1. Direct Lenis Integration for 120fps Synchronized Scroll Header State with Hysteresis
+  useLenis((lenisInstance) => {
+    const currentScrollY = lenisInstance.scroll;
+    const diff = currentScrollY - lastScrollY.current;
+
+    const nextScrolled = currentScrollY > 50;
+    setIsScrolled((prev) => (prev !== nextScrolled ? nextScrolled : prev));
+
+    if (currentScrollY <= 50) {
+      setIsVisible((prev) => (!prev ? true : prev));
+    } else if (diff > 14 && currentScrollY > 160) {
+      setIsVisible((prev) => (prev ? false : prev));
+    } else if (diff < -14) {
+      setIsVisible((prev) => (!prev ? true : prev));
+    }
+
+    lastScrollY.current = currentScrollY;
+  });
+
+  // Passive Fallback for non-Lenis scroll environments
   useEffect(() => {
-    let ticking = false;
-
+    if (lenis) return;
     const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const currentScrollY = window.scrollY;
-          const diff = currentScrollY - lastScrollY.current;
+      const currentScrollY = window.scrollY;
+      const diff = currentScrollY - lastScrollY.current;
 
-          setIsScrolled(currentScrollY > 45);
+      const nextScrolled = currentScrollY > 45;
+      setIsScrolled((prev) => (prev !== nextScrolled ? nextScrolled : prev));
 
-          // Smart auto-hide on scroll down, reveal on scroll up
-          if (currentScrollY <= 45) {
-            setIsVisible(true);
-          } else if (diff > 6 && currentScrollY > 120) {
-            // Scrolling down -> hide to give full immersive focus to content
-            setIsVisible(false);
-          } else if (diff < -6) {
-            // Scrolling up -> instantly reveal
-            setIsVisible(true);
-          }
-
-          lastScrollY.current = currentScrollY;
-          ticking = false;
-        });
-        ticking = true;
+      if (currentScrollY <= 45) {
+        setIsVisible((prev) => (!prev ? true : prev));
+      } else if (diff > 8 && currentScrollY > 140) {
+        setIsVisible((prev) => (prev ? false : prev));
+      } else if (diff < -8) {
+        setIsVisible((prev) => (!prev ? true : prev));
       }
+
+      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isHomePage]);
+  }, [lenis]);
 
-  // Active section tracking via zero-cost IntersectionObserver (no layout thrashing on scroll)
+  // Active section tracking via zero-cost IntersectionObserver (guarded state update)
   useEffect(() => {
     if (!isHomePage) return;
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            setActiveSectionId(entry.target.id);
+            setActiveSectionId((prev) => (prev === entry.target.id ? prev : entry.target.id));
           }
         }
       },
@@ -174,27 +181,20 @@ export function Header() {
   return (
     <>
       <header 
-        className={`fixed top-0 left-0 w-full z-[60] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none ${
-          isVisible && !isSuppressed ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
-        } ${
-          isScrolled 
-            ? 'pt-3 sm:pt-4 px-4 sm:px-6' 
-            : 'pt-5 lg:pt-6 px-6 lg:px-12 xl:px-16'
+        style={{ transform: 'translate3d(0, 0, 0)', willChange: 'transform, opacity' }}
+        className={`fixed top-0 left-0 w-full z-[60] pt-3 sm:pt-4 px-4 sm:px-6 pointer-events-none transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isVisible && !isSuppressed ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
         }`}
       >
         <div 
-          className={`mx-auto pointer-events-auto transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          className={`mx-auto pointer-events-auto transition-[background-color,border-color,box-shadow,opacity] duration-300 ease-out max-w-5xl rounded-full px-5 sm:px-7 py-2 sm:py-2.5 ${
             isScrolled
-              ? 'max-w-4xl rounded-full px-5 sm:px-7 py-2 sm:py-2.5 backdrop-blur-2xl shadow-xl border'
-              : 'max-w-[1600px] w-full py-1 bg-transparent border-transparent'
+              ? (isNight 
+                  ? 'bg-brand-dark/95 border border-white/10 text-brand-light shadow-[0_12px_40px_rgba(0,0,0,0.5)] backdrop-blur-md' 
+                  : 'bg-brand-light/95 border border-brand-dark/15 text-brand-dark shadow-[0_12px_40px_rgba(0,0,0,0.08)] backdrop-blur-md')
+              : 'bg-transparent border border-transparent shadow-none text-current'
           } ${
-            isNight
-              ? (isScrolled 
-                  ? 'bg-brand-dark/95 border-white/10 text-brand-light shadow-[0_12px_40px_rgba(0,0,0,0.5)]' 
-                  : 'text-brand-light')
-              : (isScrolled 
-                  ? 'bg-brand-light/95 border-brand-dark/15 text-brand-dark shadow-[0_12px_40px_rgba(0,0,0,0.08)]' 
-                  : 'text-brand-dark')
+            isNight ? 'text-brand-light' : 'text-brand-dark'
           }`}
         >
           <div className="flex items-center justify-between w-full relative z-10">
@@ -206,9 +206,7 @@ export function Header() {
             >
               <AnimatedJirjirakLogo 
                 variant={isNight ? 'header' : 'footer'}
-                className={`transition-all duration-300 ${
-                  isScrolled ? 'h-8 sm:h-9 w-auto' : 'h-10 md:h-12 w-auto'
-                }`} 
+                className="h-8 sm:h-9 w-auto" 
               />
             </Link>
 

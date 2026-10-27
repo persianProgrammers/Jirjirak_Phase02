@@ -176,21 +176,6 @@ export function WhatWeBuildSection({
   // Color tokens matching CaseStudySection & JournalSection exactly
   const accentText = isNight ? 'text-[#8f6b00]' : 'text-[#fff083]';
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        containerRef.current,
-        { opacity: 0.9 },
-        {
-          opacity: 1,
-          duration: 0.6,
-          ease: 'power2.out',
-        }
-      );
-    }, containerRef);
-    return () => ctx.revert();
-  }, []);
-
   const toggleItem = (id: string) => {
     setActiveId((prev) => (prev === id ? '' : id));
   };
@@ -199,6 +184,7 @@ export function WhatWeBuildSection({
     <section
       id="services"
       ref={containerRef}
+      style={{ contain: 'layout paint' }}
       className={`py-28 sm:py-32 px-6 sm:px-8 lg:px-12 xl:px-16 overflow-hidden transition-colors duration-700 ease-in-out relative ${
         isNight ? 'bg-brand-light text-brand-dark' : 'bg-brand-dark text-brand-light'
       }`}

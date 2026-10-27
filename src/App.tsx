@@ -7,7 +7,9 @@
 import React, { Component, ReactNode, useEffect } from 'react';
 import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ScrollTrigger } from './animations/gsap';
+import { gsap, ScrollTrigger } from './animations/gsap';
+import { ReactLenis, useLenis } from 'lenis/react';
+import 'lenis/dist/lenis.css';
 
 // Core Layout & All Architectural Pages
 import MainLayout from './layouts/MainLayout';
@@ -33,9 +35,34 @@ const queryClient = new QueryClient({
 });
 
 // ============================================================================
-// 2. NATIVE SMOOTH SCROLL & GSAP SCROLLTRIGGER PASSIVE SYNC
+// 2. NATIVE SMOOTH SCROLL & GSAP SCROLLTRIGGER MASTER TICKER SYNC
 // ============================================================================
 function NativeScrollSetup() {
+  const lenis = useLenis();
+
+  // Synchronize Lenis and GSAP ScrollTrigger onto a single authoritative RAF ticker
+  useEffect(() => {
+    if (!lenis) return;
+
+    // Sync ScrollTrigger calculation on every Lenis scroll tick
+    const updateScrollTrigger = () => {
+      ScrollTrigger.update();
+    };
+    lenis.on('scroll', updateScrollTrigger);
+
+    // Drive Lenis via GSAP master ticker (0 duplicate RAFs, 0 jitter)
+    const updateTicker = (time: number) => {
+      lenis.raf(time * 1000);
+    };
+    gsap.ticker.add(updateTicker);
+    gsap.ticker.lagSmoothing(0);
+
+    return () => {
+      lenis.off('scroll', updateScrollTrigger);
+      gsap.ticker.remove(updateTicker);
+    };
+  }, [lenis]);
+
   useEffect(() => {
     const handleAnchorClick = (e: MouseEvent) => {
       const target = e.target;
@@ -49,7 +76,11 @@ function NativeScrollSetup() {
       const targetEl = document.querySelector(href);
       if (targetEl) {
         e.preventDefault();
-        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (lenis) {
+          lenis.scrollTo(targetEl, { offset: -20, duration: 1.2 });
+        } else {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
     };
 
@@ -57,7 +88,7 @@ function NativeScrollSetup() {
     return () => {
       document.removeEventListener('click', handleAnchorClick);
     };
-  }, []);
+  }, [lenis]);
 
   return null;
 }
@@ -163,8 +194,10 @@ export default function App() {
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
-        <NativeScrollSetup />
-        <RouterProvider router={router} />
+        <ReactLenis root autoRaf={false} options={{ lerp: 0.08, smoothWheel: true }}>
+          <NativeScrollSetup />
+          <RouterProvider router={router} />
+        </ReactLenis>
       </QueryClientProvider>
     </ErrorBoundary>
   );

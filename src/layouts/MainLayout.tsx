@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
+import { useLenis } from 'lenis/react';
 import { Header } from '../components/layout/Header';
 import { Footer } from '../components/layout/Footer';
 import { VintageJazzCapsule } from '../components/ui/VintageJazzCapsule';
@@ -10,11 +11,16 @@ import { useGlobalStore } from '../stores/globalStore';
 export default function MainLayout() {
   const { isNight, currentLang } = useGlobalStore();
   const location = useLocation();
+  const lenis = useLenis();
 
   // Scroll to top on route navigation
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-  }, [location.pathname]);
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }
+  }, [location.pathname, lenis]);
 
   // Instant real-time theme synchronization across the entire document without page refresh
   useEffect(() => {
@@ -40,7 +46,7 @@ export default function MainLayout() {
 
 
   return (
-    <div className="min-h-screen flex flex-col relative bg-brand-dark text-brand-light overflow-x-hidden w-full max-w-full">
+    <div className="min-h-screen flex flex-col relative bg-brand-dark text-brand-light overflow-x-clip w-full max-w-full">
       {/* 🎭 Vintage Screen Transition Curtain (Full-Screen Overlay with exact Hamburger spring & official logo) */}
       <ScreenTransitionCurtain />
 

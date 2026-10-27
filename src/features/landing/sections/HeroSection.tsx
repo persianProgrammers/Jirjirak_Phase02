@@ -1,4 +1,4 @@
-import { useRef, useEffect, useMemo, useState } from 'react';
+import React, { useRef, useEffect, useMemo, useState } from 'react';
 import { gsap } from '../../../animations/gsap';
 import { useNavigate } from 'react-router-dom';
 import { useLenis } from 'lenis/react';
@@ -8,28 +8,36 @@ import { ArchitecturalClouds } from '../components/ArchitecturalClouds';
 import { StudioTitleRenderer } from '../components/StudioTitleSystem';
 import { HeroDepartmentShowcase } from '../components/HeroDepartmentShowcase';
 
-export function HeroSection() {
-  const containerRef = useRef<HTMLElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
-  const lenis = useLenis();
-  const { isNight, currentLang } = useGlobalStore();
-  const t = useTranslation()(currentLang);
+// 18 Static GPU-Composited Firefly Positions & Timings (0% CPU, no JS RAF loops)
+const FIREFLY_CONFIGS = [
+  { left: '12%', top: '18%', anim: 'fireflyFloatA', dur: '9s', delay: '0s', size: 5 },
+  { left: '28%', top: '35%', anim: 'fireflyFloatB', dur: '12s', delay: '1.5s', size: 6 },
+  { left: '45%', top: '15%', anim: 'fireflyFloatC', dur: '10s', delay: '3s', size: 4 },
+  { left: '62%', top: '42%', anim: 'fireflyFloatA', dur: '14s', delay: '0.8s', size: 6 },
+  { left: '78%', top: '22%', anim: 'fireflyFloatB', dur: '11s', delay: '2.2s', size: 5 },
+  { left: '88%', top: '55%', anim: 'fireflyFloatC', dur: '13s', delay: '4s', size: 5 },
+  { left: '18%', top: '68%', anim: 'fireflyFloatA', dur: '11s', delay: '1.8s', size: 6 },
+  { left: '35%', top: '80%', anim: 'fireflyFloatB', dur: '15s', delay: '0.5s', size: 4 },
+  { left: '52%', top: '62%', anim: 'fireflyFloatC', dur: '9.5s', delay: '2.7s', size: 5 },
+  { left: '70%', top: '75%', anim: 'fireflyFloatA', dur: '13s', delay: '3.5s', size: 6 },
+  { left: '82%', top: '85%', anim: 'fireflyFloatB', dur: '10.5s', delay: '1.2s', size: 4 },
+  { left: '8%', top: '48%', anim: 'fireflyFloatC', dur: '12.5s', delay: '4.5s', size: 5 },
+  { left: '22%', top: '25%', anim: 'fireflyFloatA', dur: '10s', delay: '2s', size: 5 },
+  { left: '58%', top: '28%', anim: 'fireflyFloatB', dur: '14s', delay: '1s', size: 6 },
+  { left: '74%', top: '50%', anim: 'fireflyFloatC', dur: '11.5s', delay: '3.2s', size: 4 },
+  { left: '92%', top: '32%', anim: 'fireflyFloatA', dur: '13.5s', delay: '0.2s', size: 5 },
+  { left: '40%', top: '52%', anim: 'fireflyFloatB', dur: '9s', delay: '2.5s', size: 6 },
+  { left: '64%', top: '88%', anim: 'fireflyFloatC', dur: '12s', delay: '1.7s', size: 5 },
+];
 
-  // Night Mode: Fireflies (Optimized count for 120fps smooth scrolling)
-  const firefliesCount = 18;
-  const fireflies = useMemo(() => Array.from({ length: firefliesCount }), []);
-  const firefliesRef = useRef<(HTMLDivElement | null)[]>([]);
-
-  /* =========================================================================
-     [RESERVED FOR FUTURE SEASONAL FEATURE]
-     برگ‌های پاییزی، افرا و جینکو برای ویژگی تم فصول در آینده ذخیره شده‌اند:
-     ========================================================================= */
-
-  const [isDayImageLoaded, setIsDayImageLoaded] = useState(false);
-  const [isNightImageLoaded, setIsNightImageLoaded] = useState(false);
-
-  // Single-line Concise Services Rotator (9 distinct disciplines with semantic color-topic harmony)
+// Isolated Memoized Rotator: Prevents entire HeroSection from re-rendering every 2.4s
+const HeroServiceRotator = React.memo(function HeroServiceRotator({
+  isNight,
+  currentLang,
+}: {
+  isNight: boolean;
+  currentLang: string;
+}) {
   const servicesList = useMemo(() => {
     return currentLang === 'FA' ? [
       {
@@ -154,9 +162,52 @@ export function HeroSection() {
         setActiveServiceIndex((prev) => (prev + 1) % servicesList.length);
         setIsServiceVisible(true);
       }, 250);
-    }, 2200);
+    }, 2400);
     return () => clearInterval(interval);
   }, [servicesList.length]);
+
+  const currentService = servicesList[activeServiceIndex];
+
+  return (
+    <div className="relative h-11 sm:h-14 flex items-center justify-center overflow-visible max-w-xl mx-auto mb-10 sm:mb-12 select-none">
+      <div 
+        className="absolute -inset-x-8 -inset-y-3 rounded-full pointer-events-none transition-opacity duration-700 opacity-70"
+        style={{
+          background: isNight
+            ? `radial-gradient(ellipse at center, ${currentService.glow} 0%, transparent 70%)`
+            : 'transparent',
+        }}
+      />
+
+      <div
+        className={`relative z-10 transition-all duration-300 ease-out transform ${
+          isServiceVisible
+            ? 'opacity-100 translate-y-0 filter-none'
+            : 'opacity-0 -translate-y-2'
+        }`}
+      >
+        <span className={`text-xl sm:text-2xl md:text-3xl font-extrabold tracking-wider uppercase transition-colors duration-500 ${
+          isNight 
+            ? `bg-gradient-to-r ${currentService.nightGradient} bg-clip-text text-transparent drop-shadow-[0_0_12px_rgba(255,255,255,0.12)]` 
+            : `${currentService.dayColor}`
+        }`}>
+          {currentService.text}
+        </span>
+      </div>
+    </div>
+  );
+});
+
+export function HeroSection() {
+  const containerRef = useRef<HTMLElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+  const lenis = useLenis();
+  const { isNight, currentLang } = useGlobalStore();
+  const t = useTranslation()(currentLang);
+
+  const [isDayImageLoaded, setIsDayImageLoaded] = useState(false);
+  const [isNightImageLoaded, setIsNightImageLoaded] = useState(false);
 
   useEffect(() => {
     const dayImg = new Image();
@@ -191,68 +242,11 @@ export function HeroSection() {
     return () => ctx.revert();
   }, []);
 
-  // Mode-dependent ambient particle animation (paused when offscreen to save 100% GPU/CPU during scroll)
-  useEffect(() => {
-    let isVisible = true;
-    const activeTweens: gsap.core.Tween[] = [];
-
-    const ctx = gsap.context(() => {
-      if (isNight) {
-        // Night: Fireflies wandering in the darkness
-        firefliesRef.current.forEach((fly) => {
-          if (!fly) return;
-          gsap.set(fly, {
-            x: () => gsap.utils.random(0, window.innerWidth),
-            y: () => gsap.utils.random(0, window.innerHeight),
-            scale: () => gsap.utils.random(0.3, 1.2),
-            opacity: () => gsap.utils.random(0.15, 0.6)
-          });
-
-          const animateFly = () => {
-            if (!isVisible) return;
-            const tw = gsap.to(fly, {
-              x: `+=${gsap.utils.random(-100, 100)}`,
-              y: `+=${gsap.utils.random(-100, 100)}`,
-              opacity: () => gsap.utils.random(0.15, 0.85),
-              duration: () => gsap.utils.random(6, 12),
-              ease: "sine.inOut",
-              onComplete: animateFly
-            });
-            activeTweens.push(tw);
-          };
-          animateFly();
-        });
-      }
-    }, containerRef);
-
-    // Observer: Pause when hero is out of view (e.g. user scrolled down)
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        isVisible = entry.isIntersecting;
-        if (!isVisible) {
-          activeTweens.forEach((t) => t.pause());
-        } else {
-          activeTweens.forEach((t) => t.resume());
-        }
-      },
-      { threshold: 0.05 }
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => {
-      observer.disconnect();
-      activeTweens.forEach((t) => t.kill());
-      ctx.revert();
-    };
-  }, [isNight]);
-
   return (
     <section 
       id="hero"
       ref={containerRef} 
+      style={{ contain: 'paint' }}
       className={`relative px-6 sm:px-8 lg:px-12 xl:px-16 overflow-hidden transition-colors duration-700 ease-in-out ${
         isNight ? 'bg-brand-dark text-brand-light' : 'bg-brand-light text-brand-dark'
       }`}
@@ -269,16 +263,21 @@ export function HeroSection() {
         />
       </div>
 
-      {/* Fireflies Background (Night Mode ONLY - completely unmounted in Day) */}
+      {/* Fireflies Background (Night Mode ONLY - pure GPU compositor animation, 0% JS CPU) */}
       {isNight && (
-        <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-          {fireflies.map((_, i) => (
+        <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+          {FIREFLY_CONFIGS.map((f, i) => (
             <div
               key={`firefly-${i}`}
-              ref={(el) => { firefliesRef.current[i] = el; }}
-              className="absolute top-0 left-0 w-1.5 h-1.5 bg-brand-yellow rounded-full shadow-[0_0_8px_rgba(255,240,131,0.7)] will-change-transform"
-              style={{ transform: 'translateZ(0)' }}
-            ></div>
+              className="absolute rounded-full bg-brand-yellow shadow-[0_0_8px_rgba(255,240,131,0.7)] pointer-events-none will-change-transform"
+              style={{
+                left: f.left,
+                top: f.top,
+                width: `${f.size}px`,
+                height: `${f.size}px`,
+                animation: `${f.anim} ${f.dur} ease-in-out ${f.delay} infinite alternate`,
+              }}
+            />
           ))}
         </div>
       )}
@@ -321,32 +320,8 @@ export function HeroSection() {
             )}
           </h1>
 
-          {/* Single-line Animated Service Rotator */}
-          <div className="relative h-11 sm:h-14 flex items-center justify-center overflow-visible max-w-xl mx-auto mb-10 sm:mb-12 select-none">
-            {/* Subtle gentle ambient aura */}
-            <div 
-              className="absolute -inset-x-8 -inset-y-3 rounded-full blur-2xl pointer-events-none transition-all duration-700 opacity-70"
-              style={{
-                background: isNight ? servicesList[activeServiceIndex].glow : 'transparent',
-              }}
-            />
-
-            <div
-              className={`relative z-10 transition-all duration-300 ease-out transform ${
-                isServiceVisible
-                  ? 'opacity-100 translate-y-0 filter-none'
-                  : 'opacity-0 -translate-y-2 blur-[1px]'
-              }`}
-            >
-              <span className={`text-xl sm:text-2xl md:text-3xl font-extrabold tracking-wider uppercase transition-all duration-500 ${
-                isNight 
-                  ? `bg-gradient-to-r ${servicesList[activeServiceIndex].nightGradient} bg-clip-text text-transparent drop-shadow-[0_0_12px_rgba(255,255,255,0.12)]` 
-                  : `${servicesList[activeServiceIndex].dayColor}`
-              }`}>
-                {servicesList[activeServiceIndex].text}
-              </span>
-            </div>
-          </div>
+          {/* Single-line Animated Service Rotator (Isolated to avoid re-rendering Hero) */}
+          <HeroServiceRotator isNight={isNight} currentLang={currentLang} />
           
           {/* Dual Action CTAs: Explore Jirjirak & Start a Project */}
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
@@ -383,7 +358,7 @@ export function HeroSection() {
         </div>
 
         {/* Image Section (Located directly BELOW the 100vh text section) */}
-        <div id="hero-image-section" className="relative w-full flex flex-col items-center justify-center py-6 lg:py-16">
+        <div id="hero-image-section" style={{ contain: 'layout paint' }} className="relative w-full flex flex-col items-center justify-center py-6 lg:py-16">
           <HeroDepartmentShowcase
             isNight={isNight}
             isDayImageLoaded={isDayImageLoaded}

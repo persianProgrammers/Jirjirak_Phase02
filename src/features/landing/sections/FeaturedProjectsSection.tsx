@@ -768,6 +768,7 @@ export function FeaturedProjectsSection({ stepBadge }: FeaturedProjectsSectionPr
       id="work" 
       ref={containerRef} 
       data-cursor="project" 
+      style={{ contain: 'layout paint' }}
       className={`py-28 sm:py-32 px-6 sm:px-8 lg:px-12 xl:px-16 overflow-hidden transition-colors duration-700 ease-in-out ${
         isNight ? 'bg-brand-dark text-brand-light' : 'bg-brand-light text-brand-dark'
       }`}
@@ -850,6 +851,7 @@ export function FeaturedProjectsSection({ stepBadge }: FeaturedProjectsSectionPr
           {/* Horizontal Refined Archival Filters Dock with Click+Drag & Touch+Drag */}
           <div
             ref={filtersScrollRef}
+            data-lenis-prevent="true"
             onMouseDown={handleFiltersMouseDown}
             onMouseMove={handleFiltersMouseMove}
             onMouseUp={handleFiltersMouseUp}
