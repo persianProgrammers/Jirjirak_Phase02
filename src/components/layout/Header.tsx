@@ -8,6 +8,7 @@ import { AnimatedJirjirakLogo } from '../ui/AnimatedJirjirakLogo';
 
 const LANDING_SECTIONS = [
   { id: 'hero' },
+  { id: 'services' },
   { id: 'world' },
   { id: 'work' },
   { id: 'case-study' },
@@ -163,9 +164,8 @@ export function Header() {
   };
 
   const navLinks = [
-    { href: '#world', to: '/#world', label: t.nav.world, id: 'world' },
-    { href: '/services', to: '/services', label: t.nav.services, id: 'services' },
-    { href: '#work', to: '/#work', label: t.nav.work, id: 'work' },
+    { href: '#services', to: '/#services', label: t.nav.services, id: 'services' },
+    { href: '/work', to: '/work', label: t.nav.work, id: 'work' },
     { href: '/about', to: '/about', label: t.nav.about, id: 'about' },
     { href: '/journal', to: '/journal', label: t.nav.journal, id: 'journal' },
     { href: '/contact', to: '/contact', label: t.nav.contact, id: 'contact' },
@@ -347,12 +347,11 @@ export function Header() {
 
             <nav className="flex flex-col gap-5 sm:gap-6 text-2xl sm:text-3xl font-bold tracking-tight uppercase relative z-10">
               {[
-                { href: '#world', to: '/#world', label: t.nav.world, step: isFa ? '۰۲' : '02' },
-                { href: '#services', to: '/#services', label: t.nav.services, step: isFa ? '۰۳' : '03' },
-                { href: '#work', to: '/#work', label: t.nav.work, step: isFa ? '۰۴' : '04' },
-                { href: '/about', to: '/about', label: t.nav.about, step: isFa ? '۰۶' : '06' },
-                { href: '/journal', to: '/journal', label: t.nav.journal, step: isFa ? '۰۸' : '08' },
-                { href: '/contact', to: '/contact', label: t.nav.contact, step: isFa ? '۰۹' : '09' },
+                { href: '#services', to: '/#services', label: t.nav.services, step: isFa ? '۰۲' : '02' },
+                { href: '/work', to: '/work', label: t.nav.work, step: isFa ? '۰۳' : '03' },
+                { href: '/about', to: '/about', label: t.nav.about, step: isFa ? '۰۴' : '04' },
+                { href: '/journal', to: '/journal', label: t.nav.journal, step: isFa ? '۰۵' : '05' },
+                { href: '/contact', to: '/contact', label: t.nav.contact, step: isFa ? '۰۶' : '06' },
               ].map((item, i) => (
                 <motion.div 
                   custom={i} 

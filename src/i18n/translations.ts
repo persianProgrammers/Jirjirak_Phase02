@@ -575,7 +575,7 @@ const faContact: ContactTranslation = {
 export const translations: Record<Language, TranslationSchema> = {
   EN: {
     nav: {
-      world: 'What We Build',
+      world: 'What We Do',
       departments: 'Departments',
       work: 'Work',
       services: 'What We Do',
@@ -703,10 +703,10 @@ export const translations: Record<Language, TranslationSchema> = {
   },
   FA: {
     nav: {
-      world: 'چه چیزی خلق می‌کنیم',
+      world: 'آنچه انجام می‌دهیم',
       departments: 'دپارتمان‌ها',
-      work: 'نمونه‌کارها',
-      services: 'خدمات ما',
+      work: 'آثار',
+      services: 'آنچه انجام می‌دهیم',
       about: 'درباره ما',
       journal: 'یادداشت‌ها',
       contact: 'تماس',

@@ -582,7 +582,14 @@ const childVariants: Variants = {
   },
 };
 
-export function FeaturedProjectsSection() {
+export interface FeaturedProjectsSectionProps {
+  stepBadge?: {
+    en: string;
+    fa: string;
+  };
+}
+
+export function FeaturedProjectsSection({ stepBadge }: FeaturedProjectsSectionProps = {}) {
   const navigate = useNavigate();
   const { isNight, currentLang, landingLayoutMode, filterModelId } = useGlobalStore();
   const t = useTranslation()(currentLang);
@@ -690,14 +697,6 @@ export function FeaturedProjectsSection() {
     }, 60);
   };
 
-  const handleFiltersWheel = (e: React.WheelEvent<HTMLDivElement>) => {
-    if (!filtersScrollRef.current) return;
-    if (e.deltaY !== 0 && !e.shiftKey) {
-      // Smooth horizontal scroll on mouse wheel
-      filtersScrollRef.current.scrollBy({ left: e.deltaY * 0.9, behavior: 'smooth' });
-    }
-  };
-
   useEffect(() => {
     return () => {
       stopMomentum();
@@ -783,7 +782,7 @@ export function FeaturedProjectsSection() {
             {/* Pre-title / Step Badge */}
             <div className="flex items-center gap-4 mb-3 sm:mb-4">
               <span className={`text-xs font-semibold tracking-widest font-mono ${accentText}`}>
-                {isFa ? '۰۲ / ۰۶' : '02 / 06'}
+                {stepBadge ? (isFa ? stepBadge.fa : stepBadge.en) : (isFa ? '۰۲ / ۰۶' : '02 / 06')}
               </span>
               <span className="text-xs font-semibold tracking-widest uppercase opacity-75">
                 {isFa ? 'آثار برگزیده' : 'Featured Works'}
@@ -858,7 +857,6 @@ export function FeaturedProjectsSection() {
             onTouchStart={handleFiltersTouchStart}
             onTouchMove={handleFiltersTouchMove}
             onTouchEnd={handleFiltersTouchEnd}
-            onWheel={handleFiltersWheel}
             style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',

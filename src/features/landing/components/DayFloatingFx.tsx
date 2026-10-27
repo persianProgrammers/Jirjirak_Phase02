@@ -531,6 +531,7 @@ const InteractiveDandelionsFx: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
     const ctx = gsap.context(() => {
       dandelionsRef.current.forEach((seed, i) => {
         if (!seed) return;
@@ -580,7 +581,6 @@ const InteractiveDandelionsFx: React.FC = () => {
     });
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
       ctx.revert();
     };
   }, []);

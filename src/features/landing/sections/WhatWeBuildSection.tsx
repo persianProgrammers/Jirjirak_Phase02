@@ -160,8 +160,8 @@ export interface WhatWeBuildSectionProps {
 export function WhatWeBuildSection({
   step = '02 / 06',
   stepFa = '۰۲ / ۰۶',
-  badge = 'WHAT WE BUILD',
-  badgeFa = 'آنچه خلق می‌کنیم',
+  badge = 'WHAT WE DO',
+  badgeFa = 'آنچه انجام می‌دهیم',
   inverted = false,
 }: WhatWeBuildSectionProps = {}) {
   const containerRef = useRef<HTMLElement>(null);
@@ -197,12 +197,14 @@ export function WhatWeBuildSection({
 
   return (
     <section
-      id="world"
+      id="services"
       ref={containerRef}
-      className={`py-28 sm:py-32 px-6 sm:px-8 lg:px-12 xl:px-16 overflow-hidden transition-colors duration-700 ease-in-out ${
+      className={`py-28 sm:py-32 px-6 sm:px-8 lg:px-12 xl:px-16 overflow-hidden transition-colors duration-700 ease-in-out relative ${
         isNight ? 'bg-brand-light text-brand-dark' : 'bg-brand-dark text-brand-light'
       }`}
     >
+      {/* Anchor for backward compatibility with #world */}
+      <div id="world" className="absolute -top-24 pointer-events-none" />
       <div className="max-w-[1600px] mx-auto w-full flex flex-col lg:flex-row gap-12 lg:gap-16">
         
         {/* ========================================================================= */}

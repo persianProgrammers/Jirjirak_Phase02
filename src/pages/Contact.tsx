@@ -183,8 +183,8 @@ export default function Contact() {
       <WhatWeBuildSection
         step="04 / 04"
         stepFa="۰۴ / ۰۴"
-        badge="WHAT WE BUILD"
-        badgeFa="آنچه خلق می‌کنیم"
+        badge="WHAT WE DO"
+        badgeFa="آنچه انجام می‌دهیم"
         inverted={true}
       />
     </div>

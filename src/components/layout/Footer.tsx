@@ -17,9 +17,8 @@ export function Footer() {
         </Link>
         
         <nav className="flex flex-wrap justify-center gap-6">
-          <a href="#world" className="hover:text-brand-gray transition-colors cursor-pointer">{t.nav.world}</a>
-          <a href="#work" className="hover:text-brand-gray transition-colors cursor-pointer">{t.nav.work}</a>
-          <Link to="/services" className="hover:text-brand-gray transition-colors cursor-pointer">{t.nav.services}</Link>
+          <a href="/#services" className="hover:text-brand-gray transition-colors cursor-pointer">{t.nav.services}</a>
+          <Link to="/work" className="hover:text-brand-gray transition-colors cursor-pointer">{t.nav.work}</Link>
           <Link to="/about" className="hover:text-brand-gray transition-colors cursor-pointer">{t.nav.about}</Link>
           <Link to="/journal" className="hover:text-brand-gray transition-colors cursor-pointer">{t.nav.journal}</Link>
           <Link to="/contact" className="hover:text-brand-gray transition-colors cursor-pointer">{t.nav.contact}</Link>

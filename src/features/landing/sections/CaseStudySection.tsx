@@ -346,7 +346,14 @@ const SHOWCASE_PROJECTS: ProjectCase[] = [
   },
 ];
 
-export function CaseStudySection() {
+export interface CaseStudySectionProps {
+  stepBadge?: {
+    en: string;
+    fa: string;
+  };
+}
+
+export function CaseStudySection({ stepBadge }: CaseStudySectionProps = {}) {
   const { currentLang, isNight } = useGlobalStore();
   const isFa = currentLang === 'FA';
   const t = useTranslation()(currentLang);
@@ -426,7 +433,7 @@ export function CaseStudySection() {
           {/* Left: Step indicator & Project Tag */}
           <div className="flex items-center gap-4 sm:gap-6">
             <span className="text-xs sm:text-sm font-mono tracking-widest text-[#FFF083]">
-              {isFa ? '۰۴ / ۰۷' : currentProject.stepNum}
+              {stepBadge ? (isFa ? stepBadge.fa : stepBadge.en) : (isFa ? '۰۴ / ۰۷' : currentProject.stepNum)}
             </span>
             <div className="flex items-center gap-2">
               <span className="text-[11px] font-mono tracking-widest uppercase text-white/50">

@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ProjectItem } from './types';
 import { ArrowUpRight, X } from 'lucide-react';
+import { ProgressiveProjectImage } from './ProgressiveProjectImage';
 // Preserved imports for future use when navigation controls are uncommented:
 // import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -156,31 +157,15 @@ export function KineticBladesModel({
                       ].join(' ')
                 } ${isNight ? 'bg-neutral-900' : 'bg-white'}`}
               >
-              {/* Project Image */}
+              {/* Project Image with Progressive Loading */}
               <div className="absolute inset-0 w-full h-full overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.titleEn}
-                  className={`w-full h-full object-cover transition-transform duration-700 ${
-                    isActive ? 'scale-105' : 'scale-120 filter brightness-75 hover:brightness-90'
-                  }`}
-                  loading="lazy"
-                  decoding="async"
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    if (!target.src.includes('public/')) {
-                      target.src = `/public${project.image.startsWith('/') ? '' : '/'}${project.image}`;
-                    }
-                  }}
-                />
-
-                {/* Subtle Cinematic Shading */}
-                <div 
-                  className={`absolute inset-0 transition-opacity duration-500 ${
-                    isActive 
-                      ? 'bg-gradient-to-t from-black/85 via-black/20 to-black/10' 
-                      : 'bg-black/50 hover:bg-black/30'
-                  }`} 
+                <ProgressiveProjectImage
+                  id={project.id}
+                  image={project.image}
+                  title={project.titleEn}
+                  accentColor={brandColor}
+                  isActive={isActive}
+                  priority={idx < 4}
                 />
 
                 {/* Exquisite Client Brand Spine Edge Indicator (Delicate Luminous Optical Fiber) */}
