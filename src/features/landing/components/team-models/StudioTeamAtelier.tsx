@@ -9,6 +9,7 @@ import { Sparkles } from 'lucide-react';
 import { useGlobalStore } from '../../../../stores/globalStore';
 import { MasterFilterRenderer } from '../../../../components/ui/filters/MasterFilterRenderer';
 import { FilterTabItem } from '../../../../components/ui/filters/types';
+import { OptimizedImage } from '../../../../components/ui/OptimizedImage';
 
 interface Props {
   isNight: boolean;
@@ -211,7 +212,7 @@ export function StudioTeamAtelier({ isNight, isFa }: Props) {
                 >
                   {/* Member Portrait Frame */}
                   <div className="relative w-full aspect-[3/4] overflow-hidden bg-neutral-200 dark:bg-neutral-800">
-                    <img
+                    <OptimizedImage
                       src={member.image}
                       alt={isFa ? member.nameFa : member.nameEn}
                       className="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105 filter contrast-[1.03]"

@@ -267,6 +267,8 @@ export default function JournalDetail() {
               <img
                 src={article.author.avatar}
                 alt={authorName}
+                loading="lazy"
+                decoding="async"
                 className="w-12 h-12 rounded-full object-cover border-2 border-white/20 shadow-md"
               />
               <div className="text-start">
@@ -314,6 +316,8 @@ export default function JournalDetail() {
           <img
             src={article.image}
             alt={title}
+            loading="eager"
+            decoding="async"
             className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
@@ -552,6 +556,8 @@ export default function JournalDetail() {
                 <img
                   src={article.author.avatar}
                   alt={authorName}
+                  loading="lazy"
+                  decoding="async"
                   className="w-20 h-20 rounded-full object-cover border-2 border-white/20 shrink-0"
                 />
                 <div className="flex-1">
@@ -610,6 +616,8 @@ export default function JournalDetail() {
               <img
                 src={prevArticle.image}
                 alt={isFa ? prevArticle.titleFa : prevArticle.titleEn}
+                loading="lazy"
+                decoding="async"
                 className="w-20 h-20 rounded-xl object-cover shrink-0 border border-white/10 group-hover:scale-105 transition-transform"
               />
               <div className="flex-1">
@@ -646,6 +654,8 @@ export default function JournalDetail() {
               <img
                 src={nextArticle.image}
                 alt={isFa ? nextArticle.titleFa : nextArticle.titleEn}
+                loading="lazy"
+                decoding="async"
                 className="w-20 h-20 rounded-xl object-cover shrink-0 border border-white/10 group-hover:scale-105 transition-transform"
               />
             </Link>

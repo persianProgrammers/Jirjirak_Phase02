@@ -327,7 +327,7 @@ export function HeroDepartmentShowcase({
               }`}
             >
               <img
-                src={isNight ? "/assets/images/ui/hero-building-night.png" : "/assets/images/ui/hero-building-day.png"}
+                src={isNight ? "/assets/images/ui/hero-building-night.webp" : "/assets/images/ui/hero-building-day.webp"}
                 alt={isNight ? "Jirjirak Studio (Night)" : "Jirjirak Studio (Day)"}
                 className="w-full h-full object-contain origin-center select-none"
                 loading="eager"

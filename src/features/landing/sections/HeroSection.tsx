@@ -8,26 +8,40 @@ import { ArchitecturalClouds } from '../components/ArchitecturalClouds';
 import { StudioTitleRenderer } from '../components/StudioTitleSystem';
 import { HeroDepartmentShowcase } from '../components/HeroDepartmentShowcase';
 
-// 18 Static GPU-Composited Firefly Positions & Timings (0% CPU, no JS RAF loops)
+// 32 Static GPU-Composited Firefly Positions & Timings - Slow, graceful, elegant night drift (0% CPU)
 const FIREFLY_CONFIGS = [
-  { left: '12%', top: '18%', anim: 'fireflyFloatA', dur: '9s', delay: '0s', size: 5 },
-  { left: '28%', top: '35%', anim: 'fireflyFloatB', dur: '12s', delay: '1.5s', size: 6 },
-  { left: '45%', top: '15%', anim: 'fireflyFloatC', dur: '10s', delay: '3s', size: 4 },
-  { left: '62%', top: '42%', anim: 'fireflyFloatA', dur: '14s', delay: '0.8s', size: 6 },
-  { left: '78%', top: '22%', anim: 'fireflyFloatB', dur: '11s', delay: '2.2s', size: 5 },
-  { left: '88%', top: '55%', anim: 'fireflyFloatC', dur: '13s', delay: '4s', size: 5 },
-  { left: '18%', top: '68%', anim: 'fireflyFloatA', dur: '11s', delay: '1.8s', size: 6 },
-  { left: '35%', top: '80%', anim: 'fireflyFloatB', dur: '15s', delay: '0.5s', size: 4 },
-  { left: '52%', top: '62%', anim: 'fireflyFloatC', dur: '9.5s', delay: '2.7s', size: 5 },
-  { left: '70%', top: '75%', anim: 'fireflyFloatA', dur: '13s', delay: '3.5s', size: 6 },
-  { left: '82%', top: '85%', anim: 'fireflyFloatB', dur: '10.5s', delay: '1.2s', size: 4 },
-  { left: '8%', top: '48%', anim: 'fireflyFloatC', dur: '12.5s', delay: '4.5s', size: 5 },
-  { left: '22%', top: '25%', anim: 'fireflyFloatA', dur: '10s', delay: '2s', size: 5 },
-  { left: '58%', top: '28%', anim: 'fireflyFloatB', dur: '14s', delay: '1s', size: 6 },
-  { left: '74%', top: '50%', anim: 'fireflyFloatC', dur: '11.5s', delay: '3.2s', size: 4 },
-  { left: '92%', top: '32%', anim: 'fireflyFloatA', dur: '13.5s', delay: '0.2s', size: 5 },
-  { left: '40%', top: '52%', anim: 'fireflyFloatB', dur: '9s', delay: '2.5s', size: 6 },
-  { left: '64%', top: '88%', anim: 'fireflyFloatC', dur: '12s', delay: '1.7s', size: 5 },
+  { left: '10%', top: '16%', anim: 'fireflyFloatA', dur: '22s', delay: '0s', size: 4 },
+  { left: '16%', top: '42%', anim: 'fireflyFloatD', dur: '26s', delay: '3.5s', size: 3.5 },
+  { left: '24%', top: '22%', anim: 'fireflyFloatB', dur: '24s', delay: '1.2s', size: 5 },
+  { left: '29%', top: '65%', anim: 'fireflyFloatC', dur: '28s', delay: '5.1s', size: 4 },
+  { left: '36%', top: '35%', anim: 'fireflyFloatA', dur: '21s', delay: '8.4s', size: 3 },
+  { left: '42%', top: '14%', anim: 'fireflyFloatD', dur: '25s', delay: '2.0s', size: 4.5 },
+  { left: '48%', top: '55%', anim: 'fireflyFloatB', dur: '30s', delay: '6.7s', size: 5 },
+  { left: '54%', top: '26%', anim: 'fireflyFloatC', dur: '23s', delay: '4.2s', size: 3.5 },
+  { left: '60%', top: '72%', anim: 'fireflyFloatA', dur: '27s', delay: '1.8s', size: 4 },
+  { left: '66%', top: '18%', anim: 'fireflyFloatD', dur: '29s', delay: '9.3s', size: 5 },
+  { left: '72%', top: '48%', anim: 'fireflyFloatB', dur: '22s', delay: '3.0s', size: 3.5 },
+  { left: '79%', top: '30%', anim: 'fireflyFloatC', dur: '26s', delay: '7.5s', size: 4.5 },
+  { left: '85%', top: '68%', anim: 'fireflyFloatA', dur: '24s', delay: '0.5s', size: 3 },
+  { left: '91%', top: '24%', anim: 'fireflyFloatD', dur: '31s', delay: '4.8s', size: 4 },
+  { left: '95%', top: '58%', anim: 'fireflyFloatB', dur: '25s', delay: '8.1s', size: 5 },
+  { left: '7%',  top: '78%', anim: 'fireflyFloatC', dur: '28s', delay: '2.4s', size: 3.5 },
+  { left: '20%', top: '85%', anim: 'fireflyFloatA', dur: '23s', delay: '6.2s', size: 4.5 },
+  { left: '33%', top: '12%', anim: 'fireflyFloatD', dur: '27s', delay: '10.5s', size: 3 },
+  { left: '45%', top: '82%', anim: 'fireflyFloatB', dur: '29s', delay: '4.0s', size: 4 },
+  { left: '58%', top: '40%', anim: 'fireflyFloatC', dur: '22s', delay: '1.5s', size: 5 },
+  { left: '63%', top: '88%', anim: 'fireflyFloatA', dur: '32s', delay: '7.0s', size: 3.5 },
+  { left: '75%', top: '12%', anim: 'fireflyFloatD', dur: '24s', delay: '5.8s', size: 4 },
+  { left: '82%', top: '82%', anim: 'fireflyFloatB', dur: '26s', delay: '11.0s', size: 3 },
+  { left: '88%', top: '42%', anim: 'fireflyFloatC', dur: '28s', delay: '3.2s', size: 4.5 },
+  { left: '14%', top: '58%', anim: 'fireflyFloatA', dur: '25s', delay: '9.0s', size: 4 },
+  { left: '26%', top: '48%', anim: 'fireflyFloatD', dur: '30s', delay: '2.8s', size: 3.5 },
+  { left: '39%', top: '70%', anim: 'fireflyFloatB', dur: '23s', delay: '7.8s', size: 5 },
+  { left: '51%', top: '38%', anim: 'fireflyFloatC', dur: '27s', delay: '0.8s', size: 3 },
+  { left: '68%', top: '62%', anim: 'fireflyFloatA', dur: '31s', delay: '5.4s', size: 4.5 },
+  { left: '80%', top: '46%', anim: 'fireflyFloatD', dur: '24s', delay: '8.7s', size: 3.5 },
+  { left: '87%', top: '14%', anim: 'fireflyFloatB', dur: '29s', delay: '1.6s', size: 4 },
+  { left: '5%',  top: '32%', anim: 'fireflyFloatC', dur: '26s', delay: '6.0s', size: 4.5 },
 ];
 
 // Isolated Memoized Rotator: Prevents entire HeroSection from re-rendering every 2.4s
@@ -269,12 +283,16 @@ export function HeroSection() {
           {FIREFLY_CONFIGS.map((f, i) => (
             <div
               key={`firefly-${i}`}
-              className="absolute rounded-full bg-brand-yellow shadow-[0_0_8px_rgba(255,240,131,0.7)] pointer-events-none will-change-transform"
+              className="absolute rounded-full pointer-events-none will-change-transform"
               style={{
                 left: f.left,
                 top: f.top,
                 width: `${f.size}px`,
                 height: `${f.size}px`,
+                background: 'radial-gradient(circle, #ffffff 15%, #fff083 60%, rgba(255, 240, 131, 0.4) 100%)',
+                boxShadow: f.size >= 4.5
+                  ? '0 0 10px 2px rgba(255, 240, 131, 0.75), 0 0 4px rgba(255, 255, 255, 0.9)'
+                  : '0 0 6px 1px rgba(255, 240, 131, 0.65)',
                 animation: `${f.anim} ${f.dur} ease-in-out ${f.delay} infinite alternate`,
               }}
             />

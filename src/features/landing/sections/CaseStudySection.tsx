@@ -8,12 +8,12 @@ import React, { useState } from 'react';
 import { useGlobalStore } from '../../../stores/globalStore';
 import { useTranslation } from '../../../i18n/translations';
 
-// High-fidelity image assets for Toyooran showcase
-const HERO_RENDER = '/assets/images/projects/toyooran_hero_render_1791202411845.jpg';
-const GALLERY_VILLA = '/assets/images/projects/toyooran_villa_garden_1791202427508.jpg';
-const GALLERY_BRAND = '/assets/images/projects/toyooran_brand_gold_1791202442579.jpg';
-const GALLERY_BLUEPRINT = '/assets/images/projects/toyooran_cad_blueprint_1791202456136.jpg';
-const GALLERY_GOLD = '/assets/images/projects/toyooran_gold_duotone_1791202471558.jpg';
+// High-fidelity image assets for Toyooran showcase (Optimized WebP)
+const HERO_RENDER = '/assets/images/projects/toyooran_hero_render_1791202411845.webp';
+const GALLERY_VILLA = '/assets/images/projects/toyooran_villa_garden_1791202427508.webp';
+const GALLERY_BRAND = '/assets/images/projects/toyooran_brand_gold_1791202442579.webp';
+const GALLERY_BLUEPRINT = '/assets/images/projects/toyooran_cad_blueprint_1791202456136.webp';
+const GALLERY_GOLD = '/assets/images/projects/toyooran_gold_duotone_1791202471558.webp';
 
 interface ProjectCase {
   id: string;

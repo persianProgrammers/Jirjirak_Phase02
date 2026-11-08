@@ -27,7 +27,7 @@ export const DEPARTMENTS: DepartmentData[] = [
     descriptionFa: 'ساختار، کدنویسی اصولی، عملکرد بالا و تجربه کاربری روان و سریع',
     tagsEn: ['Architecture', 'Clean Code', 'Performance', 'UI / UX Systems'],
     tagsFa: ['معماری نرم‌افزار', 'کدنویسی تمیز', 'عملکرد بالا', 'طراحی رابط و تجربه کاربری'],
-    image: '/assets/images/departments/Web-&-Development.png',
+    image: '/assets/images/departments/Web-&-Development.webp',
     iconType: 'web',
   },
   {
@@ -42,7 +42,7 @@ export const DEPARTMENTS: DepartmentData[] = [
     descriptionFa: 'داده، تحلیل عمیق، استراتژی سئو، بهینه‌سازی و رشد هدفمند پایدار',
     tagsEn: ['Data Analytics', 'Technical SEO', 'Growth Strategy', 'Conversion Rate'],
     tagsFa: ['تحلیل داده', 'سئو تکنیکال', 'استراتژی رشد', 'بهینه‌سازی نرخ تبدیل'],
-    image: '/assets/images/departments/Seo-&-Analytics.png',
+    image: '/assets/images/departments/Seo-&-Analytics.webp',
     iconType: 'seo',
   },
   {
@@ -57,7 +57,7 @@ export const DEPARTMENTS: DepartmentData[] = [
     descriptionFa: 'طراحی کمپین‌های عملکردمحور، تبلیغات هدفمند، شبکه‌های اجتماعی و جذب مخاطب',
     tagsEn: ['Paid Campaigns', 'Social Media', 'Content Strategy', 'Growth Funnel'],
     tagsFa: ['کمپین‌های تبلیغاتی', 'شبکه‌های اجتماعی', 'استراتژی محتوا', 'قیف رشد و لید'],
-    image: '/assets/images/departments/Digital-Marketing-&-Growth.png',
+    image: '/assets/images/departments/Digital-Marketing-&-Growth.webp',
     iconType: 'marketing',
   },
   {
@@ -72,7 +72,7 @@ export const DEPARTMENTS: DepartmentData[] = [
     descriptionFa: 'استراتژی برند، نام‌گذاری، زبان طراحی بصری و روایت‌گری منحصر‌به‌فرد',
     tagsEn: ['Brand Strategy', 'Naming', 'Visual Identity', 'Brand Guidelines'],
     tagsFa: ['استراتژی برند', 'نام‌گذاری', 'هویت بصری', 'کتابچه هویت برند'],
-    image: '/assets/images/departments/Branding-&-Identity.png',
+    image: '/assets/images/departments/Branding-&-Identity.webp',
     iconType: 'branding',
   },
   {
@@ -87,7 +87,7 @@ export const DEPARTMENTS: DepartmentData[] = [
     descriptionFa: 'آموزش آنلاین، کارگاه‌های عملی، دوره‌های تخصصی و جامعه یادگیری پویا',
     tagsEn: ['Specialized Courses', 'Live Workshops', 'Mentorship', 'Creative Hub'],
     tagsFa: ['دوره‌های تخصصی', 'کارگاه‌های عملی', 'جامعه متخصصان', 'منتورشیپ خلاق'],
-    image: '/assets/images/departments/Academy-&-Learning-Hub.png',
+    image: '/assets/images/departments/Academy-&-Learning-Hub.webp',
     iconType: 'academy',
   },
   {
@@ -102,7 +102,7 @@ export const DEPARTMENTS: DepartmentData[] = [
     descriptionFa: 'ایده‌پردازی، طراحی گرافیک، موشن‌گرافیک و تصویرسازی دیجیتال اختصاصی',
     tagsEn: ['Motion Design', 'Visual Art', 'Illustration', 'Creative Direction'],
     tagsFa: ['موشن‌دیزاین', 'تصویرسازی اختصاصی', 'طراحی گرافیک', 'ایده‌پردازی خلاق'],
-    image: '/assets/images/departments/Creative-Studio.png',
+    image: '/assets/images/departments/Creative-Studio.webp',
     iconType: 'creative',
   },
   {
@@ -117,7 +117,7 @@ export const DEPARTMENTS: DepartmentData[] = [
     descriptionFa: 'طراحی گیم‌پلی، دنیاهای سه‌بعدی وب، برنامه‌نویسی خلاق و سرگرمی تعاملی',
     tagsEn: ['Interactive 3D', 'Game Mechanics', 'Creative Coding', 'Character Art'],
     tagsFa: ['بازی‌سازی سه‌بعدی', 'تجارب تعاملی وب', 'برنامه‌نویسی خلاق', 'طراحی مکانیک بازی'],
-    image: '/assets/images/departments/Game-Studio-&-Interactive.png',
+    image: '/assets/images/departments/Game-Studio-&-Interactive.webp',
     iconType: 'game',
   },
 ];

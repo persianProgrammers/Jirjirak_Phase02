@@ -179,6 +179,8 @@ export default function Journal() {
                   <img
                     src={featuredArticle.image}
                     alt={isFa ? featuredArticle.titleFa : featuredArticle.titleEn}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover object-center transition-transform duration-1000 ease-out group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent lg:hidden" />
@@ -233,6 +235,8 @@ export default function Journal() {
                       <img
                         src={featuredArticle.author.avatar}
                         alt={isFa ? featuredArticle.author.nameFa : featuredArticle.author.nameEn}
+                        loading="lazy"
+                        decoding="async"
                         className="w-10 h-10 rounded-full object-cover border border-white/20"
                       />
                       <div>
@@ -321,6 +325,7 @@ export default function Journal() {
                           alt={title}
                           className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
                           loading="lazy"
+                          decoding="async"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
                         <span className="absolute top-4 right-4 rtl:right-auto rtl:left-4 px-3 py-1 rounded-full text-[11px] font-mono font-semibold uppercase tracking-wider backdrop-blur-md bg-black/70 text-brand-yellow border border-white/15">
@@ -374,6 +379,8 @@ export default function Journal() {
                         <img
                           src={article.author.avatar}
                           alt={authorName}
+                          loading="lazy"
+                          decoding="async"
                           className="w-7 h-7 rounded-full object-cover border border-white/20"
                         />
                         <span className="text-xs font-medium">{authorName}</span>

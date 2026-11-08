@@ -65,7 +65,7 @@ export const ALL_TEAM_MEMBERS: MemberData[] = [
     badgeFa: 'هم‌بنیان‌گذار',
     isFounder: true,
     department: 'leadership',
-    image: '/assets/images/team/abdollah.png',
+    image: '/assets/images/team/abdollah.webp',
     bioEn: 'Shaping spaces, systems, and multidisciplinary creative experiences with structural clarity and architectural balance.',
     bioFa: 'طراحی فضاها، سیستم‌های پیچیده چندرشته‌ای و هدایت ساختار دیزاین استودیو با رویکرد مهندسی و بصری یکپارچه.',
     stats: [
@@ -89,7 +89,7 @@ export const ALL_TEAM_MEMBERS: MemberData[] = [
     badgeFa: 'هم‌بنیان‌گذار',
     isFounder: true,
     department: 'leadership',
-    image: '/assets/images/team/rouhollah.png',
+    image: '/assets/images/team/rouhollah.webp',
     bioEn: 'Pioneering cutting-edge digital craftsmanship, software architecture, shaders, WebGL, and high-performance real-time systems.',
     bioFa: 'توسعه زیرساخت‌های مهندسی، برنامه‌نویسی خلاق، وب سه‌بعدی تعاملی، شیدرها و معماری پایدار نرم‌افزاری استودیو.',
     stats: [
@@ -113,7 +113,7 @@ export const ALL_TEAM_MEMBERS: MemberData[] = [
     badgeFa: 'هم‌بنیان‌گذار',
     isFounder: true,
     department: 'leadership',
-    image: '/assets/images/team/sina.png',
+    image: '/assets/images/team/sina.webp',
     bioEn: 'Crafting bespoke brand identities, tactile typography, expressive illustrations, and holistic visual narratives.',
     bioFa: 'خلق هویت‌های بصری ماندگار، تایپوگرافی مفهومی، تصویرسازی‌های متمایز و هدایت سبک هنری پروژه‌های استودیو.',
     stats: [
@@ -139,7 +139,7 @@ export const ALL_TEAM_MEMBERS: MemberData[] = [
     badgeFa: 'متخصص فنی',
     isFounder: false,
     department: 'web-dev',
-    image: '/assets/images/team/danial.jpg',
+    image: '/assets/images/team/danial.webp',
     bioEn: 'Engineering seamless interactive interfaces, micro-animations, GSAP timelines, and modular client architectures.',
     bioFa: 'پیاده‌سازی رابط‌های کاربری تعاملی، انیمیشن‌های روان وب، تایم‌لاین‌های GSAP و معماری ماژولار فرانت‌اند.',
     stats: [
@@ -163,7 +163,7 @@ export const ALL_TEAM_MEMBERS: MemberData[] = [
     badgeFa: 'متخصص فنی',
     isFounder: false,
     department: 'web-dev',
-    image: '/assets/images/team/maryam.jpg',
+    image: '/assets/images/team/maryam.webp',
     bioEn: 'Designing resilient distributed backend microservices, real-time WebSockets, and low-latency cloud infrastructure.',
     bioFa: 'طراحی میکروسرویس‌های توزیع‌شده با قابلیت اطمینان بالا، وب‌سوکت‌های بلادرنگ و زیرساخت‌های ابری مقیاس‌پذیر.',
     stats: [
@@ -187,7 +187,7 @@ export const ALL_TEAM_MEMBERS: MemberData[] = [
     badgeFa: 'متخصص فنی',
     isFounder: false,
     department: 'web-dev',
-    image: '/assets/images/team/arash.jpg',
+    image: '/assets/images/team/arash.webp',
     bioEn: 'Architecting scalable enterprise platforms, API gateways, and real-time state synchronization.',
     bioFa: 'معماری پلتفرم‌های مقیاس‌پذیر سازمانی، گذرگاه‌های ارتباطی و همگام‌سازی بلادرنگ داده‌ها.',
     stats: [
@@ -211,7 +211,7 @@ export const ALL_TEAM_MEMBERS: MemberData[] = [
     badgeFa: 'متخصص فنی',
     isFounder: false,
     department: 'web-dev',
-    image: '/assets/images/team/sepideh.jpg',
+    image: '/assets/images/team/sepideh.webp',
     bioEn: 'Bridging avant-garde interaction design with rock-solid component architectures and accessibility.',
     bioFa: 'پیوند دیزاین تعاملی آوانگارد با معماری استوار کامپوننت‌ها و دسترسی‌پذیری وب.',
     stats: [
@@ -235,7 +235,7 @@ export const ALL_TEAM_MEMBERS: MemberData[] = [
     badgeFa: 'متخصص فنی',
     isFounder: false,
     department: 'web-dev',
-    image: '/assets/images/team/farbod.jpg',
+    image: '/assets/images/team/farbod.webp',
     bioEn: 'Obsessed with sub-millisecond render pipelines, tree-shaking, and high-frequency data streaming.',
     bioFa: 'بهینه‌سازی حداکثری سرعت بارگذاری، پایپ‌لاین‌های رندر سبک و ارتباطات پرسرعت داده.',
     stats: [
@@ -259,7 +259,7 @@ export const ALL_TEAM_MEMBERS: MemberData[] = [
     badgeFa: 'متخصص فنی',
     isFounder: false,
     department: 'web-dev',
-    image: '/assets/images/team/parisa.jpg',
+    image: '/assets/images/team/parisa.webp',
     bioEn: 'Ensuring zero-regression deployment pipelines through end-to-end automated testing suites.',
     bioFa: 'تضمین پایداری بدون نقص و استقرار مداوم با تست‌های جامع و خودکار سرتاسری.',
     stats: [
@@ -285,7 +285,7 @@ export const ALL_TEAM_MEMBERS: MemberData[] = [
     badgeFa: 'متخصص سئو',
     isFounder: false,
     department: 'seo-analytics',
-    image: '/assets/images/team/kamran.jpg',
+    image: '/assets/images/team/kamran.webp',
     bioEn: 'Auditing deep technical website architectures, Core Web Vitals, organic crawl budgets, and search visibility.',
     bioFa: 'تحلیل عمیق معماری سئوی تکنیکال، بهینه‌سازی سرعت هسته وب (CWV)، بودجه خزش و دیده‌شدن ارگانیک در موتورهای جستجو.',
     stats: [
@@ -309,7 +309,7 @@ export const ALL_TEAM_MEMBERS: MemberData[] = [
     badgeFa: 'تحلیل داده',
     isFounder: false,
     department: 'seo-analytics',
-    image: '/assets/images/team/elham.jpg',
+    image: '/assets/images/team/elham.webp',
     bioEn: 'Synthesizing quantitative telemetry, session heatmaps, attribution funnels, and data-driven growth experiments.',
     bioFa: 'تحلیل رفتار تعاملی کاربران، هیت‌مپ‌های صفحات، کانال‌های ورودی و بهینه‌سازی مداوم نرخ تبدیل با رویکرد داده‌محور.',
     stats: [
@@ -335,7 +335,7 @@ export const ALL_TEAM_MEMBERS: MemberData[] = [
     badgeFa: 'دیزاین برند',
     isFounder: false,
     department: 'branding-identity',
-    image: '/assets/images/team/sina.jpg',
+    image: '/assets/images/team/sina.webp',
     bioEn: 'Designing memorable visual emblems, bespoke typeface ligatures, color psychology systems, and guidelines.',
     bioFa: 'خلق نشان‌های بصری ماندگار، تایپ‌فیس‌های سفارشی، هارمونی‌های رنگی روان‌شناختی و کتابچه‌های جامع هویت برند.',
     stats: [
@@ -359,7 +359,7 @@ export const ALL_TEAM_MEMBERS: MemberData[] = [
     badgeFa: 'استراتژی برند',
     isFounder: false,
     department: 'branding-identity',
-    image: '/assets/images/team/sara.jpg',
+    image: '/assets/images/team/sara.webp',
     bioEn: 'Defining brand tone-of-voice, architectural naming matrix, bespoke slogans, and resonant cultural messaging.',
     bioFa: 'تدوین لحن کلامی برند (Tone of Voice)، نام‌گذاری سیستماتیک محصولات و خدمات، شعارها و روایت‌گری اثربخش تجاری.',
     stats: [
@@ -385,7 +385,7 @@ export const ALL_TEAM_MEMBERS: MemberData[] = [
     badgeFa: 'موشن و صدا',
     isFounder: false,
     department: 'creative-studio',
-    image: '/assets/images/team/nima.jpg',
+    image: '/assets/images/team/nima.webp',
     bioEn: 'Composing organic generative audio signatures, kinetic title animations, and micro-haptic auditory feedback.',
     bioFa: 'پیوند زدن انیمیشن‌های کینتیک با فضاهای صوتی ارگانیک، طراحی صدای تعاملی و امضای شنیداری پروژه‌های استودیو.',
     stats: [
@@ -409,7 +409,7 @@ export const ALL_TEAM_MEMBERS: MemberData[] = [
     badgeFa: 'فضاسازی سه‌بعدی',
     isFounder: false,
     department: 'creative-studio',
-    image: '/assets/images/team/sara.jpg',
+    image: '/assets/images/team/sara.webp',
     bioEn: 'Crafting surreal procedural environments, physical material shaders, lighting physics, and architectural visual concepts.',
     bioFa: 'طراحی فضاهای ایمرسیو و سورئال، شیدرهای فیزیکی نور و ماده، رندرهای مفهومی و دنیای سه‌بعدی پروژه‌ها.',
     stats: [
@@ -435,7 +435,7 @@ export const ALL_TEAM_MEMBERS: MemberData[] = [
     badgeFa: 'مارکتینگ',
     isFounder: false,
     department: 'digital-marketing',
-    image: '/assets/images/team/mahsa.jpg',
+    image: '/assets/images/team/mahsa.webp',
     bioEn: 'Architecting performance-driven media campaigns, automated conversion funnels, and data-backed customer acquisition.',
     bioFa: 'طراحی کمپین‌های تبلیغاتی نتیجه‌گرا، اتوماسیون قیف‌های جذب و تبدیل مخاطب، و بهینه‌سازی هوشمند بودجه‌های بازاریابی.',
     stats: [
@@ -461,7 +461,7 @@ export const ALL_TEAM_MEMBERS: MemberData[] = [
     badgeFa: 'بازی و تعامل',
     isFounder: false,
     department: 'game-interactive',
-    image: '/assets/images/team/kamran.jpg',
+    image: '/assets/images/team/kamran.webp',
     bioEn: 'Prototyping dynamic gameplay loops, physics-based puzzles, interactive web mechanics, and engaging gamified experiences.',
     bioFa: 'طراحی حلقه‌های گیم‌پلی پویا، مکانیک‌های فیزیکی تعاملی در وب، بازی‌وارسازی سیستم‌ها و تجارب سرگرم‌کننده دیجیتال.',
     stats: [

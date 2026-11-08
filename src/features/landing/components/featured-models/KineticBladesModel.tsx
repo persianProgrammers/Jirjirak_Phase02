@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ProjectItem } from './types';
-import { ArrowUpRight, X } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { ProgressiveProjectImage } from './ProgressiveProjectImage';
 // Preserved imports for future use when navigation controls are uncommented:
 // import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -197,51 +197,34 @@ export function KineticBladesModel({
 
               {/* ================= IF ACTIVE: EXPANDED FULL VIEW ================= */}
               {isActive ? (
-                <div className="relative z-10 w-full h-full p-3.5 sm:p-5 md:p-8 flex flex-col justify-between text-white transition-opacity duration-300">
-                  {/* Top Bar inside active blade */}
-                  <div className="flex items-center justify-between shrink-0">
-                    <span className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-mono tracking-wider bg-black/60 backdrop-blur-md border border-white/20 text-brand-yellow font-bold uppercase">
+                <div className="relative z-10 w-full h-full p-4 sm:p-6 md:p-8 flex flex-col justify-between text-white transition-opacity duration-300">
+                  {/* Top Bar inside active blade: Only category tag pill as requested */}
+                  <div className="flex items-center shrink-0">
+                    <span className="px-3 py-1 rounded-full text-[10px] sm:text-xs font-mono tracking-wider bg-black/60 backdrop-blur-md border border-white/20 text-brand-yellow font-bold uppercase shadow-sm">
                       {isFa ? project.categoryFa : project.categoryEn}
                     </span>
-
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onSelect(idx);
-                        }}
-                        title={isFa ? 'بستن کتاب' : 'Close Book'}
-                        aria-label="Close Book"
-                        className="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-black/60 hover:bg-black/90 backdrop-blur-md border border-white/25 text-white/90 hover:text-white transition-all cursor-pointer flex items-center gap-1.5 active:scale-95 shadow-md"
-                      >
-                        <X className="w-3.5 h-3.5" />
-                        <span>{isFa ? 'بستن' : 'Close'}</span>
-                      </button>
-
-                      <span className="px-2.5 py-1 rounded-lg text-[10px] font-mono bg-white/20 backdrop-blur-md border border-white/20 font-bold">
-                        0{idx + 1}
-                      </span>
-                    </div>
                   </div>
 
-                  {/* Bottom Information */}
-                  <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-3 sm:gap-4 shrink-0 mt-auto">
-                    <div className="max-w-md">
-                      <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-1 text-white drop-shadow-md line-clamp-1 sm:line-clamp-2">
+                  {/* Bottom Content: Vertically stacked layout ensuring zero overflow and consistent placement */}
+                  <div className="flex flex-col items-start gap-3 sm:gap-4 shrink-0 mt-auto w-full">
+                    <div className="w-full">
+                      <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-white drop-shadow-md leading-tight line-clamp-2">
                         {isFa ? project.titleFa : project.titleEn}
                       </h3>
-                      <p className="text-xs sm:text-sm text-neutral-200 line-clamp-2 drop-shadow">
-                        {isFa ? project.descFa : project.descEn}
-                      </p>
+                      {(project.descFa || project.descEn) && (
+                        <p className="text-xs sm:text-sm text-neutral-200/90 line-clamp-2 mt-1 drop-shadow max-w-xl">
+                          {isFa ? project.descFa : project.descEn}
+                        </p>
+                      )}
                     </div>
 
                     <a
                       href={project.link || '#work'}
                       onClick={(e) => e.stopPropagation()}
-                      className="px-3.5 py-2 sm:px-5 sm:py-3 rounded-xl sm:rounded-2xl bg-brand-yellow text-brand-dark font-bold text-xs flex items-center gap-1.5 sm:gap-2 hover:scale-105 active:scale-95 transition-transform shadow-xl shrink-0"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full bg-brand-yellow text-brand-dark font-bold text-xs sm:text-sm hover:bg-white hover:text-black active:scale-95 transition-all duration-300 shadow-xl cursor-pointer shrink-0"
                     >
                       <span>{isFa ? 'مشاهده پرونده' : 'Inspect Case'}</span>
-                      <ArrowUpRight className="w-4 h-4" />
+                      <ArrowUpRight className="w-4 h-4 rtl:rotate-90" />
                     </a>
                   </div>
                 </div>

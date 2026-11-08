@@ -128,6 +128,7 @@ export function JournalSection() {
                       alt={title}
                       className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
                       loading="lazy"
+                      decoding="async"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
                     <span className="absolute top-2.5 right-2.5 rtl:right-auto rtl:left-2.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold uppercase tracking-wider backdrop-blur-md bg-black/60 text-[#fff083] border border-white/15">
@@ -155,6 +156,8 @@ export function JournalSection() {
                         <img 
                           src={article.author.avatar} 
                           alt={authorName} 
+                          loading="lazy"
+                          decoding="async"
                           className="w-4 h-4 rounded-full object-cover border border-white/20" 
                         />
                         <span className={isNight ? 'text-neutral-700' : 'text-neutral-300'}>{authorName}</span>

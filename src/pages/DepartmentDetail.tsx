@@ -110,6 +110,8 @@ export default function DepartmentDetail() {
                 <img
                   src={currentDept.image}
                   alt={currentDept.nameEn}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-contain filter drop-shadow-[0_15px_30px_rgba(0,0,0,0.5)] transition-transform duration-500 hover:scale-105"
                 />
               </div>

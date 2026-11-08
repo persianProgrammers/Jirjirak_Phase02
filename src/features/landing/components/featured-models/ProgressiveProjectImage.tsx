@@ -48,20 +48,25 @@ export function ProgressiveProjectImage({
       />
 
       {/* 2. Progressive Image: Starts pleasantly blurred, smoothly unblurs to sharp, then clears GPU filter */}
-      <img
-        src={image}
-        alt={title}
-        loading={priority ? 'eager' : 'lazy'}
-        decoding="async"
-        onLoad={handleLoad}
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-all duration-500 ease-out"
-        style={{
-          filter: unblurred ? 'none' : isLoaded ? 'blur(0px)' : 'blur(12px)',
-          opacity: isLoaded ? 1 : 0.65,
-          transform: isLoaded ? 'scale(1)' : 'scale(1.05)',
-          transformOrigin: 'center center',
-        }}
-      />
+      <picture className="absolute inset-0 w-full h-full block">
+        {image.match(/\.(png|jpe?g)$/i) && (
+          <source srcSet={image.replace(/\.(png|jpe?g)$/i, '.webp')} type="image/webp" />
+        )}
+        <img
+          src={image}
+          alt={title}
+          loading={priority ? 'eager' : 'lazy'}
+          decoding="async"
+          onLoad={handleLoad}
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-all duration-500 ease-out"
+          style={{
+            filter: unblurred ? 'none' : isLoaded ? 'blur(0px)' : 'blur(12px)',
+            opacity: isLoaded ? 1 : 0.65,
+            transform: isLoaded ? 'scale(1)' : 'scale(1.05)',
+            transformOrigin: 'center center',
+          }}
+        />
+      </picture>
 
       {/* 3. Cinematic Vignette & Lighting Overlay (High-performance alpha blend, zero GPU shader filter) */}
       <div
