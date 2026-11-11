@@ -83,7 +83,8 @@ export function StudioToolboxDock() {
             }}
             className="absolute bottom-full mb-3 flex flex-col items-center gap-3 p-1 rounded-full pointer-events-auto bg-[#0a0a0a]/75 backdrop-blur-xl border border-white/10 shadow-[0_12px_36px_rgba(0,0,0,0.6)]"
           >
-            {/* 1. 🌙☀️ Day / Night Toggle */}
+            {/* 1. 🌙☀️ Day / Night Toggle - Commented out (Locked to Night / Dark Mode only) */}
+            {/*
             <motion.div
               variants={{
                 initial: { opacity: 0, y: 12, scale: 0.75 },
@@ -103,6 +104,7 @@ export function StudioToolboxDock() {
                 {isFa ? (isNight ? 'حالت روز' : 'حالت شب') : (isNight ? 'Day Mode' : 'Night Mode')}
               </span>
             </motion.div>
+            */}
 
             {/* 2. 🌐 Language Switcher */}
             <motion.div
@@ -167,10 +169,7 @@ export function StudioToolboxDock() {
           }}
         />
 
-        {/* Status Indicator (Pulse when music is active or toolbox is open) */}
-        {isPlaying && !isOpen && (
-          <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-brand-yellow shadow-[0_0_8px_#fff083] animate-ping pointer-events-none" />
-        )}
+
 
         {/* Steampunk Toolbox SVG Icon with Real Mechanical Opening Lid & Rising Gear/Tools */}
         <div className="relative flex items-center justify-center pointer-events-none w-full h-full p-1">

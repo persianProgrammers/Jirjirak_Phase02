@@ -116,30 +116,27 @@ export const useGlobalStore = create<GlobalState>((set, get) => ({
     set({ filterModelId: modelId });
   },
 
-  // Theme
+  // Theme - Locked to Permanent Night / Dark Mode (Light mode commented out for maximum performance)
   isNight: true,
   iconNightPreview: true,
-  setIsNight: (night) => {
-    set({ isNight: night, iconNightPreview: night });
-    ambientAudio.setNightMode(night);
+  setIsNight: (_night) => {
+    // Light mode is disabled - permanent dark mode
+    set({ isNight: true, iconNightPreview: true });
+    ambientAudio.setNightMode(true);
   },
   toggleNight: () => {
+    // Light mode commented out:
+    /*
     if (get().transitionPhase !== 'idle') return;
     const nextNight = !get().isNight;
-    
-    // 1. Immediately toggle the button icon preview state!
-    // The button flips, celestial gears rotate, and the animation finishes smoothly in front of the user
     set({ iconNightPreview: nextNight });
-
-    // 2. Wait 550ms for the button's spring flip & gear rotation animation to fully complete
     setTimeout(() => {
-      // 3. Now start the full-screen curtain transition.
-      // The theme colors and layout changes will ONLY apply once the curtain is fully closed!
       get().triggerTransition(() => {
         set({ isNight: nextNight });
         ambientAudio.setNightMode(nextNight);
       }, get().currentLang);
     }, 550);
+    */
   },
 
   // Language (Default English)

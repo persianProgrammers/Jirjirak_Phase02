@@ -22,9 +22,13 @@ export default function MainLayout() {
     }
   }, [location.pathname, lenis]);
 
-  // Instant real-time theme synchronization across the entire document without page refresh
+  // Permanent Dark / Night Mode synchronization (Light mode commented out for performance)
   useEffect(() => {
     const root = document.documentElement;
+    root.classList.add('dark');
+    root.classList.remove('light');
+    root.setAttribute('data-theme', 'night');
+    /* Light mode branch commented out:
     if (isNight) {
       root.classList.add('dark');
       root.classList.remove('light');
@@ -34,7 +38,8 @@ export default function MainLayout() {
       root.classList.add('light');
       root.setAttribute('data-theme', 'day');
     }
-  }, [isNight]);
+    */
+  }, []);
 
   // Instant real-time language & direction synchronization
   useEffect(() => {

@@ -20,6 +20,7 @@ export interface PageHeaderProps {
   tags?: string[];
   fullHeight?: boolean;
   cta?: React.ReactNode;
+  children?: React.ReactNode;
   onScrollDown?: () => void;
   scrollLabel?: string;
   className?: string;
@@ -37,6 +38,7 @@ export function PageHeader({
   tags,
   fullHeight = false,
   cta,
+  children,
   onScrollDown,
   scrollLabel,
   className = '',
@@ -203,8 +205,51 @@ export function PageHeader({
               {cta}
             </motion.div>
           )}
+
+          {children && (
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-8 sm:mt-12"
+            >
+              {children}
+            </motion.div>
+          )}
         </div>
       </div>
+
+      {/* Bottom Bar / Scroll Prompt when fullHeight is active */}
+      {fullHeight && (
+        <div className="max-w-[1500px] mx-auto w-full relative z-10 shrink-0 pt-6 flex items-center justify-between text-xs font-mono opacity-70">
+          {onScrollDown ? (
+            <button
+              type="button"
+              onClick={onScrollDown}
+              className={`flex items-center gap-2 hover:opacity-100 transition-opacity cursor-pointer group ${
+                isNight ? 'text-neutral-400 hover:text-[#fff083]' : 'text-neutral-600 hover:text-[#8f6b00]'
+              }`}
+            >
+              <span className="font-semibold">{scrollLabel || (isFa ? 'اسکرول به ادامه' : 'Scroll to explore')}</span>
+              <svg 
+                className="w-4 h-4 animate-bounce group-hover:translate-y-0.5 transition-transform" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2"
+              >
+                <path d="M12 5v14M19 12l-7 7-7-7" />
+              </svg>
+            </button>
+          ) : (
+            <div />
+          )}
+
+          <span className="hidden sm:inline-block tracking-widest uppercase text-[10px] opacity-60">
+            {isFa ? 'استودیو جیرجیرک • نسخه ۲.۰' : 'JIRJIRAK ATELIER • EST. 2024'}
+          </span>
+        </div>
+      )}
     </header>
   );
 }
