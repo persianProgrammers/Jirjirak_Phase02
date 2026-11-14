@@ -28,7 +28,7 @@ async function run() {
   let totalOptimized = 0;
   let convertedCount = 0;
 
-  // First: copy all webp and jpg from src/assets/images to public/assets/images/projects
+  // First: copy any webp/jpg from src/assets/images to public/assets/images/projects if present
   const srcImagesDir = path.resolve('src/assets/images');
   const publicProjectsDir = path.resolve('public/assets/images/projects');
   if (fs.existsSync(srcImagesDir) && fs.existsSync(publicProjectsDir)) {
@@ -84,6 +84,7 @@ async function run() {
               })
               .toFile(webpPath);
           }
+
           convertedCount++;
           console.log(`Generated: ${path.relative(process.cwd(), webpPath)}`);
         } catch (err) {
@@ -111,6 +112,6 @@ async function run() {
 }
 
 run().catch((err) => {
-  console.error('Fatal error in optimizer:', err);
-  process.exit(1);
+  console.warn('⚠️ Warning in optimizer (continuing to start dev server):', err.message);
+  process.exit(0);
 });
